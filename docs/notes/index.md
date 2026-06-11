@@ -5,6 +5,8 @@ description: Supporting technical notes for GeoSignal Preview
 permalink: /notes/
 ---
 
+[English]({{ site.baseurl }}/notes/) | [한국어]({{ site.baseurl }}/ko/notes/)
+
 # Technical Notes
 
 This section provides supporting notes for understanding the demo and method pages of GeoSignal Preview.
