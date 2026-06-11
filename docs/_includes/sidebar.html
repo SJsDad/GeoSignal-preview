@@ -1,0 +1,92 @@
+﻿{% assign current_url = page.url %}
+
+<aside class="site-sidebar" aria-label="Site navigation">
+  <div class="sidebar-inner">
+    <a class="site-title" href="{{ '/' | relative_url }}">
+      GeoSignal Preview
+    </a>
+
+    <p class="site-subtitle">
+      Lithography-aware layout visualization
+    </p>
+
+    <nav class="site-nav" aria-label="Main navigation">
+      <div class="nav-section">
+        <div class="nav-section-title">English</div>
+
+        <a
+          class="nav-link {% if current_url == '/' or current_url == '/index.html' %}active{% endif %}"
+          href="{{ '/' | relative_url }}"
+        >
+          Home
+        </a>
+
+        <a
+          class="nav-link {% if current_url == '/demo.html' or current_url == '/demo/' %}active{% endif %}"
+          href="{{ '/demo/' | relative_url }}"
+        >
+          Demo
+        </a>
+
+        <a
+          class="nav-link {% if current_url == '/method.html' or current_url == '/method/' %}active{% endif %}"
+          href="{{ '/method/' | relative_url }}"
+        >
+          Method
+        </a>
+
+        <a
+          class="nav-link {% if current_url == '/notes/' or current_url == '/notes/index.html' or current_url == '/notes/abbe-imaging.html' or current_url == '/notes/fourier-optics.html' %}active{% endif %}"
+          href="{{ '/notes/' | relative_url }}"
+        >
+          Technical Notes
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title nav-section-title-ko">한국어</div>
+
+        <a
+          class="nav-link {% if current_url == '/ko/' %}active{% endif %}"
+          href="{{ '/ko/' | relative_url }}"
+        >
+          홈
+        </a>
+
+        <a
+          class="nav-link {% if current_url == '/ko/demo/' %}active{% endif %}"
+          href="{{ '/ko/demo/' | relative_url }}"
+        >
+          데모
+        </a>
+
+        <a
+          class="nav-link {% if current_url == '/ko/method/' %}active{% endif %}"
+          href="{{ '/ko/method/' | relative_url }}"
+        >
+          방법론
+        </a>
+
+        <a
+          class="nav-link {% if current_url == '/ko/notes/' or current_url == '/ko/notes/abbe-imaging/' or current_url == '/ko/notes/fourier-optics/' %}active{% endif %}"
+          href="{{ '/ko/notes/' | relative_url }}"
+        >
+          기술 노트
+        </a>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span>Public preview</span>
+
+      {% assign repo_url = "https://github.com/SJsDad/GeoSignal-preview" %}
+      {% if site.baseurl contains "archive" %}
+        {% assign repo_url = "https://github.com/SJsDad/GeoSignal-preview-archive" %}
+      {% endif %}
+
+      <a href="{{ repo_url }}" target="_blank" rel="noopener noreferrer">
+        GitHub Repository
+      </a>
+    </div>
+  </div>
+</aside>

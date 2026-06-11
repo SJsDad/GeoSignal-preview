@@ -1,0 +1,6 @@
+title: GeoSignal Preview
+description: Lithography-aware layout visualization workflow
+url: "https://sjsdad.github.io"
+baseurl: "/GeoSignal-preview"
+
+markdown: kramdown

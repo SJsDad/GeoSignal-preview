@@ -1,0 +1,39 @@
+﻿# JetBrains / PyCharm
+.idea/
+
+# OS generated files
+Thumbs.db
+.DS_Store
+
+# Python cache, just in case
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local temporary files
+tmp/
+temp/
+_tmp/
+*.tmp
+*.log
+
+# Local generated outputs
+outputs/
+results/
+reports/
+
+# Large/private layout data
+*.gds
+*.oas
+*.gds.gz
+*.oas.gz
+
+# Private notes or drafts
+private/
+drafts/
+internal/
