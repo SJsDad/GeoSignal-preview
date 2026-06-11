@@ -13,7 +13,7 @@ permalink: /ko/notes/
 
 ## Notes
 
-| 주제 | 내용 |
-| --- | --- |
-| [Abbe Imaging]({{ '/notes/abbe-imaging.html' | relative_url }}) | Preview workflow에서 사용하는 simplified Abbe-style imaging 개념 설명 |
-| [Fourier Optics]({{ '/notes/fourier-optics.html' | relative_url }}) | Aerial image 형성과 관련된 Fourier optics 배경 설명 |
+| 주제                                           | 내용 |
+|----------------------------------------------| --- |
+| [Abbe Imaging]({{ '/notes/abbe-imaging/'     | relative_url }}) | Preview workflow에서 사용하는 simplified Abbe-style imaging 개념 설명 |
+| [Fourier Optics]({{ '/notes/fourier-optics/' | relative_url }}) | Aerial image 형성과 관련된 Fourier optics 배경 설명 |

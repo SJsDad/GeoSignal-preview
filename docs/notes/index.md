@@ -13,6 +13,5 @@ This section provides supporting notes for understanding the demo and method pag
 
 | Topic | Description |
 | --- | --- |
-| [Abbe Imaging]({{ '/notes/abbe-imaging.html' | relative_url }}) | Simplified explanation of Abbe-style imaging used in the preview workflow |
-| [Fourier Optics]({{ '/notes/fourier-optics.html' | relative_url }}) | Background note on Fourier optics concepts related to aerial image formation |
-
+| [Abbe Imaging]({{ '/notes/abbe-imaging/' | relative_url }}) | Simplified explanation of Abbe-style imaging used in the preview workflow |
+| [Fourier Optics]({{ '/notes/fourier-optics/' | relative_url }}) | Background note on Fourier optics concepts related to aerial image formation |
