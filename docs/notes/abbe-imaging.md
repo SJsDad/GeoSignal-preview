@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Fourier Optics
-description: Technical note on Fourier optics for GeoSignal Preview
-permalink: /notes/fourier-optics/
+title: Abbe Imaging
+description: Technical note on Abbe imaging for GeoSignal Preview
+permalink: /notes/abbe-imaging/
 ---
 
-# Fourier Optics
+# Abbe Imaging
 
 This technical note is reserved for future updates if needed.
 

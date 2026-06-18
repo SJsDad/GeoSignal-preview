@@ -296,14 +296,7 @@ Feedback is especially helpful for the following points.
 
 Even short comments, questions, or first impressions are useful.
 
-<a
-href="{{ site.feedback_url }}"
-target="_blank"
-rel="noopener noreferrer"
-
->
-
-Share feedback through the GeoSignal Preview form </a>
+<a href="{{ site.feedback_url }}" target="_blank" rel="noopener noreferrer">Share feedback through the GeoSignal Preview form</a>
 
 ---
 

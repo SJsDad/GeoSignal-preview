@@ -181,14 +181,7 @@ GeoSignal Preview is currently an early public preview.
 
 If you have feedback, questions, or suggestions, please feel free to leave a comment through the feedback form.
 
-<a
-href="{{ site.feedback_url }}"
-target="_blank"
-rel="noopener noreferrer"
-
->
-
-Share feedback through the GeoSignal Preview form </a>
+<a href="{{ site.feedback_url }}" target="_blank" rel="noopener noreferrer">Share feedback through the GeoSignal Preview form</a>
 
 Useful feedback includes:
 
