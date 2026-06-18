@@ -5,10 +5,7 @@ description: Demo results and interpretation for GeoSignal Preview
 permalink: /demo/
 ---
 
-[English]({{ site.baseurl }}/demo/) | [한국어]({{ site.baseurl }}/ko/demo/)
-
 # Demo
-
 
 ## 1. Demo Overview
 
@@ -41,7 +38,7 @@ Layout Geometry
     → Hotspot-like Shape Review
 ```
 
-![GeoSignal demo pipeline](assets/demo/demo_pipeline_overview.png)
+![GeoSignal demo pipeline]({{ '/assets/demo/demo_pipeline_overview.png' | relative_url }})
 
 The workflow can be understood in two parts.
 
@@ -161,19 +158,19 @@ The images below do not mean that the selected candidates will necessarily fail 
 
 ### Width Candidate 0001
 
-![Width candidate 0001](assets/demo/demo_width_0001_threshold_overlay.png)
+![Width candidate 0001]({{ '/assets/demo/demo_width_0001_threshold_overlay.png' | relative_url }})
 
 ### Width Candidate 0002
 
-![Width candidate 0002](assets/demo/demo_width_0002_threshold_overlay.png)
+![Width candidate 0002]({{ '/assets/demo/demo_width_0002_threshold_overlay.png' | relative_url }})
 
 ### Space Candidate 0001
 
-![Space candidate 0001](assets/demo/demo_space_0001_threshold_overlay.png)
+![Space candidate 0001]({{ '/assets/demo/demo_space_0001_threshold_overlay.png' | relative_url }})
 
 ### Space Candidate 0002
 
-![Space candidate 0002](assets/demo/demo_space_0002_threshold_overlay.png)
+![Space candidate 0002]({{ '/assets/demo/demo_space_0002_threshold_overlay.png' | relative_url }})
 
 ---
 
@@ -299,11 +296,19 @@ Feedback is especially helpful for the following points.
 
 Even short comments, questions, or first impressions are useful.
 
+<a
+href="{{ site.feedback_url }}"
+target="_blank"
+rel="noopener noreferrer"
+
+>
+
+Share feedback through the GeoSignal Preview form </a>
+
 ---
 
 ## 10. Related Pages
 
-* [Home](./)
-* [Method](method.md)
-* [Technical Notes](notes/)
-
+* [Home]({{ '/' | relative_url }})
+* [Method]({{ '/method/' | relative_url }})
+* [Technical Notes]({{ '/notes/' | relative_url }})

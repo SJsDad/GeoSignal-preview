@@ -5,8 +5,6 @@ description: Method and workflow explanation for GeoSignal Preview
 permalink: /method/
 ---
 
-[English]({{ site.baseurl }}/method/) | [한국어]({{ site.baseurl }}/ko/method/)
-
 # Method
 
 ## 1. Method Overview
@@ -84,7 +82,7 @@ Future candidate selection can be improved by considering:
 * line-end, corner, jog, and neighboring features
 * local density or pattern interaction
 * overlay relationship with adjacent layers
-* contour sensitivity or mask-contour mismatch based ranking
+* contour sensitivity or mask-contour-mismatch-based ranking
 
 ---
 
@@ -109,15 +107,15 @@ Layout polygons in ROI
 
 The rasterized mask becomes the input for the optical imaging calculation.
 
-In the current preview, the mask is treated as a binary mask rather than a PSM-aware mask model. This choice is made for simplicity, runtime control, and preview-stage clarity. In other words, phase-shift mask effects, attenuated mask transmission, or more detailed mask stack effects are not included in the current public preview workflow.
+In the current preview, the mask is treated as a binary mask rather than a PSM-aware mask model. This choice is made for simplicity, runtime control, and preview-stage clarity. In other words, phase-shift mask effects, attenuated mask transmission, or more detailed mask-stack effects are not included in the current public preview workflow.
 
-If needed, future versions can extend this step toward phase / attenuation-aware mask representation or PSM-aware modeling.
+If needed, future versions can extend this step toward phase- or attenuation-aware mask representation and PSM-aware modeling.
 
 Pixel size controls the trade-off between resolution and computation. A smaller pixel size can represent layout details more accurately, but it increases image-array size and FFT-based calculation cost. A larger pixel size reduces runtime but may lose small geometry details.
 
 The ROI may include a margin around the candidate location. This is useful because optical response is influenced not only by the candidate polygon itself, but also by neighboring layout structures.
 
-Therefore, rasterization is not merely an image conversion step. It defines the reference mask used to interpret the later aerial image and contour results.
+Therefore, rasterization is not merely an image-conversion step. It defines the reference mask used to interpret the later aerial-image and contour results.
 
 ---
 
@@ -161,24 +159,24 @@ More specifically:
 5. Calculate a coherent intensity image for each source point.
 6. Accumulate the coherent intensity images to form the final aerial image.
 
-The following image shows a debug example of the Abbe-style aerial image calculation flow using a 9-point source condition.
+The following image shows a debug example of the Abbe-style aerial-image calculation flow using a 9-point source condition.
 
-![Abbe debug example with 9-point source](assets/method/abbe_debug_9.png)
+![Abbe debug example with 9-point source]({{ '/assets/method/abbe_debug_9.png' | relative_url }})
 
 The following image shows the same calculation flow under a denser source-sampling condition.
 
-![Abbe debug example with dense source](assets/method/abbe_debug_dense.png)
+![Abbe debug example with dense source]({{ '/assets/method/abbe_debug_dense.png' | relative_url }})
 
 The aerial image can qualitatively show effects such as:
 
 * edge blur
-* corner rounding-like response
-* line-end pullback-like response
+* corner-rounding-like response
+* line-end-pullback-like response
 * intensity degradation around narrow regions
 * optical interaction between neighboring patterns
-* response difference between dense and isolated structures
+* response differences between dense and isolated structures
 
-At the current preview stage, the simplified Abbe-based calculation is used because it provides a practical balance between physical interpretability, implementation complexity, and runtime.
+At the current preview stage, the simplified Abbe-based calculation is used because it provides a practical balance among physical interpretability, implementation complexity, and runtime.
 
 ---
 
@@ -186,7 +184,7 @@ At the current preview stage, the simplified Abbe-based calculation is used beca
 
 The illumination source is approximated by sampling multiple source points.
 
-Each source point represents one illumination direction. For each source point, the pupil is shifted in the frequency domain, and only spatial frequency components passing through the shifted pupil are used to reconstruct the image contribution.
+Each source point represents one illumination direction. For each source point, the pupil is shifted in the frequency domain, and only spatial-frequency components passing through the shifted pupil are used to reconstruct the image contribution.
 
 Conceptually:
 
@@ -201,17 +199,17 @@ The final aerial image is obtained by accumulating image contributions from all 
 
 Using more source points can make the illumination approximation smoother, but it also increases calculation time. Using fewer source points reduces runtime, but the result may depend more strongly on the sampling condition.
 
-The following image compares source sampling conditions.
+The following image compares source-sampling conditions.
 
-![Source sampling comparison](assets/method/source_sampling_comparison.png)
+![Source sampling comparison]({{ '/assets/method/source_sampling_comparison.png' | relative_url }})
 
-The following image compares how aerial image and contour behavior may change depending on source sampling conditions.
+The following image compares how aerial-image and contour behavior may change depending on source-sampling conditions.
 
-![Source result comparison](assets/method/source_result_comparison.png)
+![Source result comparison]({{ '/assets/method/source_result_comparison.png' | relative_url }})
 
-In the current preview, the source sampling condition is selected by considering both visual stability and computational cost.
+In the current preview, the source-sampling condition is selected by considering both visual stability and computational cost.
 
-Future work may include source-model refinement, use of more source points, and TCC-based computation for improved efficiency.
+Future work may include source-model refinement, the use of more source points, and TCC-based computation for improved efficiency.
 
 The current result should be interpreted as qualitative optical-response visualization, not as a scanner-calibrated lithography model.
 
@@ -221,7 +219,7 @@ The current result should be interpreted as qualitative optical-response visuali
 
 After the aerial image is calculated, threshold contours are extracted from the intensity image.
 
-A threshold contour is the curve where aerial image intensity crosses a selected threshold level.
+A threshold contour is the curve where aerial-image intensity crosses a selected threshold level.
 
 ```text
 Aerial image
@@ -247,8 +245,8 @@ This is useful for reviewing:
 * weak image-contrast regions
 * necking-like behavior
 * bridge-like behavior
-* line-end pullback-like behavior
-* corner rounding-like behavior
+* line-end-pullback-like behavior
+* corner-rounding-like behavior
 * locations with large contour movement
 
 If a contour moves significantly across threshold levels, the region may have relatively weak or unstable optical response. If a contour remains relatively stable, the region may be more robust from a contour-behavior viewpoint.
@@ -267,9 +265,9 @@ The reviewed signals include:
 * visible mismatch between mask and contour
 * large contour movement across threshold levels
 * bridge-like response around narrow gaps
-* necking or pinch-like response around narrow lines
-* line-end pullback-like response
-* corner rounding-like response
+* necking- or pinch-like response around narrow lines
+* line-end-pullback-like response
+* corner-rounding-like response
 
 The output of this step is not a final pass/fail result. It is a visual guide for quickly identifying locations that may deserve additional review.
 
@@ -303,7 +301,7 @@ GeoSignal Preview is currently a qualitative visualization workflow for public p
 It has the following assumptions and limitations.
 
 * The public preview repository does not include the core implementation code.
-* The candidate selection logic is not an optimized hotspot-ranking method.
+* The candidate-selection logic is not an optimized hotspot-ranking method.
 * The current `0.200 µm` criterion is an arbitrary preview criterion.
 * The mask is treated as a binary mask; PSM-aware mask modeling is not included.
 * The imaging model is a simplified Abbe-based model.
@@ -334,7 +332,7 @@ The main goal is to help users understand how geometry-based candidates may appe
 
 ## 9. Relation to Demo Page
 
-The Demo page shows visual outputs generated through this method.
+The [Demo]({{ '/demo/' | relative_url }}) page shows visual outputs generated through this method.
 
 The Method page explains how those outputs are generated and how they should be interpreted.
 
@@ -348,9 +346,9 @@ The Method page explains how those outputs are generated and how they should be 
 
 Recommended reading order:
 
-1. Review the Demo page to understand the visual flow.
+1. Review the [Demo]({{ '/demo/' | relative_url }}) page to understand the visual flow.
 2. Read the Method page to understand the calculation flow.
-3. Check Technical Notes if additional optical background is needed.
+3. Check [Technical Notes]({{ '/notes/' | relative_url }}) if additional optical background is needed.
 
 ---
 
@@ -364,13 +362,20 @@ Future improvements may include the following directions.
 | Ranking logic                  | Use contour sensitivity, mask-contour mismatch, and local contrast instead of simple area-based ordering  |
 | Runtime improvement            | Improve computation efficiency for wider layout regions                                                   |
 | Accuracy / imaging improvement | Refine source modeling, use more source points, and review TCC-based computation for efficiency           |
-| Mask representation            | Review phase / attenuation-aware or PSM-aware mask representation if needed                               |
+| Mask representation            | Review phase- or attenuation-aware and PSM-aware mask representation if needed                            |
 | Mask optimization              | Review simple mask correction or rule-based adjustment based on contour results                           |
-| Layer-aware review             | Consider overlay relationship with adjacent layers                                                        |
-| Additional examples            | Add dense line-space, isolated line-end, narrow gap, and corner pattern cases                             |
+| Layer-aware review             | Consider overlay relationships with adjacent layers                                                       |
+| Additional examples            | Add dense line-space, isolated line-end, narrow-gap, and corner-pattern cases                             |
 | Technical notes                | Add explanations for Fourier optics, Abbe imaging, and contour interpretation                             |
 
 The current priority is to keep the public preview understandable, visually useful, technically honest, and easy to respond to.
 
 GeoSignal Preview will be improved step by step based on demo results, technical review, and external feedback.
 
+---
+
+## 11. Related Pages
+
+* [Home]({{ '/' | relative_url }})
+* [Demo]({{ '/demo/' | relative_url }})
+* [Technical Notes]({{ '/notes/' | relative_url }})

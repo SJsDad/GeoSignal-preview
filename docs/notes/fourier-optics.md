@@ -9,4 +9,10 @@ permalink: /notes/fourier-optics/
 
 This technical note is reserved for future updates if needed.
 
-[Back to Technical Notes]({{ site.baseurl }}/notes/)
+---
+
+## Related Pages
+
+* [Back to Technical Notes]({{ '/notes/' | relative_url }})
+* [Method]({{ '/method/' | relative_url }})
+* [Demo]({{ '/demo/' | relative_url }})

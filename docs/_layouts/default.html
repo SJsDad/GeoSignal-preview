@@ -1,15 +1,16 @@
 ﻿<!doctype html>
-<html lang="{{ page.lang | default: 'en' }}">
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  {% assign site_title = site.title | default: "GeoSignal Preview" %}
+
   <title>
-    {%- if page.title -%}
-      {{ page.title }} | {{ site.title | default: "GeoSignal Preview" }}
+    {%- if page.title and page.title != site_title -%}
+      {{ page.title | escape }} | {{ site_title | escape }}
     {%- else -%}
-      {{ site.title | default: "GeoSignal Preview" }}
+      {{ site_title | escape }}
     {%- endif -%}
   </title>
 

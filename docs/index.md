@@ -1,17 +1,15 @@
 ---
-
 layout: default
 title: GeoSignal Preview
 description: Lithography-aware layout visualization workflow
+permalink: /
 ---
-
-[English]({{ site.baseurl }}/) | [한국어]({{ site.baseurl }}/ko/)
 
 # GeoSignal Preview
 
 *Representative preview showing aerial-image intensity, multi-threshold contours, ROI marker, and hotspot-like interpretation on a public GDS layout.*
 
-![GeoSignal Preview](assets/index/index_geosignal_preview.png)
+![GeoSignal Preview]({{ '/assets/index/index_geosignal_preview.png' | relative_url }})
 
 ## 1. What is GeoSignal Preview?
 
@@ -51,11 +49,15 @@ Through this workflow, the relationship between layout geometry and optical resp
 
 GeoSignal Preview is organized around the following pages.
 
-| Page                        | Description                                |
-| --------------------------- | ------------------------------------------ |
-| [Demo](./demo.md)           | Demo images and result interpretation      |
-| [Method](./method.md)       | Simplified method and workflow explanation |
-| [Technical Notes](./notes/) | Related technical notes                    |
+{% assign demo_url = '/demo/' | relative_url %}
+{% assign method_url = '/method/' | relative_url %}
+{% assign notes_url = '/notes/' | relative_url %}
+
+| Page                               | Description                                |
+| ---------------------------------- | ------------------------------------------ |
+| [Demo]({{ demo_url }})             | Demo images and result interpretation      |
+| [Method]({{ method_url }})         | Simplified method and workflow explanation |
+| [Technical Notes]({{ notes_url }}) | Related technical notes                    |
 
 ### Demo
 
@@ -134,7 +136,7 @@ The current preview is based on a simplified Abbe-based imaging model. The calcu
 
 Illumination is approximated by sampling multiple source points. For the current demo, the condition is selected by considering the balance between intuitive visual output and computational cost.
 
-More details are described in the [Method](./method.md) page.
+More details are described on the [Method]({{ method_url }}) page.
 
 ---
 
@@ -177,7 +179,16 @@ Main intended uses include:
 
 GeoSignal Preview is currently an early public preview.
 
-If you have feedback, questions, or suggestions, please feel free to leave any comments through the feedback form.
+If you have feedback, questions, or suggestions, please feel free to leave a comment through the feedback form.
+
+<a
+href="{{ site.feedback_url }}"
+target="_blank"
+rel="noopener noreferrer"
+
+>
+
+Share feedback through the GeoSignal Preview form </a>
 
 Useful feedback includes:
 
@@ -205,4 +216,3 @@ Core implementation code is not included in this public preview repository.
 ## Keywords
 
 `Lithography` · `Layout Analysis` · `GDS` · `Aerial Image` · `Threshold Contour` · `Hotspot Candidate` · `Python` · `gdstk` · `Computational Lithography`
-
