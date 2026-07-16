@@ -209,6 +209,10 @@ The following image compares how aerial-image and contour behavior may change de
 
 In the current preview, the source-sampling condition is selected by considering both visual stability and computational cost.
 
+The live demo uses a simplified Abbe imaging flow with KrF 248 nm, NA 0.68,
+sigma 0.60, and dense7 source sampling by default. Dense7 is used as a practical
+runtime/contour-stability balance for local ROI review.
+
 Future work may include source-model refinement, the use of more source points, and TCC-based computation for improved efficiency.
 
 The current result should be interpreted as qualitative optical-response visualization, not as a scanner-calibrated lithography model.
@@ -236,6 +240,45 @@ The current demo commonly compares the following threshold levels:
 ```
 
 These threshold values are used for qualitative comparison only. They should not be interpreted as process-calibrated thresholds or wafer CD references.
+
+### Printed Edge Metrics and Convergence
+
+The live demo reports approximate printed minimum width and minimum space only
+inside the inner ROI. Its primary metric is measured from the threshold contour
+extracted directly from the normalized aerial intensity. Marching-squares
+interpolation retains sub-pixel contour coordinates before opposing edge
+segments are compared.
+
+Two diagnostic baselines are retained in the analysis backend, although they
+are not shown in the simplified Render result page:
+
+* **Boolean contour baseline**: thresholds the aerial image into a binary mask,
+  then extracts a contour from that mask. This is useful for identifying
+  half-pixel grid quantization.
+* **Raster distance-transform baseline**: estimates local phase thickness from
+  the binary printed mask. It is useful as an independent raster comparison.
+
+Quantitative metrics use the representative threshold `0.30`. At `0.20` and
+`0.40`, contours can merge, split, open, or close more readily, so those levels
+are reserved for shape comparison in the multi-threshold overlay rather than
+reported as separate metric rows. The threshold is a demo condition, not a
+process-calibrated resist threshold.
+
+The tt04_pwm fixed-ROI convergence check compared pixel sizes `0.020`, `0.010`,
+`0.005`, and `0.0025` um. From `0.010` through `0.0025` um, direct-contour width
+was approximately `0.08540`, `0.08534`, and `0.08537` um; space was
+approximately `0.24005`, `0.24002`, and `0.24003` um. Focused checks down to
+`0.001` um also remained stable for the tracked physical edge pairs.
+
+The Render default remains `0.010 um`: in the fixed full-window check its width
+and space differed from `0.005 um` by about `0.062%` and `0.014%`, while the
+finer grid took substantially longer. This is a practical demo-performance
+choice, not a signoff-accuracy claim.
+
+Printed metrics should be compared only under the same imaging, source,
+normalization, ROI, ambit, and pixel-size conditions. Different window sizes
+are not numerically interchangeable because each local aerial image is
+normalized independently. EPE is not included in the current version.
 
 Multi-threshold contour comparison helps visualize how the aerial image appears as contour behavior under different threshold levels.
 

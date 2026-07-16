@@ -58,6 +58,16 @@
     <div class="sidebar-footer">
       <span>Public preview</span>
 
+      {% if site.live_demo_url %}
+      <a
+        href="{{ site.live_demo_url }}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Try Live Demo
+      </a>
+      {% endif %}
+
       <a
         href="{{ site.feedback_url }}"
         target="_blank"

@@ -247,6 +247,49 @@ border-top: 1px solid var(--border);
 }
 
 /* ------------------------------------------------------------
+Live demo callout
+------------------------------------------------------------ */
+
+.live-demo-callout {
+margin: 22px 0 30px;
+padding: 20px;
+background: var(--accent-soft);
+border: 1px solid #80ccff;
+border-radius: 12px;
+}
+
+.live-demo-callout h2 {
+margin: 0 0 8px;
+padding: 0;
+border: 0;
+font-size: 1.25rem;
+}
+
+.live-demo-callout p {
+margin: 8px 0 14px;
+}
+
+.live-demo-button {
+display: inline-block;
+padding: 9px 14px;
+background: var(--accent);
+color: #ffffff;
+border-radius: 8px;
+font-weight: 700;
+}
+
+.live-demo-button:hover {
+text-decoration: none;
+filter: brightness(0.92);
+}
+
+.live-demo-callout .live-demo-note {
+margin: 12px 0 0;
+color: var(--muted);
+font-size: 0.88rem;
+}
+
+/* ------------------------------------------------------------
 Images and tables
 ------------------------------------------------------------ */
 

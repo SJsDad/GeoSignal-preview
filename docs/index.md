@@ -11,6 +11,8 @@ permalink: /
 
 ![GeoSignal Preview]({{ '/assets/index/index_geosignal_preview.png' | relative_url }})
 
+{% include live-demo-cta.html %}
+
 ## 1. What is GeoSignal Preview?
 
 **GeoSignal Preview** is a technical demo for visually exploring how layout geometry appears as optical response after passing through a simplified optical model. It is based on public GDS or synthetic layout examples.
@@ -149,6 +151,7 @@ They should be interpreted as a **visual analysis aid** for understanding the re
 Current assumptions and limitations are:
 
 * public or synthetic layout examples are used
+* only public, non-confidential layout files should be used with the live demo
 * a simplified optical model is used
 * wafer-data-based calibration is not included
 * resist / etch models are not included

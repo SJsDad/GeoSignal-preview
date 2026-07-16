@@ -7,5 +7,6 @@ baseurl: "/GeoSignal-preview"
 
 repository_url: "https://github.com/SJsDad/GeoSignal-preview"
 feedback_url: "https://docs.google.com/forms/d/e/1FAIpQLSerlp3xN8b82NyXBjl5tSNPCoS9N5MUqnE8r3c93cfR5n1U7w/viewform"
+live_demo_url: "https://geosignal-lab.onrender.com/"
 
 markdown: kramdown

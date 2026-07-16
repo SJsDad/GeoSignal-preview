@@ -1,0 +1,22 @@
+{% if site.live_demo_url %}
+<section class="live-demo-callout" aria-label="GeoSignal live demo">
+  <h2>Try the live Render demo</h2>
+  <p>
+    Upload a public, non-confidential GDS/OAS file and inspect local contour
+    behavior using the lightweight GeoSignal workflow.
+  </p>
+  <a
+    class="live-demo-button"
+    href="{{ site.live_demo_url }}"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Try Live Demo
+  </a>
+  <p class="live-demo-note">
+    Demo limits apply. The free server may sleep when idle.
+  </p>
+</section>
+{% else %}
+<!-- TODO: Render demo URL needed. -->
+{% endif %}

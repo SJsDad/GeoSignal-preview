@@ -11,6 +11,8 @@ permalink: /demo/
 
 This page summarizes representative demo results for **GeoSignal Preview**.
 
+{% include live-demo-cta.html %}
+
 GeoSignal Preview starts by identifying candidate regions from layout geometry, then generates a rasterized mask, a simplified Abbe-based aerial image, and multi-threshold contours for selected regions. The final goal is to visually review hotspot-like shapes that may deserve additional lithography-aware inspection.
 
 The purpose of this demo is not to provide accurate process prediction or an optimized hotspot detector.
@@ -243,6 +245,8 @@ It has the following limitations.
 * Threshold contours are used for qualitative comparison and visualization.
 * CD prediction accuracy is not the goal.
 * Public or synthetic examples are used.
+* Use only public, non-confidential GDS/OAS files with the live demo.
+* The live demo applies conservative upload, ROI, raster, and candidate limits.
 * Core implementation code is not included in this public preview repository.
 
 Therefore, the current results should be interpreted as:

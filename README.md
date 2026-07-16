@@ -69,6 +69,8 @@ The current demo uses public or synthetic layout examples and includes:
 * rasterized binary masks
 * simplified aerial-image intensity maps
 * contours at threshold levels 0.20, 0.30, and 0.40
+* approximate printed minimum width and space at representative threshold 0.30
+* polygon-edge segment measurement with a raster distance-transform comparison baseline
 * ROI markers
 * hotspot-like shape annotations
 
@@ -165,6 +167,7 @@ The current preview has the following limitations:
 * resist and etch models are not included
 * threshold contours are qualitative visual indicators
 * evaluation is mainly performed at the ROI level
+* the live upload workflow must be used only with public, non-confidential GDS/OAS files
 * results should not be used for production CD prediction
 
 GeoSignal Preview should be interpreted as:
