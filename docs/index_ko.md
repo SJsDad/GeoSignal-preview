@@ -50,7 +50,7 @@ GeoSignal Preview는 layout polygon을 binary mask image로 변환하고, simpli
 | [Demo]({{ '/ko/demo/' | relative_url }}) | 대표 데모 이미지와 결과 해석 |
 | [Method]({{ '/ko/method/' | relative_url }}) | 계산 흐름과 해석 방식 |
 | [Technical Notes]({{ '/notes/' | relative_url }}) | aerial image, contour, optical interpretation 배경 설명 |
-| [Release Notes]({{ '/release-notes/' | relative_url }}) | v0.5 / v0.6 구현 변경점과 평가 기록 |
+| [Release Notes]({{ '/release-notes/' | relative_url }}) | v0.1~v0.7 구현 변경점과 평가 기록 |
 
 Release Notes에는 pya 적용, backend 비교, candidate overview 변경, metric convergence 같은 세부 구현 기록을 분리했습니다. Home / Demo / Method는 처음 읽는 사람이 핵심 흐름을 빠르게 이해할 수 있도록 유지합니다.
 

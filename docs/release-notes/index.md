@@ -9,14 +9,25 @@ permalink: /release-notes/
 
 This section records major implementation changes, evaluation notes, and technical decisions behind **GeoSignal Preview**.
 
+Versions v0.1 through v0.4 are historical milestones reconstructed from the
+repository commit history. Detailed benchmark artifacts were not preserved for
+every early version, so these pages describe only changes supported by the
+source history. v0.5 and later include the more detailed evaluation records
+created during development.
+
 General visitors can read [Home]({{ '/' | relative_url }}), [Demo]({{ '/demo/' | relative_url }}), and [Method]({{ '/method/' | relative_url }}) first. These notes are mainly for readers who want to understand how the preview evolved across versions.
 
 ## Versions
 
 | Version | Main Focus |
 | --- | --- |
+| [v0.1]({{ '/release-notes/v0.1/' | relative_url }}) | Initial CLI and SVRF-like geometry-rule experiments |
+| [v0.2]({{ '/release-notes/v0.2/' | relative_url }}) | Flask web prototype and layout preview |
+| [v0.3]({{ '/release-notes/v0.3/' | relative_url }}) | Modular geometry engine, width/space analysis, and density |
+| [v0.4]({{ '/release-notes/v0.4/' | relative_url }}) | Raster, Abbe imaging, contours, and hotspot evaluation |
 | [v0.5]({{ '/release-notes/v0.5/' | relative_url }}) | Selectable pya backend comparison beside the existing gdstk path |
 | [v0.6]({{ '/release-notes/v0.6/' | relative_url }}) | pya-native geometry path, candidate overview update, and printed metric refinement |
+| [v0.7]({{ '/release-notes/v0.7/' | relative_url }}) | Combined review GDS, candidate-specific contours, and bounded-memory imaging |
 
 ## Reading Guide
 
