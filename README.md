@@ -90,10 +90,12 @@ These observations should be treated as review signals rather than confirmed pro
 
 ## 4. Method Summary
 
-The v0.6 preview follows two main stages. Geometry processing is pya-native through
-candidate extraction and ROI clipping; the clipped polygons are converted to NumPy
-only at the raster boundary. The previous gdstk path remains available as a comparison
-baseline and rollback option.
+The v0.7 preview builds on the v0.6 pya-native geometry engine. Geometry
+processing remains pya-native through candidate extraction and ROI clipping;
+the clipped polygons are converted to NumPy only at the raster boundary. v0.7
+adds bounded-memory service imaging and candidate-specific review GDS contours.
+The previous gdstk path remains available as a comparison baseline and rollback
+option.
 
 ### Stage 1: Geometry-based candidate filtering
 

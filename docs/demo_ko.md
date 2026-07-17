@@ -63,7 +63,7 @@ geometry 기준으로 취약 가능성이 높은 위치를 먼저 찾고
     -> threshold contour를 통해 형상 변화를 확인한다
 ```
 
-v0.6의 pya-native geometry handling, candidate ordering, overlay style, local benchmark는 [v0.6 Release Notes]({{ '/release-notes/v0.6/' | relative_url }})에 정리했습니다.
+v0.6의 pya-native geometry handling과 candidate ordering은 [v0.6 Release Notes]({{ '/release-notes/v0.6/' | relative_url }})에 정리했습니다. 통합 review GDS, candidate별 contour datatype, 서비스 메모리 변경은 [v0.7 Release Notes]({{ '/release-notes/v0.7/' | relative_url }})에 정리했습니다.
 
 ---
 

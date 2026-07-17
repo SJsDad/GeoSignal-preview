@@ -65,7 +65,10 @@ Find potentially weak locations from layout geometry
     -> Review shape changes through threshold contours
 ```
 
-Version-specific details such as pya-native geometry handling, candidate ordering, overlay style changes, and local benchmark results are summarized in the [v0.6 Release Notes]({{ '/release-notes/v0.6/' | relative_url }}).
+The pya-native geometry engine and candidate ordering are summarized in the
+[v0.6 Release Notes]({{ '/release-notes/v0.6/' | relative_url }}). Combined
+review GDS output, candidate-specific contour datatypes, and service memory
+changes are summarized in the [v0.7 Release Notes]({{ '/release-notes/v0.7/' | relative_url }}).
 
 ---
 
