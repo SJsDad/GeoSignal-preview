@@ -5,6 +5,8 @@ description: Lithography-aware layout visualization workflow
 permalink: /
 ---
 
+<p class="language-switch"><a href="{{ '/ko/' | relative_url }}" lang="ko">한국어로 보기</a></p>
+
 # GeoSignal Preview
 
 *A Render-aligned result snapshot generated locally with the same GeoSignal analysis path used by the live demo.*

@@ -5,6 +5,8 @@ description: Version notes and implementation changes for GeoSignal Preview
 permalink: /release-notes/
 ---
 
+<p class="language-switch"><a href="{{ '/ko/release-notes/' | relative_url }}" lang="ko">한국어로 보기</a></p>
+
 # Release Notes
 
 This section records major implementation changes, evaluation notes, and technical decisions behind **GeoSignal Preview**.

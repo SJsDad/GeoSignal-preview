@@ -3,9 +3,10 @@ layout: default
 title: GeoSignal Preview
 description: GeoSignal Preview 한국어 소개
 permalink: /ko/
+lang: ko
 ---
 
-[English]({{ site.baseurl }}/) | [한국어]({{ site.baseurl }}/ko/)
+<p class="language-switch"><a href="{{ '/' | relative_url }}" lang="en">View in English</a></p>
 
 # GeoSignal Preview
 
@@ -67,10 +68,24 @@ GeoSignal Preview는 layout polygon을 binary mask image로 변환하고, simpli
 | --- | --- |
 | [Demo]({{ '/ko/demo/' | relative_url }}) | 대표 데모 이미지와 결과 해석 |
 | [Method]({{ '/ko/method/' | relative_url }}) | 계산 흐름과 해석 방식 |
-| [Technical Notes]({{ '/notes/' | relative_url }}) | aerial image, contour, optical interpretation 배경 설명 |
-| [Release Notes]({{ '/release-notes/' | relative_url }}) | v0.1~v0.7 구현 변경점과 평가 기록 |
+| [Technical Notes]({{ '/ko/notes/' | relative_url }}) | aerial image, contour, optical interpretation 배경 설명 |
+| [Release Notes]({{ '/ko/release-notes/' | relative_url }}) | 버전별 구현 변경점과 평가 기록 |
 
-Release Notes에는 pya 적용, backend 비교, candidate overview 변경, metric convergence 같은 세부 구현 기록을 분리했습니다. Home / Demo / Method는 처음 읽는 사람이 핵심 흐름을 빠르게 이해할 수 있도록 유지합니다.
+### Demo
+
+Demo 페이지는 현재 Render 결과 구조에 맞춰 실행 조건, 분석 요약, 근사 printed metric, 선택 hotspot overlay, worst width/space 확대 결과, geometry candidate overview를 보여줍니다.
+
+### Method
+
+Method 페이지는 candidate ROI 선택, rasterized mask 생성, simplified Abbe-style aerial imaging, source sampling, threshold contour 추출, visual review의 계산 개념을 설명합니다.
+
+### Technical Notes
+
+Technical Notes는 aerial image, threshold contour, source sampling, Fourier optics, Abbe imaging의 추가 배경을 제공합니다.
+
+### Release Notes
+
+Release Notes에는 버전별 구현 세부 사항, benchmark, backend 변경, metric 개선을 정리합니다. Preview의 변화 과정을 확인하려는 독자를 위한 기록이며, demo를 처음 이해할 때 반드시 읽을 필요는 없습니다.
 
 ---
 
@@ -104,13 +119,37 @@ GeoSignal Preview 결과는 정성적 시각화와 상대 비교를 위한 것�
 
 ---
 
-## 6. Feedback
+## 6. 활용 목적
+
+GeoSignal Preview는 고비용 상용 simulation 환경에 직접 의존하지 않고 초기 학습, 연구, 정성적 비교를 수행하려는 대학 연구실, 학생 프로젝트, 교육 연구자, 소규모 기술 팀에 유용할 수 있습니다.
+
+주요 활용 목적은 다음과 같습니다.
+
+* computational lithography 학습
+* layout geometry와 optical response의 관계 이해
+* public 또는 synthetic pattern 기반 demo 검토
+* aerial-image 및 threshold-contour 시각화 검토
+* geometry check와 optical-model 직관의 연결
+
+---
+
+## 7. Feedback
 
 GeoSignal Preview는 초기 public preview입니다.
 
-짧은 의견, 질문, 첫인상도 도움이 됩니다.
+의견, 질문, 제안이 있다면 feedback form으로 남겨주세요.
 
-<a href="{{ site.feedback_url }}" target="_blank" rel="noopener noreferrer">GeoSignal Preview feedback form</a>
+<a href="{{ site.feedback_url }}" target="_blank" rel="noopener noreferrer">GeoSignal Preview form으로 feedback 남기기</a>
+
+Demo가 이해하기 쉬운지, contour 비교가 유용한지, 어떤 pattern 예제가 더 있으면 좋은지에 대한 의견이 특히 도움이 됩니다.
+
+---
+
+## 8. 데이터 및 예제 정책
+
+GeoSignal Preview는 public dataset, synthetic pattern, open-source layout example을 기반으로 합니다.
+
+분석 workflow는 공개적으로 공유 가능한 example과 결과 해석을 중심으로 구성합니다. Public preview repository에는 core implementation code를 포함하지 않습니다.
 
 ---
 

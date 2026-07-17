@@ -3,15 +3,18 @@ layout: default
 title: Demo
 description: GeoSignal Preview 데모 한국어 설명
 permalink: /ko/demo/
+lang: ko
 ---
 
-[English]({{ site.baseurl }}/demo/) | [한국어]({{ site.baseurl }}/ko/demo/)
+<p class="language-switch"><a href="{{ '/demo/' | relative_url }}" lang="en">View in English</a></p>
 
 # Demo
 
 ## 1. Demo Overview
 
 이 페이지는 **GeoSignal Preview**의 대표 데모 결과를 정리한 페이지입니다.
+
+{% include live-demo-cta.html %}
 
 GeoSignal Preview는 layout geometry에서 후보 ROI를 선택하고, 해당 영역에 대해 rasterized mask, simplified Abbe-based aerial image, multi-threshold contour를 생성한 뒤 hotspot-like 형상을 시각적으로 확인하는 workflow입니다.
 
@@ -45,7 +48,9 @@ Candidate ROI
     -> Hotspot-like Shape Review
 ```
 
-최근 구현 변경점, pya-native 적용, candidate overview 변경, benchmark 내용은 [Release Notes]({{ '/release-notes/' | relative_url }})로 분리했습니다.
+이 demo는 모든 layout 영역에서 optical simulation을 실행하지 않습니다. Geometry 관점에서 검토 가치가 있는 영역을 먼저 좁힌 다음, 제한된 수의 ROI에 optical-model 기반 contour review를 적용합니다.
+
+이 workflow의 상세 구현 변경점은 [릴리즈 노트]({{ '/ko/release-notes/' | relative_url }})에 정리했습니다.
 
 ---
 
@@ -75,7 +80,7 @@ geometry 기준으로 취약 가능성이 높은 위치를 먼저 찾고
 | Imaging | KrF 248 nm, NA 0.68, sigma 0.60, dense7 |
 | 선택 candidate | `WIDTH_0001`, `SPACE_0001`, `WIDTH_0002`, `SPACE_0002`, `WIDTH_0003` |
 
-v0.6의 pya-native geometry handling과 candidate ordering은 [v0.6 Release Notes]({{ '/release-notes/v0.6/' | relative_url }})에 정리했습니다. 통합 review GDS, candidate별 contour datatype, 서비스 메모리 변경은 [v0.7 Release Notes]({{ '/release-notes/v0.7/' | relative_url }})에 정리했습니다.
+v0.6의 pya-native geometry handling과 candidate ordering은 [v0.6 릴리즈 노트]({{ '/ko/release-notes/v0.6/' | relative_url }})에 정리했습니다. 통합 review GDS, candidate별 contour datatype, 서비스 메모리 변경은 [v0.7 릴리즈 노트]({{ '/ko/release-notes/v0.7/' | relative_url }})에 정리했습니다.
 
 ---
 
@@ -89,6 +94,16 @@ v0.6의 pya-native geometry handling과 candidate ordering은 [v0.6 Release Note
 | Aerial Image | simplified Abbe-based imaging으로 계산한 optical intensity map |
 | Multi-threshold Contour | threshold 0.20 / 0.30 / 0.40 기준으로 추출한 contour |
 | Hotspot-like Shape Review | necking, pinch, corner rounding, line-end pullback, bridge-like behavior 등을 시각적으로 검토 |
+
+핵심 비교 구조는 다음과 같습니다.
+
+```text
+geometry-based candidate
+    vs
+aerial-image-based optical response
+    vs
+threshold-contour-based printed-shape-like behavior
+```
 
 Threshold contour는 calibrated resist contour가 아닙니다. Aerial image가 threshold level에 따라 어떤 contour behavior로 나타나는지 확인하기 위한 정성적 시각화 기준입니다.
 
@@ -151,6 +166,8 @@ Overview는 병합된 전체 width / space violation region과 선택 candidate 
 
 ## 5. Common Interpretation Points
 
+Summary, 선택 overlay, measurement 확대 결과, geometry overview를 함께 검토해야 합니다.
+
 주요 확인 포인트는 다음과 같습니다.
 
 * aerial image에서 edge blur 또는 intensity spreading이 보이는가?
@@ -167,20 +184,52 @@ Overview는 병합된 전체 width / space violation region과 선택 candidate 
 
 ## 6. Current Scope and Limitations
 
+현재 demo는 public preview를 위한 정성적 시각화 결과입니다.
+
+다음과 같은 한계가 있습니다.
+
 * width / space screening criterion은 preview heuristic이며 calibrated process rule이 아닙니다.
 * candidate selection은 optimized hotspot-ranking logic이 아닙니다.
 * 계산량을 고려해 소수의 대표 ROI만 보여줍니다.
 * simplified Abbe-based imaging model을 사용합니다.
-* wafer-data calibration, resist model, etch model은 포함하지 않습니다.
+* Wafer-data-based calibration은 포함하지 않습니다.
+* Resist 및 etch model은 포함하지 않습니다.
 * threshold contour는 qualitative visualization 기준입니다.
 * CD prediction accuracy가 목표가 아닙니다.
+* Public 또는 synthetic example을 사용합니다.
 * live demo에는 public, non-confidential GDS/OAS file만 사용해야 합니다.
+* Public preview repository에는 core implementation code를 포함하지 않습니다.
+
+따라서 현재 결과는 다음과 같은 의미로 해석해야 합니다.
+
+```text
+qualitative visual indicators
+```
+
+다음과 같은 의미는 아닙니다.
+
+```text
+production specifications
+```
 
 ---
 
-## 7. Related Pages
+## 7. Feedback Points
+
+다음 항목에 대한 feedback이 특히 도움이 됩니다.
+
+* multi-threshold contour가 contour sensitivity를 이해하는 데 도움이 되는지
+* hotspot-like shape 관찰이 직관적인지
+* necking, corner rounding, line-end pullback, bridge-like behavior 관찰이 유용한지
+* 어떤 pattern case를 추가하면 preview가 더 명확해지는지
+
+<a href="{{ site.feedback_url }}" target="_blank" rel="noopener noreferrer">GeoSignal Preview form으로 feedback 남기기</a>
+
+---
+
+## 8. Related Pages
 
 * [Home]({{ '/ko/' | relative_url }})
 * [Method]({{ '/ko/method/' | relative_url }})
-* [Technical Notes]({{ '/notes/' | relative_url }})
-* [Release Notes]({{ '/release-notes/' | relative_url }})
+* [Technical Notes]({{ '/ko/notes/' | relative_url }})
+* [Release Notes]({{ '/ko/release-notes/' | relative_url }})

@@ -199,6 +199,26 @@ line-height: 1.25;
 letter-spacing: -0.02em;
 }
 
+.language-switch {
+display: flex;
+justify-content: flex-end;
+margin: 0 0 8px;
+font-size: 0.78rem;
+}
+
+.language-switch a {
+padding: 3px 8px;
+color: var(--muted);
+border: 1px solid var(--border);
+border-radius: 999px;
+text-decoration: none;
+}
+
+.language-switch a:hover {
+color: var(--accent);
+border-color: var(--accent);
+}
+
 .page-content h1 {
 margin-top: 0;
 padding-bottom: 0.35em;
