@@ -53,7 +53,7 @@ Detailed implementation changes behind this workflow are recorded in [Release No
 
 ## 2. Candidate Selection in This Demo
 
-In this demo, candidate regions are first identified from a minimum width / space viewpoint. A small number of ROIs are then selected for aerial-image and contour generation.
+In this demo, candidate regions are first identified from a minimum width / space viewpoint. Five ROIs are then selected for aerial-image and contour generation, matching the current service default.
 
 The selected candidates should be understood as representative review examples, not final hotspot judgments. The exact screening rule and ordering method are preview-stage heuristics used to make the demo concrete and computationally manageable.
 
@@ -64,6 +64,18 @@ Find potentially weak locations from layout geometry
     -> Calculate optical response at those locations
     -> Review shape changes through threshold contours
 ```
+
+The current snapshot uses the following reproducible conditions.
+
+| Setting | Value |
+| --- | --- |
+| Input layout | `sky130_fd_sc_hd_dfrtp_1.gds` |
+| Target layer / datatype | `67/20` |
+| Width / space threshold | strict `< 0.175 / 0.175 µm` |
+| Geometry engine | `pya-native` |
+| ROI size / pixel size | `2.56 / 0.01 µm` |
+| Imaging | KrF 248 nm, NA 0.68, sigma 0.60, dense7 |
+| Selected candidates | `WIDTH_0001`, `SPACE_0001`, `WIDTH_0002`, `SPACE_0002`, `WIDTH_0003` |
 
 The pya-native geometry engine and candidate ordering are summarized in the
 [v0.6 Release Notes]({{ '/release-notes/v0.6/' | relative_url }}). Combined
@@ -101,47 +113,62 @@ The threshold contours used in this demo are not calibrated resist contours. The
 
 ## 4. Representative Candidate Results
 
-The current demo shows four representative candidate ROIs.
+The result below follows the same presentation order as the current Render interface. It was generated locally through the same service path because the public hosted instance is intended for lightweight interactive use.
 
-```text
-WIDTH_0001
-WIDTH_0002
-SPACE_0001
-SPACE_0002
-```
+<div class="demo-meta-strip" aria-label="Demo result metadata">
+  <span><strong>Input</strong> sky130_fd_sc_hd_dfrtp_1.gds</span>
+  <span><strong>Layer / datatype</strong> 67 / 20</span>
+  <span><strong>Backend</strong> pya-native</span>
+  <span><strong>Runtime</strong> 3.68 s</span>
+</div>
 
-Each image shows:
+### Analysis Summary
 
-```text
-aerial image
-+ multi-threshold contours
-+ ROI marker
-+ hotspot-like shape annotation
-```
+<div class="demo-summary-grid">
+  <div class="demo-summary-block"><span>Input shapes</span><strong>32</strong></div>
+  <div class="demo-summary-block"><span>Raw edge pairs</span><strong>116</strong></div>
+  <div class="demo-summary-block"><span>Width components</span><strong>27</strong></div>
+  <div class="demo-summary-block"><span>Space components</span><strong>34</strong></div>
+</div>
 
-The images below do not mean that the selected candidates will necessarily fail in a real process. They are preview results for checking how optical response and contour behavior appear in regions first selected by width / space criteria in the layout.
+### Approximate Printed Metrics and Imaging Condition
 
-### Width Candidate 0001
+<div class="demo-summary-grid demo-summary-grid-wide">
+  <div class="demo-summary-block"><span>Minimum printed width</span><strong>0.169 µm</strong><small>threshold 0.30</small></div>
+  <div class="demo-summary-block"><span>Minimum printed space</span><strong>0.174 µm</strong><small>threshold 0.30</small></div>
+  <div class="demo-summary-block"><span>Optical condition</span><strong>248 nm · NA 0.68</strong><small>sigma 0.60 · dense7 · 29 source points</small></div>
+</div>
 
-![Width candidate 0001]({{ '/assets/demo/demo_width_0001_threshold_overlay.png' | relative_url }})
+### Main Hotspot Overlay
 
-### Width Candidate 0002
+![Selected WIDTH_0002 hotspot overlay]({{ '/assets/demo/v0.7/main_hotspot_overlay.png' | relative_url }})
 
-![Width candidate 0002]({{ '/assets/demo/demo_width_0002_threshold_overlay.png' | relative_url }})
+The main overlay centers on `WIDTH_0002`, the selected ROI with the lowest valid direct-intensity width metric. It combines the aerial image, three threshold contours, the inner ROI, and the worst-width location.
 
-### Space Candidate 0001
+### Worst Printed Width and Space
 
-![Space candidate 0001]({{ '/assets/demo/demo_space_0001_threshold_overlay.png' | relative_url }})
+<div class="demo-image-grid">
+  <figure>
+    <img src="{{ '/assets/demo/v0.7/worst_width_zoom.png' | relative_url }}" alt="Worst approximate printed width zoom at 0.169 micrometers">
+    <figcaption>Worst approximate printed width: 0.169 µm near <code>WIDTH_0002</code>.</figcaption>
+  </figure>
+  <figure>
+    <img src="{{ '/assets/demo/v0.7/worst_space_zoom.png' | relative_url }}" alt="Worst approximate printed space zoom at 0.174 micrometers">
+    <figcaption>Worst approximate printed space: 0.174 µm near <code>SPACE_0001</code>.</figcaption>
+  </figure>
+</div>
 
-### Space Candidate 0002
+### Geometry Candidate Overview
 
-![Space candidate 0002]({{ '/assets/demo/demo_space_0002_threshold_overlay.png' | relative_url }})
+![pya-native geometry candidate overview]({{ '/assets/demo/v0.7/geometry_candidate_overview.png' | relative_url }})
+
+The overview shows all merged width and space violation regions and the selected candidate anchors. A dense marker field is expected here: it is a geometry screening map, while the images above are the optical review results for the selected ROIs.
 
 ---
 
 ## 5. Common Interpretation Points
 
-Although the four images show different ROIs, they should be reviewed using the same interpretation viewpoint.
+The summary, selected overlay, measurement zooms, and geometry overview should be reviewed together.
 
 The main points to check are:
 
