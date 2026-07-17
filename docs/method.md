@@ -5,6 +5,8 @@ description: Method and workflow explanation for GeoSignal Preview
 permalink: /method/
 ---
 
+<p class="language-switch"><a href="{{ '/ko/method/' | relative_url }}" lang="ko">한국어로 보기</a></p>
+
 # Method
 
 ## 1. Method Overview

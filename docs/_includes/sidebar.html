@@ -1,73 +1,96 @@
 ﻿{% assign current_url = page.url | default: '/' %}
-{% assign current_url_prefix = current_url | slice: 0, 7 %}
-{% assign release_url_prefix = current_url | slice: 0, 14 %}
+{% if page.lang == 'ko' %}
+  {% assign home_url = '/ko/' %}
+  {% assign demo_url = '/ko/demo/' %}
+  {% assign method_url = '/ko/method/' %}
+  {% assign notes_url = '/ko/notes/' %}
+  {% assign release_url = '/ko/release-notes/' %}
+  {% assign nav_home = '홈' %}
+  {% assign nav_demo = '데모' %}
+  {% assign nav_method = '방법론' %}
+  {% assign nav_notes = '기술 노트' %}
+  {% assign nav_release = '릴리즈 노트' %}
+  {% assign site_subtitle = '리소그래피 기반 레이아웃 시각화' %}
+{% else %}
+  {% assign home_url = '/' %}
+  {% assign demo_url = '/demo/' %}
+  {% assign method_url = '/method/' %}
+  {% assign notes_url = '/notes/' %}
+  {% assign release_url = '/release-notes/' %}
+  {% assign nav_home = 'Home' %}
+  {% assign nav_demo = 'Demo' %}
+  {% assign nav_method = 'Method' %}
+  {% assign nav_notes = 'Technical Notes' %}
+  {% assign nav_release = 'Release Notes' %}
+  {% assign site_subtitle = 'Lithography-aware layout visualization' %}
+{% endif %}
 
-<aside class="site-sidebar" aria-label="Site navigation">
+<aside class="site-sidebar" aria-label="{% if page.lang == 'ko' %}사이트 탐색{% else %}Site navigation{% endif %}">
   <div class="sidebar-inner">
-    <a class="site-title" href="{{ '/' | relative_url }}">
+    <a class="site-title" href="{{ home_url | relative_url }}">
       GeoSignal Preview
     </a>
 
     <p class="site-subtitle">
-      Lithography-aware layout visualization
+      {{ site_subtitle }}
     </p>
 
-    <nav class="site-nav" aria-label="Main navigation">
+    <nav class="site-nav" aria-label="{% if page.lang == 'ko' %}주요 탐색{% else %}Main navigation{% endif %}">
       <div class="nav-section">
         <a
-          class="nav-link {% if current_url == '/' %}active{% endif %}"
-          href="{{ '/' | relative_url }}"
-          {% if current_url == '/' %}
+          class="nav-link {% if current_url == home_url %}active{% endif %}"
+          href="{{ home_url | relative_url }}"
+          {% if current_url == home_url %}
             aria-current="page"
           {% endif %}
         >
-          Home
+          {{ nav_home }}
         </a>
 
         <a
-          class="nav-link {% if current_url == '/demo/' %}active{% endif %}"
-          href="{{ '/demo/' | relative_url }}"
-          {% if current_url == '/demo/' %}
+          class="nav-link {% if current_url == demo_url %}active{% endif %}"
+          href="{{ demo_url | relative_url }}"
+          {% if current_url == demo_url %}
             aria-current="page"
           {% endif %}
         >
-          Demo
+          {{ nav_demo }}
         </a>
 
         <a
-          class="nav-link {% if current_url == '/method/' %}active{% endif %}"
-          href="{{ '/method/' | relative_url }}"
-          {% if current_url == '/method/' %}
+          class="nav-link {% if current_url == method_url %}active{% endif %}"
+          href="{{ method_url | relative_url }}"
+          {% if current_url == method_url %}
             aria-current="page"
           {% endif %}
         >
-          Method
+          {{ nav_method }}
         </a>
 
         <a
-          class="nav-link {% if current_url_prefix == '/notes/' %}active{% endif %}"
-          href="{{ '/notes/' | relative_url }}"
-          {% if current_url == '/notes/' %}
+          class="nav-link {% if current_url contains notes_url %}active{% endif %}"
+          href="{{ notes_url | relative_url }}"
+          {% if current_url == notes_url %}
             aria-current="page"
           {% endif %}
         >
-          Technical Notes
+          {{ nav_notes }}
         </a>
 
         <a
-          class="nav-link {% if release_url_prefix == '/release-notes' %}active{% endif %}"
-          href="{{ '/release-notes/' | relative_url }}"
-          {% if current_url == '/release-notes/' %}
+          class="nav-link {% if current_url contains release_url %}active{% endif %}"
+          href="{{ release_url | relative_url }}"
+          {% if current_url == release_url %}
             aria-current="page"
           {% endif %}
         >
-          Release Notes
+          {{ nav_release }}
         </a>
       </div>
     </nav>
 
     <div class="sidebar-footer">
-      <span>Public preview</span>
+      <span>{% if page.lang == 'ko' %}공개 preview{% else %}Public preview{% endif %}</span>
 
       {% if site.live_demo_url %}
       <a
@@ -75,7 +98,7 @@
         target="_blank"
         rel="noopener noreferrer"
       >
-        Try Live Demo
+        {% if page.lang == 'ko' %}Live Demo 실행{% else %}Try Live Demo{% endif %}
       </a>
       {% endif %}
 
@@ -84,7 +107,7 @@
         target="_blank"
         rel="noopener noreferrer"
       >
-        Share Feedback
+        {% if page.lang == 'ko' %}의견 보내기{% else %}Share Feedback{% endif %}
       </a>
 
       <a
@@ -92,7 +115,7 @@
         target="_blank"
         rel="noopener noreferrer"
       >
-        GitHub Repository
+        {% if page.lang == 'ko' %}GitHub 저장소{% else %}GitHub Repository{% endif %}
       </a>
     </div>
   </div>

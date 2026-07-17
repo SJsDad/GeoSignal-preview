@@ -5,6 +5,8 @@ description: Supporting technical notes for GeoSignal Preview
 permalink: /notes/
 ---
 
+<p class="language-switch"><a href="{{ '/ko/notes/' | relative_url }}" lang="ko">한국어로 보기</a></p>
+
 # Technical Notes
 
 This section provides supporting notes for understanding the demo and method pages of GeoSignal Preview.

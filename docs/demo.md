@@ -5,6 +5,8 @@ description: Demo results and interpretation for GeoSignal Preview
 permalink: /demo/
 ---
 
+<p class="language-switch"><a href="{{ '/ko/demo/' | relative_url }}" lang="ko">한국어로 보기</a></p>
+
 # Demo
 
 ## 1. Demo Overview

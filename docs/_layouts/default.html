@@ -24,7 +24,7 @@
 </head>
 
 <body>
-  <a class="skip-link" href="#content">Skip to content</a>
+  <a class="skip-link" href="#content">{% if page.lang == 'ko' %}본문으로 건너뛰기{% else %}Skip to content{% endif %}</a>
 
   <div class="site-shell">
     {% include sidebar.html %}
