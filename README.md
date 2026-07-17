@@ -90,7 +90,10 @@ These observations should be treated as review signals rather than confirmed pro
 
 ## 4. Method Summary
 
-The current preview follows two main stages.
+The v0.6 preview follows two main stages. Geometry processing is pya-native through
+candidate extraction and ROI clipping; the clipped polygons are converted to NumPy
+only at the raster boundary. The previous gdstk path remains available as a comparison
+baseline and rollback option.
 
 ### Stage 1: Geometry-based candidate filtering
 
@@ -99,10 +102,13 @@ Candidate regions are first identified using layout-level width and space criter
 The current demo uses a temporary criterion of:
 
 ```text
-width or space ≤ 0.200 µm
+width or space < 0.200 µm
 ```
 
 This value is a preview-stage heuristic, not a process rule or calibrated hotspot threshold.
+The comparison is intentionally strict, so geometry measured exactly at `0.200 µm`
+is not included. Width candidates are ranked by smaller component area first, while
+space candidates are ranked by larger component area first.
 
 ### Stage 2: Optical-response review
 

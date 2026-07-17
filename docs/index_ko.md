@@ -14,6 +14,13 @@ GeoSignal Preview는 GDS layout을 기반으로 geometry signal과 simplified ae
 
 ![GeoSignal Preview](assets/index/index_geosignal_preview.png)
 
+{% include live-demo-cta.html %}
+
+> **v0.6 업데이트:** Live geometry 경로는 GDS/OAS load부터 Manhattan
+> width/space candidate 추출과 ROI clipping까지 pya-native로 처리합니다.
+> Rasterization에서 NumPy로 전환하며, gdstk는 비교·rollback backend로
+> 남겨 둡니다. Rule 비교는 엄격한 미만(`value < threshold`)입니다.
+
 ## 1. GeoSignal Preview란?
 
 **GeoSignal Preview**는 public GDS 또는 synthetic layout example을 기반으로, layout geometry가 simplified optical model을 거쳤을 때 어떤 optical response로 나타나는지 시각적으로 확인하기 위한 기술 데모입니다.
@@ -205,4 +212,4 @@ Core implementation code는 이 public preview repository에 포함하지 않습
 
 ## Keywords
 
-`Lithography` · `Layout Analysis` · `GDS` · `Aerial Image` · `Threshold Contour` · `Hotspot Candidate` · `Python` · `gdstk` · `Computational Lithography`
+`Lithography` · `Layout Analysis` · `GDS/OAS` · `KLayout pya` · `Aerial Image` · `Threshold Contour` · `Hotspot Candidate` · `Python` · `gdstk baseline` · `Computational Lithography`

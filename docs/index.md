@@ -13,6 +13,11 @@ permalink: /
 
 {% include live-demo-cta.html %}
 
+> **v0.6 update:** The live geometry path is now pya-native from GDS/OAS loading
+> through Manhattan width/space candidate extraction and ROI clipping. Rasterization
+> is the transition to NumPy; gdstk remains available as a comparison and rollback
+> backend. The rule comparison is strict (`value < threshold`).
+
 ## 1. What is GeoSignal Preview?
 
 **GeoSignal Preview** is a technical demo for visually exploring how layout geometry appears as optical response after passing through a simplified optical model. It is based on public GDS or synthetic layout examples.
@@ -211,4 +216,4 @@ Core implementation code is not included in this public preview repository.
 
 ## Keywords
 
-`Lithography` · `Layout Analysis` · `GDS` · `Aerial Image` · `Threshold Contour` · `Hotspot Candidate` · `Python` · `gdstk` · `Computational Lithography`
+`Lithography` · `Layout Analysis` · `GDS/OAS` · `KLayout pya` · `Aerial Image` · `Threshold Contour` · `Hotspot Candidate` · `Python` · `gdstk baseline` · `Computational Lithography`

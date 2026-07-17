@@ -77,9 +77,9 @@ Candidate ROI
 구체적으로는 다음과 같은 방식으로 대표 후보를 구성했습니다.
 
 ```text
-1. width 또는 space가 0.200 µm 이하인 영역을 1차 후보로 추출
+1. width 또는 space가 0.200 µm 미만인 영역을 1차 후보로 추출
 2. width-related candidate와 space-related candidate를 구분
-3. 계산량을 고려하여 width 후보 2개, space 후보 2개를 선택
+3. width는 작은 component 면적, space는 큰 component 면적 순으로 정렬
 4. 선택된 4개 ROI에 대해 aerial image와 multi-threshold contour를 생성
 ```
 
@@ -87,7 +87,7 @@ Candidate ROI
 현재 demo에서는 minimum width / space 기준을 알고 있다고 가정하고, 해당 기준 주변의 취약 후보 영역을 먼저 찾아본다는 의미로 사용한 임의의 preview 기준입니다.
 
 또한 후보를 선택하는 방식 역시 현재 단계에서는 최적화된 ranking logic이 아닙니다.
-면적이 큰 후보 영역을 우선적으로 선택한 것은 demo 구성을 위한 pragmatic choice이며, 실제 hotspot 우선순위 판단 기준으로 확정된 것은 아닙니다.
+v0.6에서는 작은 width 위반 영역이 더 취약할 수 있다는 가정으로 width를 작은 면적 우선으로 정렬하고, notch 같은 특이 space pattern을 보존하기 위해 space는 큰 면적 우선을 유지합니다. 동률은 geometry key로 결정적으로 정렬합니다.
 
 현재 candidate selection은 다음과 같이 이해하는 것이 적절합니다.
 
@@ -108,6 +108,27 @@ geometry 기준으로 취약 가능성이 높은 위치를 먼저 찾고
 ```
 
 향후에는 candidate selection logic을 개선하여 단순 width / space 기준뿐 아니라, contour mismatch, local pattern context, line-end, corner, neighboring density, contact / via overlay 관점 등을 함께 고려하는 방향으로 확장할 수 있습니다.
+
+### v0.6 pya-native geometry 경로
+
+현재 live demo는 layout read, hierarchy traversal, Manhattan width/space check,
+candidate 추출, ROI clipping까지 KLayout `pya` geometry로 처리합니다.
+Rasterization 단계에서만 NumPy로 전환합니다. Candidate overview는 원본
+polygon을 가리지 않도록 투명 채움과 사선 패턴을 사용합니다.
+
+![pya-native candidate overview]({{ '/assets/demo/pya_native_candidate_overview.png' | relative_url }})
+
+아래 비교 이미지는 기존 불투명 채움과 v0.6의 투명·사선 표시를 함께 보여줍니다.
+변경된 표시는 width/space marker 아래의 회색·흰색 layout context를 더 잘
+확인할 수 있게 합니다.
+
+![candidate overlay style comparison]({{ '/assets/demo/pya_native_candidate_style_comparison.png' | relative_url }})
+
+로컬 `tt04_pwm.gds`, layer/datatype `68/20` 비교에서 width component 459개와
+Manhattan space component 922개가 검출되었습니다. Geometry runtime 중앙값은
+pya-native `0.189478 s`, gdstk baseline `0.871751 s`로, 해당 측정에서
+약 `4.60×` 빨랐습니다. 이 수치는 개발 환경 측정값이며 일반적인 성능을
+보장하지는 않습니다.
 
 ---
 
