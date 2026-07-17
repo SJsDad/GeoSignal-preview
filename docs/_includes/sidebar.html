@@ -1,5 +1,6 @@
 ﻿{% assign current_url = page.url | default: '/' %}
 {% assign current_url_prefix = current_url | slice: 0, 7 %}
+{% assign release_url_prefix = current_url | slice: 0, 14 %}
 
 <aside class="site-sidebar" aria-label="Site navigation">
   <div class="sidebar-inner">
@@ -51,6 +52,16 @@
           {% endif %}
         >
           Technical Notes
+        </a>
+
+        <a
+          class="nav-link {% if release_url_prefix == '/release-notes' %}active{% endif %}"
+          href="{{ '/release-notes/' | relative_url }}"
+          {% if current_url == '/release-notes/' %}
+            aria-current="page"
+          {% endif %}
+        >
+          Release Notes
         </a>
       </div>
     </nav>

@@ -13,118 +13,59 @@ This page summarizes representative demo results for **GeoSignal Preview**.
 
 {% include live-demo-cta.html %}
 
-GeoSignal Preview starts by identifying candidate regions from layout geometry, then generates a rasterized mask, a simplified Abbe-based aerial image, and multi-threshold contours for selected regions. The final goal is to visually review hotspot-like shapes that may deserve additional lithography-aware inspection.
+GeoSignal Preview starts from layout geometry, selects candidate ROIs for review, and generates rasterized masks, simplified Abbe-based aerial images, and multi-threshold contours for those selected regions.
 
-The purpose of this demo is not to provide accurate process prediction or an optimized hotspot detector.
-
-Instead, this demo focuses on the following two-step review flow.
-
-```text
-Step 1: Geometry-based candidate filtering
-Step 2: Optical-response and contour-behavior review for selected ROIs
-```
-
-The key question is:
-
-> If a region is first suspected from a minimum width / space viewpoint, can we further review whether that region also looks meaningful from an optical-response and threshold-contour viewpoint?
+The purpose of this demo is not to provide accurate process prediction or an optimized hotspot detector. It is to show how geometry-only review can be extended with optical-response and contour-behavior visualization.
 
 The basic demo flow is:
 
 ```text
 Layout Geometry
-    → Geometry-based Candidate Filtering
-    → ROI Selection
-    → Rasterized Mask
-    → Abbe-based Aerial Image
-    → Multi-threshold Contour
-    → Hotspot-like Shape Review
+    -> Geometry-based Candidate Filtering
+    -> ROI Selection
+    -> Rasterized Mask
+    -> Abbe-based Aerial Image
+    -> Multi-threshold Contour
+    -> Hotspot-like Shape Review
 ```
 
 ![GeoSignal demo pipeline]({{ '/assets/demo/demo_pipeline_overview.png' | relative_url }})
 
-The workflow can be understood in two parts.
-
-The first part is **geometry-based candidate filtering**.
+The workflow can be understood in two parts:
 
 ```text
 Layout Geometry
-    → Width / Space screening
-    → Candidate ROI selection
-```
+    -> Width / Space screening
+    -> Candidate ROI selection
 
-The second part is **optical contour review for the selected ROI**.
-
-```text
 Candidate ROI
-    → Rasterized Mask
-    → Aerial Image
-    → Multi-threshold Contour
-    → Hotspot-like Shape Review
+    -> Rasterized Mask
+    -> Aerial Image
+    -> Multi-threshold Contour
+    -> Hotspot-like Shape Review
 ```
 
-This demo does not run optical simulation on every layout region. Instead, it first narrows down regions that may deserve higher review priority based on layout geometry, then applies optical-model-based contour review to a limited number of ROIs.
+This demo does not run optical simulation on every layout region. Instead, it first narrows down regions that may deserve review from a geometry viewpoint, then applies optical-model-based contour review to a limited number of ROIs.
 
-This approach is intended as a lightweight preview workflow for quickly identifying lithography-aware review points while keeping computation manageable.
+Detailed implementation changes behind this workflow are recorded in [Release Notes]({{ '/release-notes/' | relative_url }}).
 
 ---
 
-## 2. Candidate Selection Policy in This Demo
+## 2. Candidate Selection in This Demo
 
 In this demo, candidate regions are first identified from a minimum width / space viewpoint. A small number of ROIs are then selected for aerial-image and contour generation.
 
-The representative candidates were prepared as follows.
+The selected candidates should be understood as representative review examples, not final hotspot judgments. The exact screening rule and ordering method are preview-stage heuristics used to make the demo concrete and computationally manageable.
 
-```text
-1. Extract regions where width or space is strictly below 0.200 µm.
-2. Separate width-related and space-related candidates.
-3. Rank width by smaller component area first and space by larger component area first.
-4. Generate aerial images and multi-threshold contours for the selected four ROIs.
-```
-
-The `0.200 µm` criterion is not a process rule or a calibrated hotspot threshold. It is a preview criterion used under the assumption that a minimum width / space value is already known and that regions near this value are worth reviewing first.
-
-The current candidate selection is also not an optimized hotspot-ranking logic. The v0.6 ordering reflects two review heuristics: compact width violations are often more fragile, while larger space markers are useful for retaining notch-like or unusual patterns. Ties use deterministic geometry keys.
-
-Therefore, the current candidate selection should be understood as follows.
-
-```text
-Final hotspot decision logic
-    X
-
-Preview-stage geometry-based filtering
-    O
-```
-
-The important point of this demo is not the specific `0.200 µm` value or the temporary ranking method. The important point is the workflow.
+The important point is the review structure:
 
 ```text
 Find potentially weak locations from layout geometry
-→ Calculate optical response at those locations
-→ Review shape changes through threshold contours
+    -> Calculate optical response at those locations
+    -> Review shape changes through threshold contours
 ```
 
-In future work, the candidate selection logic can be improved by considering not only width / space, but also contour mismatch, local pattern context, line-end behavior, corner behavior, neighboring density, and contact / via overlay relationships.
-
-### v0.6 pya-native geometry path
-
-The live demo now keeps layout read, hierarchy traversal, Manhattan width/space checks,
-candidate extraction, and ROI clipping in KLayout `pya` geometry. Rasterization is the
-intentional transition to NumPy. Candidate overlays use transparent fills and hatching,
-so the original polygon boundary remains visible.
-
-![pya-native candidate overview]({{ '/assets/demo/pya_native_candidate_overview.png' | relative_url }})
-
-The comparison below shows the previous solid overlay beside the v0.6 transparent,
-hatched presentation. The latter preserves the grayscale layout context beneath the
-width and space markers.
-
-![candidate overlay style comparison]({{ '/assets/demo/pya_native_candidate_style_comparison.png' | relative_url }})
-
-The local `tt04_pwm.gds` comparison on layer/datatype `68/20` produced 459 width
-components and 922 Manhattan-space components. Median geometry runtime was
-`0.189478 s` for pya-native versus `0.871751 s` for the gdstk baseline, or about
-`4.60×` faster in this measurement. These are development measurements, not a
-general performance guarantee.
+Version-specific details such as pya-native geometry handling, candidate ordering, overlay style changes, and local benchmark results are summarized in the [v0.6 Release Notes]({{ '/release-notes/v0.6/' | relative_url }}).
 
 ---
 
@@ -132,13 +73,13 @@ general performance guarantee.
 
 This demo reviews the following items.
 
-| Item                      | Description                                                                                   |
-| ------------------------- | --------------------------------------------------------------------------------------------- |
-| Geometry-based Candidate  | Candidate region first selected from minimum width / space in the layout                      |
-| ROI Selection             | Selected review region within the current runtime budget                                      |
-| Rasterized Mask           | Binary mask generated by rasterizing layout polygons onto a pixel grid                        |
-| Aerial Image              | Optical intensity map calculated using a simplified Abbe-based imaging model                  |
-| Multi-threshold Contour   | Contours extracted at threshold levels 0.20 / 0.30 / 0.40                                     |
+| Item | Description |
+| --- | --- |
+| Geometry-based Candidate | Candidate region first selected from minimum width / space in the layout |
+| ROI Selection | Selected review region within the current runtime budget |
+| Rasterized Mask | Binary mask generated by rasterizing layout polygons onto a pixel grid |
+| Aerial Image | Optical intensity map calculated using a simplified Abbe-based imaging model |
+| Multi-threshold Contour | Contours extracted at threshold levels 0.20 / 0.30 / 0.40 |
 | Hotspot-like Shape Review | Visual review of necking, pinch, corner rounding, line-end pullback, and bridge-like behavior |
 
 The key comparison is:
@@ -166,9 +107,7 @@ SPACE_0001
 SPACE_0002
 ```
 
-These four candidates are preview examples selected from width / space based candidates while considering runtime. Each candidate should be interpreted using the same common review viewpoint rather than as a separate final judgment.
-
-Each image shows the following information.
+Each image shows:
 
 ```text
 aerial image
@@ -210,56 +149,20 @@ The main points to check are:
 * whether bridge-like behavior may appear around narrow-space regions
 * how much the 0.20 / 0.30 / 0.40 threshold contours move
 * whether large contour movement aligns with the geometry-based candidate region
-* whether the shape could become more important when contact / via overlay or another layer relationship is considered
-* whether the region may be worth reviewing later for mask correction or mask optimization
 
 The philosophy of this demo is not to make a final hotspot judgment. It is to help reviewers quickly narrow down locations that deserve attention.
 
-GeoSignal Preview is intended as a lightweight review tool with the following direction.
-
-```text
-Extract geometry-based candidates
-    → Review optical response
-    → Review contour behavior
-    → Prioritize locations with possible process risk
-    → Connect to mask correction or additional simulation if needed
-```
-
 ---
 
-## 6. Recommended Reading Flow
-
-The recommended reading order is:
-
-1. First, check the overall workflow in the pipeline image.
-2. Understand that candidate ROIs are first selected based on width / space in the layout.
-3. Treat the current `0.200 µm` criterion and candidate selection method as preview-stage heuristics.
-4. Check how the aerial image is formed in the selected ROI.
-5. Check how the 0.20 / 0.30 / 0.40 threshold contours move.
-6. Look for necking, pinch, corner rounding, line-end pullback, or bridge-like behavior.
-7. Decide whether the location may be meaningful for future mask optimization or additional lithography-aware review.
-
-The key questions are:
-
-```text
-Which location is first suspected from a geometry viewpoint?
-Does the same location also look weak or unstable in optical response?
-Where is the threshold-contour movement relatively large?
-Could this location become a process-risk area when combined with contact / via overlay or another layer condition?
-Is it worth reviewing later for mask correction or additional simulation?
-```
-
----
-
-## 7. Current Scope and Limitations
+## 6. Current Scope and Limitations
 
 The current demo is a qualitative visualization result for public preview.
 
 It has the following limitations.
 
-* The `0.200 µm` width / space criterion is an arbitrary demo criterion.
+* The width / space screening criterion is a preview heuristic, not a calibrated process rule.
 * The candidate selection method is not an optimized hotspot-ranking logic.
-* Only two width candidates and two space candidates are shown due to runtime considerations.
+* Only a small number of representative ROIs are shown due to runtime considerations.
 * A simplified Abbe-based imaging model is used.
 * Wafer-data-based calibration is not included.
 * Resist and etch models are not included.
@@ -267,7 +170,6 @@ It has the following limitations.
 * CD prediction accuracy is not the goal.
 * Public or synthetic examples are used.
 * Use only public, non-confidential GDS/OAS files with the live demo.
-* The live demo applies conservative upload, ROI, raster, and candidate limits.
 * Core implementation code is not included in this public preview repository.
 
 Therefore, the current results should be interpreted as:
@@ -282,51 +184,24 @@ not as:
 production specifications
 ```
 
-In short, this demo shows how geometry-only review can be extended toward optical contour-based lithography-aware review. It is not intended to predict exact process results.
-
 ---
 
-## 8. Future Work
-
-Future improvements may include the following directions.
-
-| Item                           | Direction                                                                                                 |
-| ------------------------------ | --------------------------------------------------------------------------------------------------------- |
-| Candidate selection            | Consider pattern context, line-end, corner, density, and neighboring features beyond simple width / space |
-| Ranking logic                  | Use contour sensitivity, mask-contour mismatch, and local contrast instead of simple area-based ordering  |
-| Runtime improvement            | Improve computation efficiency for wider layout regions                                                   |
-| Accuracy / imaging improvement | Refine source modeling, use more source points, and review TCC-based computation for efficiency           |
-| Mask optimization              | Review simple mask correction or rule-based adjustment based on contour results                           |
-| Layer-aware review             | Consider contact / via overlay and metal / gate relationships                                             |
-| Additional examples            | Add dense line-space, isolated line-end, narrow gap, and corner pattern cases                             |
-
-The current demo is an early step toward these directions.
-
-For now, the main question is:
-
-> Can we first identify suspicious locations from geometry and then quickly review them from an optical contour viewpoint?
-
----
-
-## 9. Feedback Points
+## 7. Feedback Points
 
 Feedback is especially helpful for the following points.
 
 * whether multi-threshold contour helps understand contour sensitivity
 * whether hotspot-like shape observation is intuitive
 * whether observing necking, corner rounding, line-end pullback, and bridge-like behavior is useful
-* whether a future connection to mask correction or mask optimization would be necessary
-* which direction is more important between runtime improvement and accuracy improvement
 * what additional pattern cases would make the preview clearer
-
-Even short comments, questions, or first impressions are useful.
 
 <a href="{{ site.feedback_url }}" target="_blank" rel="noopener noreferrer">Share feedback through the GeoSignal Preview form</a>
 
 ---
 
-## 10. Related Pages
+## 8. Related Pages
 
 * [Home]({{ '/' | relative_url }})
 * [Method]({{ '/method/' | relative_url }})
 * [Technical Notes]({{ '/notes/' | relative_url }})
+* [Release Notes]({{ '/release-notes/' | relative_url }})
