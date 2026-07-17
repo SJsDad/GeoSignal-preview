@@ -75,15 +75,15 @@ In this demo, candidate regions are first identified from a minimum width / spac
 The representative candidates were prepared as follows.
 
 ```text
-1. Extract regions where width or space is 0.200 µm or below.
+1. Extract regions where width or space is strictly below 0.200 µm.
 2. Separate width-related and space-related candidates.
-3. Select two width candidates and two space candidates, considering runtime.
+3. Rank width by smaller component area first and space by larger component area first.
 4. Generate aerial images and multi-threshold contours for the selected four ROIs.
 ```
 
 The `0.200 µm` criterion is not a process rule or a calibrated hotspot threshold. It is a preview criterion used under the assumption that a minimum width / space value is already known and that regions near this value are worth reviewing first.
 
-The current candidate selection is also not an optimized hotspot-ranking logic. Selecting larger candidate regions first was a pragmatic choice for constructing this demo, not a validated prioritization rule.
+The current candidate selection is also not an optimized hotspot-ranking logic. The v0.6 ordering reflects two review heuristics: compact width violations are often more fragile, while larger space markers are useful for retaining notch-like or unusual patterns. Ties use deterministic geometry keys.
 
 Therefore, the current candidate selection should be understood as follows.
 
@@ -104,6 +104,27 @@ Find potentially weak locations from layout geometry
 ```
 
 In future work, the candidate selection logic can be improved by considering not only width / space, but also contour mismatch, local pattern context, line-end behavior, corner behavior, neighboring density, and contact / via overlay relationships.
+
+### v0.6 pya-native geometry path
+
+The live demo now keeps layout read, hierarchy traversal, Manhattan width/space checks,
+candidate extraction, and ROI clipping in KLayout `pya` geometry. Rasterization is the
+intentional transition to NumPy. Candidate overlays use transparent fills and hatching,
+so the original polygon boundary remains visible.
+
+![pya-native candidate overview]({{ '/assets/demo/pya_native_candidate_overview.png' | relative_url }})
+
+The comparison below shows the previous solid overlay beside the v0.6 transparent,
+hatched presentation. The latter preserves the grayscale layout context beneath the
+width and space markers.
+
+![candidate overlay style comparison]({{ '/assets/demo/pya_native_candidate_style_comparison.png' | relative_url }})
+
+The local `tt04_pwm.gds` comparison on layer/datatype `68/20` produced 459 width
+components and 922 Manhattan-space components. Median geometry runtime was
+`0.189478 s` for pya-native versus `0.871751 s` for the gdstk baseline, or about
+`4.60×` faster in this measurement. These are development measurements, not a
+general performance guarantee.
 
 ---
 

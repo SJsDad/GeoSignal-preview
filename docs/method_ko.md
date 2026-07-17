@@ -74,19 +74,19 @@ Candidate ROI
 첫 번째 단계는 layout geometry에서 후보 ROI를 선택하는 것입니다.
 
 현재 demo에서는 minimum width / space 관점에서 후보 영역을 먼저 찾습니다.
-즉, layout 상에서 width 또는 space가 특정 기준 이하인 영역을 1차 후보로 추출한 뒤, 그중 일부를 optical contour review 대상으로 선택합니다.
+즉, layout 상에서 width 또는 space가 특정 기준 미만인 영역을 1차 후보로 추출한 뒤, 그중 일부를 optical contour review 대상으로 선택합니다.
 
 현재 preview demo에서는 다음과 같은 임시 기준을 사용했습니다.
 
 ```text
-width 또는 space가 0.200 µm 이하인 영역
+width 또는 space가 0.200 µm 미만인 영역
 ```
 
 여기서 `0.200 µm` 기준은 공정 rule이나 calibrated hotspot threshold가 아닙니다.
 현재 demo에서는 minimum width / space 기준을 알고 있다고 가정하고, 해당 기준 근처의 취약 가능성이 있는 영역을 먼저 찾아본다는 의미로 사용한 preview용 기준입니다.
 
 후보 선택 방식 역시 최적화된 hotspot ranking logic은 아닙니다.
-현재는 계산량을 고려하여 width 후보 2개, space 후보 2개를 선택했으며, 이는 전체 workflow를 보여주기 위한 pragmatic selection입니다.
+v0.6은 width 후보를 작은 component 면적 우선, space 후보를 큰 component 면적 우선으로 정렬하며, 동률은 bbox와 marker geometry key로 결정적으로 처리합니다. 이 기준은 calibrated hotspot score가 아닌 review heuristic입니다.
 
 따라서 이 단계는 다음과 같이 이해하는 것이 적절합니다.
 
@@ -105,6 +105,22 @@ optical contour review를 위한 1차 geometry-based filtering
 * density 또는 local interaction 관점 반영
 * 인접 레이어와의 오버레이 관계 반영
 * contour sensitivity 또는 mask-contour mismatch 기반 ranking 검토
+
+### v0.6 geometry backend 및 runtime 측정
+
+Canonical geometry는 integer layout DBU 기반의 `pya.Region`과 `pya.Edges`입니다.
+Hierarchy-aware extraction, Manhattan rule 계산, candidate 생성, ROI intersection까지
+pya-native로 유지하고, clipping된 polygon vertex를 rasterization 경계에서 NumPy로
+전환합니다. 기존 aerial image와 contour 단계는 그대로 사용하며,
+gdstk는 비교 baseline과 rollback backend으로 남겨 둡니다.
+
+| Geometry 측정 (`tt04_pwm.gds`, 68/20) | runtime 중앙값 | 상대 결과 |
+| --- | ---: | ---: |
+| pya-native | 0.189478 s | 1.00× |
+| gdstk baseline | 0.871751 s | 4.60× slower |
+
+Runtime은 layout, 실행 환경, rule 설정에 따라 달라집니다. 위 표는 v0.6 개발
+비교 측정값이며 일반적인 benchmark로 해석하지 않습니다.
 
 현재 method에서 중요한 것은 후보 선정 기준 자체가 최적이라는 점이 아니라, **geometry 기반 후보를 먼저 좁힌 뒤 optical contour review로 연결하는 구조**입니다.
 

@@ -46,17 +46,17 @@ This public preview repository does not include the private core implementation 
 
 The first step is to select candidate ROIs from layout geometry.
 
-In the current demo, candidate regions are first identified from a minimum width / space viewpoint. Regions where width or space is below a given criterion are extracted as first-stage candidates, and a limited number of ROIs are then selected for optical contour review.
+In the current demo, candidate regions are first identified from a minimum width / space viewpoint. Regions where width or space is strictly below a given criterion are extracted as first-stage candidates, and a limited number of ROIs are then selected for optical contour review.
 
 The current preview demo uses the following temporary criterion:
 
 ```text
-width or space ≤ 0.200 µm
+width or space < 0.200 µm
 ```
 
 The `0.200 µm` criterion is not a process rule or a calibrated hotspot threshold. It is a preview criterion used under the assumption that a minimum width / space reference is already known and that regions near this reference may be worth reviewing first.
 
-The current candidate selection method is also not an optimized hotspot-ranking logic. Selecting two width candidates and two space candidates was a pragmatic choice for showing the overall workflow while keeping computation manageable.
+The v0.6 ordering ranks width candidates by smaller component area first and space candidates by larger component area first. Deterministic bbox and marker keys resolve ties. This remains a review heuristic rather than a calibrated hotspot score.
 
 Therefore, this step should be understood as:
 
@@ -83,6 +83,22 @@ Future candidate selection can be improved by considering:
 * local density or pattern interaction
 * overlay relationship with adjacent layers
 * contour sensitivity or mask-contour-mismatch-based ranking
+
+### v0.6 geometry backend and measured runtime
+
+The canonical geometry path is `pya.Region` plus `pya.Edges`, using integer layout DBU.
+Hierarchy-aware extraction, Manhattan rule evaluation, candidate generation, and ROI
+intersection remain pya-native. Clipped polygon vertices cross to NumPy at rasterization;
+the existing aerial-image and contour stages are unchanged. gdstk is retained only as a
+baseline and rollback backend.
+
+| Geometry measurement (`tt04_pwm.gds`, 68/20) | Median runtime | Relative |
+| --- | ---: | ---: |
+| pya-native | 0.189478 s | 1.00× |
+| gdstk baseline | 0.871751 s | 4.60× slower |
+
+Runtime depends on layout, environment, and rule settings. The table records the v0.6
+development comparison and should not be read as a universal benchmark.
 
 ---
 
