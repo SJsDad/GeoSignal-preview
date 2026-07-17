@@ -9,9 +9,27 @@ permalink: /ko/
 
 # GeoSignal Preview
 
-GeoSignal Preview는 GDS layout을 기반으로 geometry signal과 simplified aerial image / contour를 함께 확인하기 위한 **lithography-aware layout visualization preview**입니다.
+GeoSignal Preview는 GDS layout을 기반으로 geometry signal과 simplified aerial image / contour를 함께 확인하기 위한 **lithography-aware layout visualization preview**입니다. 아래 결과는 live demo와 동일한 GeoSignal 분석 경로를 로컬에서 실행해 생성했습니다.
 
-![GeoSignal Preview](assets/index/index_geosignal_preview.png)
+<div class="demo-meta-strip" aria-label="데모 분석 조건">
+  <span><strong>입력</strong> sky130_fd_sc_hd_dfrtp_1.gds</span>
+  <span><strong>Layer / datatype</strong> 67 / 20</span>
+  <span><strong>Geometry</strong> pya-native</span>
+  <span><strong>Width / space</strong> &lt; 0.175 µm</span>
+  <span><strong>Pixel</strong> 0.01 µm</span>
+  <span><strong>ROI candidate</strong> 5개</span>
+</div>
+
+<div class="demo-summary-grid">
+  <div class="demo-summary-block"><span>입력 도형</span><strong>32</strong></div>
+  <div class="demo-summary-block"><span>Width component</span><strong>27</strong></div>
+  <div class="demo-summary-block"><span>Space component</span><strong>34</strong></div>
+  <div class="demo-summary-block"><span>근사 printed W / S</span><strong>0.169 / 0.174 µm</strong></div>
+</div>
+
+![현재 GeoSignal 파이프라인으로 생성한 WIDTH_0002 hotspot overlay]({{ '/assets/demo/v0.7/main_hotspot_overlay.png' | relative_url }})
+
+<p class="demo-caption"><code>WIDTH_0002</code> ROI 위에 aerial-image intensity, 0.20 / 0.30 / 0.40 contour, inner ROI, worst-width marker를 함께 표시했습니다. 전체 최신 결과는 <a href="{{ '/ko/demo/' | relative_url }}">Demo 페이지</a>에서 확인할 수 있습니다.</p>
 
 {% include live-demo-cta.html %}
 

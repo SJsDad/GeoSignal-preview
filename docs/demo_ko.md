@@ -29,7 +29,7 @@ Layout Geometry
     -> Hotspot-like Shape Review
 ```
 
-![GeoSignal demo pipeline](assets/demo/demo_pipeline_overview.png)
+![GeoSignal demo pipeline]({{ '/assets/demo/demo_pipeline_overview.png' | relative_url }})
 
 전체 workflow는 다음 두 부분으로 이해할 수 있습니다.
 
@@ -51,7 +51,7 @@ Candidate ROI
 
 ## 2. Candidate Selection in This Demo
 
-현재 demo에서는 minimum width / space 관점에서 후보 영역을 먼저 찾은 뒤, 그중 일부 ROI를 선택하여 aerial image와 contour를 생성합니다.
+현재 demo에서는 minimum width / space 관점에서 후보 영역을 먼저 찾은 뒤, 현재 서비스 기본값과 동일하게 5개 ROI를 선택하여 aerial image와 contour를 생성합니다.
 
 선택된 후보는 최종 hotspot 판정이 아니라 representative review example입니다. 구체적인 screening rule과 ordering 방식은 데모를 구체화하고 계산량을 관리하기 위한 preview-stage heuristic입니다.
 
@@ -62,6 +62,18 @@ geometry 기준으로 취약 가능성이 높은 위치를 먼저 찾고
     -> 해당 위치에서 optical response를 계산하고
     -> threshold contour를 통해 형상 변화를 확인한다
 ```
+
+현재 결과의 재현 조건은 다음과 같습니다.
+
+| 설정 | 값 |
+| --- | --- |
+| 입력 layout | `sky130_fd_sc_hd_dfrtp_1.gds` |
+| 대상 layer / datatype | `67/20` |
+| Width / space threshold | 엄격한 `< 0.175 / 0.175 µm` |
+| Geometry engine | `pya-native` |
+| ROI size / pixel size | `2.56 / 0.01 µm` |
+| Imaging | KrF 248 nm, NA 0.68, sigma 0.60, dense7 |
+| 선택 candidate | `WIDTH_0001`, `SPACE_0001`, `WIDTH_0002`, `SPACE_0002`, `WIDTH_0003` |
 
 v0.6의 pya-native geometry handling과 candidate ordering은 [v0.6 Release Notes]({{ '/release-notes/v0.6/' | relative_url }})에 정리했습니다. 통합 review GDS, candidate별 contour datatype, 서비스 메모리 변경은 [v0.7 Release Notes]({{ '/release-notes/v0.7/' | relative_url }})에 정리했습니다.
 
@@ -84,32 +96,56 @@ Threshold contour는 calibrated resist contour가 아닙니다. Aerial image가 
 
 ## 4. Representative Candidate Results
 
-현재 demo는 네 개의 대표 candidate ROI를 보여줍니다.
+아래 결과는 현재 Render interface와 같은 순서로 구성했습니다. 공개 hosted instance는 가벼운 interactive 사용을 위한 것이므로, 같은 service path를 로컬에서 실행해 결과를 생성했습니다.
 
-```text
-WIDTH_0001
-WIDTH_0002
-SPACE_0001
-SPACE_0002
-```
+<div class="demo-meta-strip" aria-label="데모 결과 메타데이터">
+  <span><strong>입력</strong> sky130_fd_sc_hd_dfrtp_1.gds</span>
+  <span><strong>Layer / datatype</strong> 67 / 20</span>
+  <span><strong>Backend</strong> pya-native</span>
+  <span><strong>Runtime</strong> 3.68 s</span>
+</div>
 
-각 이미지는 aerial image, multi-threshold contours, ROI marker, hotspot-like shape annotation을 함께 보여줍니다.
+### Analysis Summary
 
-### Width Candidate 0001
+<div class="demo-summary-grid">
+  <div class="demo-summary-block"><span>입력 도형</span><strong>32</strong></div>
+  <div class="demo-summary-block"><span>Raw edge pair</span><strong>116</strong></div>
+  <div class="demo-summary-block"><span>Width component</span><strong>27</strong></div>
+  <div class="demo-summary-block"><span>Space component</span><strong>34</strong></div>
+</div>
 
-![Width candidate 0001](assets/demo/demo_width_0001_threshold_overlay.png)
+### Approximate Printed Metrics and Imaging Condition
 
-### Width Candidate 0002
+<div class="demo-summary-grid demo-summary-grid-wide">
+  <div class="demo-summary-block"><span>Minimum printed width</span><strong>0.169 µm</strong><small>threshold 0.30</small></div>
+  <div class="demo-summary-block"><span>Minimum printed space</span><strong>0.174 µm</strong><small>threshold 0.30</small></div>
+  <div class="demo-summary-block"><span>Optical condition</span><strong>248 nm · NA 0.68</strong><small>sigma 0.60 · dense7 · source 29개</small></div>
+</div>
 
-![Width candidate 0002](assets/demo/demo_width_0002_threshold_overlay.png)
+### Main Hotspot Overlay
 
-### Space Candidate 0001
+![선택된 WIDTH_0002 hotspot overlay]({{ '/assets/demo/v0.7/main_hotspot_overlay.png' | relative_url }})
 
-![Space candidate 0001](assets/demo/demo_space_0001_threshold_overlay.png)
+Main overlay는 유효한 direct-intensity width metric이 가장 작은 `WIDTH_0002`를 중심으로 aerial image, 세 threshold contour, inner ROI, worst-width 위치를 함께 표시합니다.
 
-### Space Candidate 0002
+### Worst Printed Width and Space
 
-![Space candidate 0002](assets/demo/demo_space_0002_threshold_overlay.png)
+<div class="demo-image-grid">
+  <figure>
+    <img src="{{ '/assets/demo/v0.7/worst_width_zoom.png' | relative_url }}" alt="0.169 마이크로미터 worst approximate printed width 확대 결과">
+    <figcaption>Worst approximate printed width: <code>WIDTH_0002</code> 주변 0.169 µm.</figcaption>
+  </figure>
+  <figure>
+    <img src="{{ '/assets/demo/v0.7/worst_space_zoom.png' | relative_url }}" alt="0.174 마이크로미터 worst approximate printed space 확대 결과">
+    <figcaption>Worst approximate printed space: <code>SPACE_0001</code> 주변 0.174 µm.</figcaption>
+  </figure>
+</div>
+
+### Geometry Candidate Overview
+
+![pya-native geometry candidate overview]({{ '/assets/demo/v0.7/geometry_candidate_overview.png' | relative_url }})
+
+Overview는 병합된 전체 width / space violation region과 선택 candidate anchor를 보여줍니다. Marker가 조밀하게 보이는 것은 geometry screening map이기 때문이며, 위의 이미지가 선택 ROI에 대한 optical review 결과입니다.
 
 ---
 
