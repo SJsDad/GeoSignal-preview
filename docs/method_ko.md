@@ -32,6 +32,12 @@ Layout Geometry
 
 버전별 구현 세부 내용은 [릴리즈 노트]({{ '/ko/release-notes/' | relative_url }})로 분리해 이 페이지가 method 개념에 집중하도록 했습니다.
 
+Public service는 검증된 Abbe를 default로 사용합니다. v0.9에서는 교차검증을
+위한 exact full-rank Hopkins/TCC/SOCS formulation도 구현했지만 approximate
+SOCS truncation policy는 default로 사용하지 않습니다. Equivalence gate와 측정된
+tradeoff는 [v0.9 milestone notes]({{ '/ko/release-notes/v0.9/' | relative_url }})에서
+확인할 수 있습니다.
+
 ---
 
 ## 2. Candidate ROI Selection

@@ -80,7 +80,7 @@ geometry 기준으로 취약 가능성이 높은 위치를 먼저 찾고
 | Imaging | KrF 248 nm, NA 0.68, sigma 0.60, dense7 |
 | 선택 candidate | `WIDTH_0001`, `SPACE_0001`, `WIDTH_0002`, `SPACE_0002`, `WIDTH_0003` |
 
-v0.6의 pya-native geometry handling과 candidate ordering은 [v0.6 릴리즈 노트]({{ '/ko/release-notes/v0.6/' | relative_url }})에 정리했습니다. 통합 review GDS, candidate별 contour datatype, 서비스 메모리 변경은 [v0.7 릴리즈 노트]({{ '/ko/release-notes/v0.7/' | relative_url }})에 정리했습니다.
+v0.6의 pya-native geometry handling과 candidate ordering은 [v0.6 릴리즈 노트]({{ '/ko/release-notes/v0.6/' | relative_url }})에 정리했습니다. 통합 review GDS, candidate별 contour datatype, 서비스 메모리 변경은 [v0.7 릴리즈 노트]({{ '/ko/release-notes/v0.7/' | relative_url }})에 정리했습니다. Optional focus/dose process-window workflow와 성능 개선은 [v0.8]({{ '/ko/release-notes/v0.8/' | relative_url }}) 및 [v0.8.1]({{ '/ko/release-notes/v0.8.1/' | relative_url }})에서 확인할 수 있습니다. v0.9의 exact Hopkins 교차검증은 이 페이지의 Abbe 기반 snapshot을 변경하지 않습니다. 상세 내용은 [v0.9 milestone notes]({{ '/ko/release-notes/v0.9/' | relative_url }})에 정리했습니다.
 
 ---
 

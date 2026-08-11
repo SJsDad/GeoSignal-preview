@@ -34,6 +34,19 @@ GeoSignal Preview는 GDS layout을 기반으로 geometry signal과 simplified ae
 
 {% include live-demo-cta.html %}
 
+## 현재 개발 상태
+
+GeoSignal은 v0.9 engineering milestone의 구현과 검증을 완료했습니다. 공개
+service는 검증된 Abbe backend를 계속 default로 사용하며, v0.9에서는 수치
+교차검증과 optical mode 재사용을 위한 정확한 full-rank Hopkins/TCC/SOCS
+경로를 추가했습니다. 근사 SOCS truncation policy는 safe default로 사용하지
+않습니다.
+
+실제 구현 내용과 측정된 검증 결과는 [v0.8]({{ '/ko/release-notes/v0.8/' | relative_url }}),
+[v0.8.1]({{ '/ko/release-notes/v0.8.1/' | relative_url }}),
+[v0.9]({{ '/ko/release-notes/v0.9/' | relative_url }}) 릴리즈 노트에서 확인할 수
+있습니다.
+
 ## 1. GeoSignal Preview란?
 
 **GeoSignal Preview**는 public GDS 또는 synthetic layout example을 기반으로, layout geometry가 simplified optical model을 거쳤을 때 어떤 optical response로 나타나는지 시각적으로 확인하기 위한 공개 데모입니다.

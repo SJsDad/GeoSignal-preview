@@ -33,6 +33,19 @@ permalink: /
 
 {% include live-demo-cta.html %}
 
+## Current Development Status
+
+GeoSignal has completed the v0.9 engineering milestone. The public service
+continues to use the validated Abbe backend by default, while v0.9 adds an exact
+full-rank Hopkins/TCC/SOCS path for numerical cross-validation and reusable
+optical-mode evaluation. No approximate SOCS truncation policy is enabled as a
+safe default.
+
+The implementation history and measured validation results are available in
+the [v0.8]({{ '/release-notes/v0.8/' | relative_url }}),
+[v0.8.1]({{ '/release-notes/v0.8.1/' | relative_url }}), and
+[v0.9]({{ '/release-notes/v0.9/' | relative_url }}) release notes.
+
 ## 1. What is GeoSignal Preview?
 
 **GeoSignal Preview** is a lightweight public demo for reviewing how layout geometry may appear from an optical-response viewpoint. It uses public GDS or synthetic layout examples to connect geometry, rasterized mask images, simplified aerial-image intensity, and threshold-contour visualization.

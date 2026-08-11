@@ -83,6 +83,11 @@ The pya-native geometry engine and candidate ordering are summarized in the
 [v0.6 Release Notes]({{ '/release-notes/v0.6/' | relative_url }}). Combined
 review GDS output, candidate-specific contour datatypes, and service memory
 changes are summarized in the [v0.7 Release Notes]({{ '/release-notes/v0.7/' | relative_url }}).
+The optional focus/dose process-window workflow and its performance refactor are
+recorded in [v0.8]({{ '/release-notes/v0.8/' | relative_url }}) and
+[v0.8.1]({{ '/release-notes/v0.8.1/' | relative_url }}). The exact Hopkins
+cross-validation added in v0.9 does not change the Abbe-generated snapshot on
+this page; see the [v0.9 milestone notes]({{ '/release-notes/v0.9/' | relative_url }}).
 
 ---
 

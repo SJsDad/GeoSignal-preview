@@ -30,6 +30,14 @@ General visitors can read [Home]({{ '/' | relative_url }}), [Demo]({{ '/demo/' |
 | [v0.5]({{ '/release-notes/v0.5/' | relative_url }}) | Selectable pya backend comparison beside the existing gdstk path |
 | [v0.6]({{ '/release-notes/v0.6/' | relative_url }}) | pya-native geometry path, candidate overview update, and printed metric refinement |
 | [v0.7]({{ '/release-notes/v0.7/' | relative_url }}) | Combined review GDS, candidate-specific contours, and bounded-memory imaging |
+| [v0.8]({{ '/release-notes/v0.8/' | relative_url }}) | Focus/dose process-window analysis, calibration, and PW artifacts |
+| [v0.8.1]({{ '/release-notes/v0.8.1/' | relative_url }}) | Backend-neutral imaging contract and focus/dose performance refactor |
+| [v0.9]({{ '/release-notes/v0.9/' | relative_url }}) | Exact Hopkins/TCC/SOCS cross-validation and bounded optical-mode caching |
+
+v0.8.0 and v0.8.1 are tagged application releases. v0.9 records the
+completed engineering milestone currently present on the application v0.9
+branch; a release tag had not yet been created when this Pages update was
+prepared.
 
 ## Reading Guide
 
