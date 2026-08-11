@@ -31,6 +31,12 @@ This method does not run optical simulation on every layout location. It narrows
 
 Version-specific implementation details are separated into [Release Notes]({{ '/release-notes/' | relative_url }}) so this page can stay focused on the method concept.
 
+The public service currently uses Abbe as its validated default. v0.9 also
+implements an exact full-rank Hopkins/TCC/SOCS formulation for cross-validation,
+but no approximate SOCS truncation policy is enabled by default. See the
+[v0.9 milestone notes]({{ '/release-notes/v0.9/' | relative_url }}) for the
+equivalence gates and measured tradeoffs.
+
 ---
 
 ## 2. Candidate ROI Selection

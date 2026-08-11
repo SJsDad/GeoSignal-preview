@@ -27,6 +27,14 @@ v0.1부터 v0.4까지는 저장소 커밋 이력을 바탕으로 복원한 과�
 | [v0.5]({{ '/ko/release-notes/v0.5/' | relative_url }}) | 기존 gdstk 경로와 선택 가능한 pya backend 비교 |
 | [v0.6]({{ '/ko/release-notes/v0.6/' | relative_url }}) | pya-native geometry 경로, candidate overview, printed metric 개선 |
 | [v0.7]({{ '/ko/release-notes/v0.7/' | relative_url }}) | 통합 review GDS, candidate별 contour, bounded-memory imaging |
+| [v0.8]({{ '/ko/release-notes/v0.8/' | relative_url }}) | Focus/dose process-window 분석, calibration, PW artifact |
+| [v0.8.1]({{ '/ko/release-notes/v0.8.1/' | relative_url }}) | Backend-neutral imaging contract와 focus/dose 성능 개선 |
+| [v0.9]({{ '/ko/release-notes/v0.9/' | relative_url }}) | 정확한 Hopkins/TCC/SOCS 교차검증과 bounded optical-mode cache |
+
+v0.8.0과 v0.8.1은 application 저장소에 tag가 생성된 릴리스입니다. v0.9는
+application의 v0.9 branch에서 구현과 검증을 완료한 engineering milestone을
+기록합니다. 이 Pages update를 준비한 시점에는 v0.9 release tag가 아직
+생성되지 않았습니다.
 
 ## 읽는 순서
 

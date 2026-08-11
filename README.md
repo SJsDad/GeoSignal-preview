@@ -90,12 +90,13 @@ These observations should be treated as review signals rather than confirmed pro
 
 ## 4. Method Summary
 
-The v0.7 preview builds on the v0.6 pya-native geometry engine. Geometry
-processing remains pya-native through candidate extraction and ROI clipping;
-the clipped polygons are converted to NumPy only at the raster boundary. v0.7
-adds bounded-memory service imaging and candidate-specific review GDS contours.
-The previous gdstk path remains available as a comparison baseline and rollback
-option.
+The current preview builds on the v0.6 pya-native geometry engine and the v0.7
+bounded-memory review workflow. v0.8 adds physical focus/dose process-window
+analysis, and v0.8.1 makes the imaging integration backend-neutral while
+improving repeated focus/dose execution. The completed v0.9 engineering
+milestone adds an exact full-rank Hopkins/TCC/SOCS cross-validation path and a
+bounded optical-mode cache. Abbe remains the public service default; no
+approximate SOCS truncation policy is enabled by default.
 
 ### Stage 1: Geometry-based candidate filtering
 
@@ -269,7 +270,8 @@ Possible future improvements include:
 * local image-contrast evaluation
 * denser or refined source modeling
 * runtime improvement
-* TCC-based computation review
+* representative layout-derived Hopkins/SOCS evaluation
+* alternative approximation strategies with explicit aerial/CD error gates
 * phase- or attenuation-aware mask representation
 * contact, via, or adjacent-layer-aware review
 * simple mask-correction experiments
