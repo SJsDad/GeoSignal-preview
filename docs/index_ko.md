@@ -36,10 +36,10 @@ GeoSignal Preview는 GDS layout을 기반으로 geometry signal과 simplified ae
 
 ## 현재 개발 상태
 
-GeoSignal은 v0.9 engineering milestone의 구현과 검증을 완료했습니다. 공개
-service는 검증된 Abbe backend를 계속 default로 사용하며, v0.9에서는 수치
-교차검증과 optical mode 재사용을 위한 정확한 full-rank Hopkins/TCC/SOCS
-경로를 추가했습니다. 근사 SOCS truncation policy는 safe default로 사용하지
+GeoSignal v0.9.0은 2026년 8월 12일 정식 릴리스됐습니다. 공개 service는
+검증된 Abbe backend를 계속 default로 사용하며, v0.9.0에서는 수치 교차검증과
+optical mode 재사용을 위한 정확한 full-rank Hopkins/TCC/SOCS 경로를
+추가했습니다. 근사 SOCS truncation policy는 safe default로 사용하지
 않습니다.
 
 실제 구현 내용과 측정된 검증 결과는 [v0.8]({{ '/ko/release-notes/v0.8/' | relative_url }}),

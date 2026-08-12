@@ -1,0 +1,40 @@
+name: Pages CI
+
+on:
+  pull_request:
+    paths:
+      - "docs/**"
+      - "scripts/validate_pages.py"
+      - ".github/workflows/pages-ci.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**"
+      - "scripts/validate_pages.py"
+      - ".github/workflows/pages-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate source links and front matter
+        run: python scripts/validate_pages.py
+
+      - name: Build Jekyll site
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./docs
+          destination: ./_site
