@@ -34,10 +34,8 @@ General visitors can read [Home]({{ '/' | relative_url }}), [Demo]({{ '/demo/' |
 | [v0.8.1]({{ '/release-notes/v0.8.1/' | relative_url }}) | Backend-neutral imaging contract and focus/dose performance refactor |
 | [v0.9]({{ '/release-notes/v0.9/' | relative_url }}) | Exact Hopkins/TCC/SOCS cross-validation and bounded optical-mode caching |
 
-v0.8.0 and v0.8.1 are tagged application releases. v0.9 records the
-completed engineering milestone currently present on the application v0.9
-branch; a release tag had not yet been created when this Pages update was
-prepared.
+v0.8.0, v0.8.1, and v0.9.0 are tagged application releases. v0.9.0 was
+released on August 12, 2026 with Abbe retained as the public service default.
 
 ## Reading Guide
 

@@ -35,8 +35,8 @@ permalink: /
 
 ## Current Development Status
 
-GeoSignal has completed the v0.9 engineering milestone. The public service
-continues to use the validated Abbe backend by default, while v0.9 adds an exact
+GeoSignal v0.9.0 was released on August 12, 2026. The public service continues
+to use the validated Abbe backend by default, while v0.9.0 adds an exact
 full-rank Hopkins/TCC/SOCS path for numerical cross-validation and reusable
 optical-mode evaluation. No approximate SOCS truncation policy is enabled as a
 safe default.

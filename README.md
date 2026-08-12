@@ -93,10 +93,10 @@ These observations should be treated as review signals rather than confirmed pro
 The current preview builds on the v0.6 pya-native geometry engine and the v0.7
 bounded-memory review workflow. v0.8 adds physical focus/dose process-window
 analysis, and v0.8.1 makes the imaging integration backend-neutral while
-improving repeated focus/dose execution. The completed v0.9 engineering
-milestone adds an exact full-rank Hopkins/TCC/SOCS cross-validation path and a
-bounded optical-mode cache. Abbe remains the public service default; no
-approximate SOCS truncation policy is enabled by default.
+improving repeated focus/dose execution. The v0.9.0 release adds an exact
+full-rank Hopkins/TCC/SOCS cross-validation path and a bounded optical-mode
+cache. Abbe remains the public service default; no approximate SOCS truncation
+policy is enabled by default.
 
 ### Stage 1: Geometry-based candidate filtering
 
