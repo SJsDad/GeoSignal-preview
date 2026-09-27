@@ -9,7 +9,7 @@ permalink: /demo/
 
 # Demo — v0.10
 
-> This is a locally validated v0.10 snapshot. The live Render deployment may differ.
+> This v0.10 validation snapshot documents the model and presets. Reported benchmarks are local measurements; hosted performance may differ.
 
 The nominal model CD is fitted to a design anchor. This is not measured-wafer fitting or scanner/resist process calibration. Polygon transmission is 1 and the contour describes the high-intensity region. Development and final conductor transfer are not modeled.
 

@@ -9,7 +9,7 @@ permalink: /
 
 # GeoSignal Preview
 
-> This is a locally validated v0.10 snapshot. The live Render deployment may differ.
+> This v0.10 validation snapshot documents the model and presets. Reported benchmarks are local measurements; hosted performance may differ.
 
 A study tool for screening layout geometry and reviewing local optical contours.
 

@@ -10,7 +10,7 @@ lang: ko
 
 # Demo — v0.10
 
-> 이 페이지는 로컬 검증을 완료한 v0.10 snapshot입니다. Live Render 배포 상태와는 별개입니다.
+> 이 v0.10 검증 snapshot은 모델과 preset을 설명합니다. 기재한 benchmark는 로컬 측정이며 실제 서버 성능은 다를 수 있습니다.
 
 설계 anchor의 nominal CD를 맞춘 상대 노광 모델입니다. 실제 wafer CD fitting이나 scanner/resist 공정 calibration이 아닙니다. Polygon 투과율은 1이며 contour는 고강도 영역입니다. PTD/NTD 현상 또는 최종 배선 전사는 모델링하지 않습니다.
 
