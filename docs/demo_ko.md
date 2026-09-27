@@ -1,54 +1,56 @@
 ---
 layout: default
 title: Demo
-description: GeoSignal relative exposure study and validation
+description: GDS/OAS에서 취약 후보를 찾고 광학 윤곽을 살펴보는 레이아웃 분석 도구
 permalink: /ko/demo/
 lang: ko
 ---
 
 <p class="language-switch"><a href="{{ '/demo/' | relative_url }}" lang="en">View in English</a></p>
 
-# Demo — v0.10
+# Demo
 
-> 이 v0.10 검증 snapshot은 모델과 preset을 설명합니다. 기재한 benchmark는 로컬 측정이며 실제 서버 성능은 다를 수 있습니다.
+## 레이아웃에서 검토할 위치를 찾고, 결과를 읽어 봅니다
 
-설계 anchor의 nominal CD를 맞춘 상대 노광 모델입니다. 실제 wafer CD fitting이나 scanner/resist 공정 calibration이 아닙니다. Polygon 투과율은 1이며 contour는 고강도 영역입니다. PTD/NTD 현상 또는 최종 배선 전사는 모델링하지 않습니다.
+**후보 찾기 → 주변 윤곽 살펴보기 → 레이아웃 뷰어에서 추가 검토하기** 순서로 결과를 보여드립니다. 공개 TT04 PWM 레이아웃을 Speed 설정으로 분석한 예입니다.
 
-KrF 248 nm · NA 0.68 · sigma 0.60 · ROI 2.56 µm · pixel 10 nm · ambit 0.32 µm · internal DBU 0.1 nm
+{% include live-demo-cta.html %}
 
-입력: 공개 TT04 PWM, SKY130 li1 67/20. Reference는 (147.770, 108.460) µm의 170 nm dense line이며 수직 고정 단면으로 측정합니다. Geometry 후보 2개와 별도 reference 1개를 평가했습니다. Reference는 severity ranking을 대체하지 않습니다.
+## 1. 후보가 어디에 모여 있는지 봅니다
 
-`Tnorm = T0 / D0`, `T_eff = Tnorm / d`.
+분포도는 폭이 좁거나 간격이 좁은 영역을 표시합니다. 개별 위치를 확대하기 전에 후보가 모여 있는 곳을 파악할 수 있습니다. 표시는 형상 검사로 찾은 후보이며, 확정된 불량 개수가 아닙니다.
 
-| Preset | Relative dose | T0 | D0 | T_eff | CD (nm) |
-|---|---:|---:|---:|---:|---:|
-| speed | 0.90 | 0.30 | 0.82421875 | 0.404423 | 152.019 |
-| speed | 1.00 | 0.30 | 0.82421875 | 0.363981 | 170.018 |
-| speed | 1.10 | 0.30 | 0.82421875 | 0.330892 | 184.658 |
-| internal | 0.90 | 0.30 | 0.84765625 | 0.393241 | 152.296 |
-| internal | 1.00 | 0.30 | 0.84765625 | 0.353917 | 169.979 |
-| internal | 1.10 | 0.30 | 0.84765625 | 0.321743 | 184.384 |
+![공개 TT04 PWM 레이아웃의 폭·간격 후보 분포도]({{ '/assets/demo/v0.10/speed/geometry_candidate_overview.png' | relative_url }})
 
-## speed
+이 예시는 우선순위로 고른 후보 2개와 별도 기준 패턴을 검토합니다. Live Demo의 기본값은 후보 5개와 기준 패턴입니다. 기준 패턴은 비교 기준을 맞추기 위한 것이며, 추가로 검출한 hotspot이 아닙니다.
 
-![speed reference gauge and relative dose contours]({{ '/assets/demo/v0.10/speed/reference_anchor.png' | relative_url }})
+## 2. 폭이 좁은 후보를 살펴봅니다
 
-- [Dose / CD CSV]({{ '/assets/demo/v0.10/speed/reference_dose.csv' | relative_url }})
-- [Model and reference JSON]({{ '/assets/demo/v0.10/speed/relative_dose_model.json' | relative_url }})
-- [Focus / dose CSV]({{ '/assets/demo/v0.10/speed/focus_dose_measurements.csv' | relative_url }})
-- [Region hotspot checks]({{ '/assets/demo/v0.10/speed/contour_hotspots.json' | relative_url }})
-- [Review GDS]({{ '/assets/demo/v0.10/speed/pya_native_combined_review.gds' | relative_url }})
+![폭 후보 주변의 형상, 광학 강도와 상대 dose별 윤곽]({{ '/assets/demo/v0.10/speed/width_candidate.png' | relative_url }})
 
-## internal
+십자 표시와 주변 윤곽을 함께 보세요. 원래 형상에서는 폭 후보로 선택됐지만 nominal 광학 윤곽에서는 측정 중심에 해당 형상이 유지되지 않습니다. 따라서 폭을 0이나 PASS로 표시하지 않고 **측정 불가(`missing_feature`)**로 기록합니다. 추가로 살펴볼 모델의 반응이지, 실제 wafer 불량이 확인됐다는 뜻은 아닙니다.
 
-![internal reference gauge and relative dose contours]({{ '/assets/demo/v0.10/internal/reference_anchor.png' | relative_url }})
+## 3. 간격이 좁은 후보와 비교합니다
 
-- [Dose / CD CSV]({{ '/assets/demo/v0.10/internal/reference_dose.csv' | relative_url }})
-- [Model and reference JSON]({{ '/assets/demo/v0.10/internal/relative_dose_model.json' | relative_url }})
-- [Focus / dose CSV]({{ '/assets/demo/v0.10/internal/focus_dose_measurements.csv' | relative_url }})
-- [Region hotspot checks]({{ '/assets/demo/v0.10/internal/contour_hotspots.json' | relative_url }})
-- [Review GDS]({{ '/assets/demo/v0.10/internal/pya_native_combined_review.gds' | relative_url }})
+![간격 후보 주변의 형상, 광학 강도와 상대 dose별 윤곽]({{ '/assets/demo/v0.10/speed/space_candidate.png' | relative_url }})
 
-PW 검증은 focus −0.40…+0.40 µm, step 0.05 µm와 dose 0.80…1.20, step 0.02를 사용합니다. 각 preset은 357조건 × 3개 위치 = 1,071행입니다. 이 예제의 common nominal-dose DoF는 0입니다. Anchor fitting이 다른 취약 후보의 PASS를 보장하지 않습니다. 시간과 메모리는 로컬 측정이며 Render 성능 보장이 아닙니다.
+이 후보는 선택한 단면에서 간격을 측정할 수 있습니다. 원래 형상의 후보 간격은 **0.170 µm**, nominal dose의 모델 간격은 약 **0.199 µm**입니다. 세 윤곽이 어디서 벌어지는지, 주변 선 끝과 모서리가 어떻게 달라지는지 살펴보세요.
 
-[Method]({{ '/ko/method/' | relative_url }}) · [Validation notes]({{ '/ko/notes/v0.10-validation/' | relative_url }}) · [Legacy Demo]({{ '/ko/demo-legacy/' | relative_url }})
+빨강·어두운색·파랑 윤곽은 각각 상대 dose **−10%, nominal, +10%**입니다. 범례에는 대응하는 effective threshold도 함께 표시합니다. 윤곽 이동이 큰 곳은 민감도를 더 검토할 후보이며, 그 자체로 불량 판정은 아닙니다.
+
+## 4. 결과를 가져가 추가로 검토합니다
+
+[통합 검토 GDS]({{ '/assets/demo/v0.10/speed/pya_native_combined_review.gds' | relative_url }})를 내려받아 레이아웃 뷰어에서 원본 형상, 선택 영역과 윤곽을 함께 확인할 수 있습니다. 측정값이나 모델 조건이 궁금하면 [결과 데이터와 기준 패턴 검증]({{ '/ko/notes/v0.10-validation/' | relative_url }})을 참고하세요.
+
+그림은 저장된 동일 후보 위치에 검증된 상대 dose 계산을 적용한 것입니다. Speed 예시의 상세 contour Region 검사는 꺼져 있으므로, 상세 검사 표시가 없다고 PASS를 뜻하지 않습니다.
+
+<h2 id="getting-started">자신의 공개 예제로 시작하려면</h2>
+
+- 공개 GDS/OAS 파일, 대상 레이어와 Speed 설정을 선택합니다.
+- 등록된 TT04 예제에는 기준 패턴이 준비되어 있습니다. 다른 파일은 아직 기준 위치·방향·설계 폭 입력이 필요하며, 이 부분은 현재 preview의 사용성 제약입니다.
+- 먼저 후보 분포를 보고, 국소 윤곽과 측정 상태를 확인합니다. 계산 과정이 궁금할 때 Method를 읽으면 됩니다.
+- 서버 분석은 시간이 걸릴 수 있습니다. 공개 샘플의 한 실행은 약 109초였으며, 일정한 응답 시간을 보장하는 값은 아닙니다.
+
+비기밀 레이아웃만 업로드해 주세요. 이 단순화한 모델은 학습과 상대 비교용이며 제조 signoff를 위한 결과가 아닙니다.
+
+[계산 방법]({{ '/ko/method/' | relative_url }}) · [기술 검증·다운로드]({{ '/ko/notes/v0.10-validation/' | relative_url }}) · [이전 Demo]({{ '/ko/demo-legacy/' | relative_url }})

@@ -1,9 +1,8 @@
 {% if site.live_demo_url %}
 <section class="live-demo-callout" aria-label="GeoSignal live demo">
-  <h2>Try the live Render demo</h2>
+  <h2>{% if page.lang == "ko" %}공개 예제로 직접 살펴보세요{% else %}Explore a public layout{% endif %}</h2>
   <p>
-    Upload a public, non-confidential GDS/OAS file and inspect local contour
-    behavior using the lightweight GeoSignal workflow.
+    {% if page.lang == "ko" %}Live Demo에서 후보 위치를 찾고 주변 형상을 살펴보세요.{% else %}Find candidate locations and inspect their local shapes in the live demo.{% endif %}
   </p>
   <a
     class="live-demo-button"
@@ -11,10 +10,10 @@
     target="_blank"
     rel="noopener noreferrer"
   >
-    Try Live Demo
+    {% if page.lang == "ko" %}Live Demo 열기{% else %}Try Live Demo{% endif %}
   </a>
   <p class="live-demo-note">
-    Demo limits apply. The free server may sleep when idle.
+    {% if page.lang == "ko" %}공개 가능한 파일만 사용해 주세요. 무료 서버의 시작과 분석에는 시간이 걸릴 수 있습니다.{% else %}Use non-confidential files only. The free server may take time to wake up and process an analysis.{% endif %}
   </p>
 </section>
 {% else %}

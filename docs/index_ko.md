@@ -1,7 +1,7 @@
 ---
 layout: default
 title: GeoSignal Preview
-description: GeoSignal relative exposure study and validation
+description: GDS/OAS에서 취약 후보를 찾고 광학 윤곽을 살펴보는 레이아웃 분석 도구
 permalink: /ko/
 lang: ko
 ---
@@ -10,18 +10,47 @@ lang: ko
 
 # GeoSignal Preview
 
-> 이 v0.10 검증 snapshot은 모델과 preset을 설명합니다. 기재한 benchmark는 로컬 측정이며 실제 서버 성능은 다를 수 있습니다.
+## 레이아웃에서, 먼저 살펴볼 곳을 찾습니다.
 
-Layout geometry에서 후보를 고른 뒤 광학 contour와 국소 형상을 검토하는 스터디 도구입니다.
-
-설계 anchor의 nominal CD를 맞춘 상대 노광 모델입니다. 실제 wafer CD fitting이나 scanner/resist 공정 calibration이 아닙니다. Polygon 투과율은 1이며 contour는 고강도 영역입니다. PTD/NTD 현상 또는 최종 배선 전사는 모델링하지 않습니다.
-
-KrF 248 nm · NA 0.68 · sigma 0.60 · ROI 2.56 µm · pixel 10 nm · ambit 0.32 µm · internal DBU 0.1 nm
-
-![Fixed reference and relative-dose contours]({{ '/assets/demo/v0.10/speed/reference_anchor.png' | relative_url }})
-
-Speed는 dense7과 선택적인 nominal-dose Region 검사를, Internal은 dense11과 세 dose Region 검사를 사용합니다. Speed의 상세 Region 검사는 기본적으로 꺼져 있습니다. 두 preset 모두 세 dose contour를 제공합니다. 서로 다른 수치 근사이므로 각자 nominal 보정하며 결과를 동등하게 취급하지 않습니다. 후보는 measured width/space를 우선하고 area는 secondary heuristic으로 사용합니다.
-
-[Demo]({{ '/ko/demo/' | relative_url }}) · [Method]({{ '/ko/method/' | relative_url }}) · [Technical Notes]({{ '/ko/notes/' | relative_url }}) · [v0.10]({{ '/ko/release-notes/v0.10/' | relative_url }})
+**GDS/OAS에서 폭과 간격이 취약한 후보를 추리고, 광학 모델에서 형상이 어떻게 보이는지 함께 살펴보는 도구입니다.** 별도의 분석 파이프라인을 구성하는 부담을 줄이고, 레이아웃 파일에서 검토할 위치와 대략적인 분석 결과로 이어지는 흐름을 지향합니다.
 
 {% include live-demo-cta.html %}
+
+![공개 레이아웃에서 자동 선택한 폭 후보와 상대 dose별 윤곽]({{ '/assets/demo/v0.10/speed/width_candidate.png' | relative_url }})
+
+<p class="demo-caption">자동으로 선택한 폭 후보의 예입니다. 십자 표시는 검토 위치이고, 세 윤곽은 상대 dose −10%, nominal, +10% 조건입니다. <a href="{{ '/ko/demo/' | relative_url }}">결과 자세히 보기 →</a></p>
+
+## 파일에서 후보 검토까지
+
+1. **레이아웃과 레이어를 선택합니다.** 공개 GDS/OAS 예제와 기본 Speed 설정으로 시작합니다.
+2. **살펴볼 후보를 찾습니다.** 폭과 간격 검사로 레이아웃에서 주의할 위치를 추립니다.
+3. **국소 형상을 확인합니다.** 원래 형상, 광학 강도와 dose별 윤곽을 함께 보고, 검토용 GDS나 결과 표를 내려받습니다.
+
+현재 공개 preview는 발전 중입니다. 등록된 예제에는 기준 패턴이 준비되어 있고, 다른 파일은 아직 기준 패턴 입력이 필요합니다. 자신의 예제를 사용하기 전 [Demo의 시작 안내]({{ '/ko/demo/' | relative_url }}#getting-started)를 확인해 주세요.
+
+## 형상 검사 다음에는 무엇을 볼까요?
+
+좁은 목, 촘촘한 간격, 선 끝은 원래 도형만 볼 때와 광학 모델의 윤곽으로 볼 때 다르게 보일 수 있습니다. GeoSignal은 후보 위치와 주변 윤곽을 같은 화면에 보여주어 모서리의 둥글어짐, 폭의 좁아짐, 간격 변화와 조건에 따른 민감도를 살펴보도록 돕습니다.
+
+핵심 질문은 **“다음으로 어느 위치를 더 검토해야 할까?”**입니다. 결과는 확정된 제조 불량 판정이 아니라, 후보를 좁히고 이해하기 위한 근사 분석입니다.
+
+## 확인하고 가져갈 수 있는 결과
+
+| 결과 | 활용 방법 |
+| --- | --- |
+| 후보 분포도 | 레이아웃 전체에서 폭·간격이 좁은 영역을 확인 |
+| 후보별 윤곽 오버레이 | 선택한 위치 주변의 형상 변화를 비교 |
+| 측정값과 상태 | 유효한 폭·간격 결과와 측정 불가 상태를 구분 |
+| 검토용 GDS와 결과 표 | 레이아웃 뷰어에서 추가 검토하거나 결과를 비교 |
+
+## 이런 탐색에 사용해 보세요
+
+공개 패턴으로 레이아웃 형상과 광학 응답의 관계를 공부하는 학생·연구자·엔지니어를 위한 가벼운 출발점입니다. 초기 레이아웃 검토와 computational lithography 학습에 활용할 수 있습니다.
+
+단순화한 모델이며 실제 wafer 측정값에 맞춘 공정 예측이나 signoff 도구는 아닙니다. 공개 가능한 비기밀 레이아웃만 업로드해 주세요.
+
+[Demo 보기]({{ '/ko/demo/' | relative_url }}) · [계산 방법]({{ '/ko/method/' | relative_url }}) · [기술 검증]({{ '/ko/notes/v0.10-validation/' | relative_url }})
+
+## 함께 개선하고 싶습니다
+
+어떤 후보 화면이 유용했는지, 어떤 결과가 해석하기 어려웠는지 <a href="{{ site.feedback_url }}" target="_blank" rel="noopener noreferrer">의견을 남겨 주세요</a>.
