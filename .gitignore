@@ -37,3 +37,10 @@ reports/
 private/
 drafts/
 internal/
+
+# Verified public TT04 review artifacts
+!docs/assets/demo/v0.10/*/pya_native_combined_review.gds
+
+# This exact folder contains reviewed public preset results, not private notes.
+!docs/assets/demo/v0.10/internal/
+!docs/assets/demo/v0.10/internal/*

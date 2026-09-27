@@ -1,235 +1,54 @@
 ---
 layout: default
 title: Demo
-description: GeoSignal Preview 데모 한국어 설명
+description: GeoSignal relative exposure study and validation
 permalink: /ko/demo/
 lang: ko
 ---
 
 <p class="language-switch"><a href="{{ '/demo/' | relative_url }}" lang="en">View in English</a></p>
 
-# Demo
+# Demo — v0.10
 
-## 1. Demo Overview
+> 이 페이지는 로컬 검증을 완료한 v0.10 snapshot입니다. Live Render 배포 상태와는 별개입니다.
 
-이 페이지는 **GeoSignal Preview**의 대표 데모 결과를 정리한 페이지입니다.
+설계 anchor의 nominal CD를 맞춘 상대 노광 모델입니다. 실제 wafer CD fitting이나 scanner/resist 공정 calibration이 아닙니다. Polygon 투과율은 1이며 contour는 고강도 영역입니다. PTD/NTD 현상 또는 최종 배선 전사는 모델링하지 않습니다.
 
-{% include live-demo-cta.html %}
+KrF 248 nm · NA 0.68 · sigma 0.60 · ROI 2.56 µm · pixel 10 nm · ambit 0.32 µm · internal DBU 0.1 nm
 
-GeoSignal Preview는 layout geometry에서 후보 ROI를 선택하고, 해당 영역에 대해 rasterized mask, simplified Abbe-based aerial image, multi-threshold contour를 생성한 뒤 hotspot-like 형상을 시각적으로 확인하는 workflow입니다.
+입력: 공개 TT04 PWM, SKY130 li1 67/20. Reference는 (147.770, 108.460) µm의 170 nm dense line이며 수직 고정 단면으로 측정합니다. Geometry 후보 2개와 별도 reference 1개를 평가했습니다. Reference는 severity ranking을 대체하지 않습니다.
 
-정확한 공정 예측이나 최적화된 hotspot 검출기가 목표는 아닙니다. 이 데모는 geometry-only review를 optical-response 및 contour-behavior visualization으로 확장하는 흐름을 보여줍니다.
+`Tnorm = T0 / D0`, `T_eff = Tnorm / d`.
 
-기본 데모 흐름은 다음과 같습니다.
+| Preset | Relative dose | T0 | D0 | T_eff | CD (nm) |
+|---|---:|---:|---:|---:|---:|
+| speed | 0.90 | 0.30 | 0.82421875 | 0.404423 | 152.019 |
+| speed | 1.00 | 0.30 | 0.82421875 | 0.363981 | 170.018 |
+| speed | 1.10 | 0.30 | 0.82421875 | 0.330892 | 184.658 |
+| internal | 0.90 | 0.30 | 0.84765625 | 0.393241 | 152.296 |
+| internal | 1.00 | 0.30 | 0.84765625 | 0.353917 | 169.979 |
+| internal | 1.10 | 0.30 | 0.84765625 | 0.321743 | 184.384 |
 
-```text
-Layout Geometry
-    -> Geometry-based Candidate Filtering
-    -> ROI Selection
-    -> Rasterized Mask
-    -> Abbe-based Aerial Image
-    -> Multi-threshold Contour
-    -> Hotspot-like Shape Review
-```
+## speed
 
-![GeoSignal demo pipeline]({{ '/assets/demo/demo_pipeline_overview.png' | relative_url }})
+![speed reference gauge and relative dose contours]({{ '/assets/demo/v0.10/speed/reference_anchor.png' | relative_url }})
 
-전체 workflow는 다음 두 부분으로 이해할 수 있습니다.
+- [Dose / CD CSV]({{ '/assets/demo/v0.10/speed/reference_dose.csv' | relative_url }})
+- [Model and reference JSON]({{ '/assets/demo/v0.10/speed/relative_dose_model.json' | relative_url }})
+- [Focus / dose CSV]({{ '/assets/demo/v0.10/speed/focus_dose_measurements.csv' | relative_url }})
+- [Region hotspot checks]({{ '/assets/demo/v0.10/speed/contour_hotspots.json' | relative_url }})
+- [Review GDS]({{ '/assets/demo/v0.10/speed/pya_native_combined_review.gds' | relative_url }})
 
-```text
-Layout Geometry
-    -> Width / Space screening
-    -> Candidate ROI selection
+## internal
 
-Candidate ROI
-    -> Rasterized Mask
-    -> Aerial Image
-    -> Multi-threshold Contour
-    -> Hotspot-like Shape Review
-```
+![internal reference gauge and relative dose contours]({{ '/assets/demo/v0.10/internal/reference_anchor.png' | relative_url }})
 
-이 demo는 모든 layout 영역에서 optical simulation을 실행하지 않습니다. Geometry 관점에서 검토 가치가 있는 영역을 먼저 좁힌 다음, 제한된 수의 ROI에 optical-model 기반 contour review를 적용합니다.
+- [Dose / CD CSV]({{ '/assets/demo/v0.10/internal/reference_dose.csv' | relative_url }})
+- [Model and reference JSON]({{ '/assets/demo/v0.10/internal/relative_dose_model.json' | relative_url }})
+- [Focus / dose CSV]({{ '/assets/demo/v0.10/internal/focus_dose_measurements.csv' | relative_url }})
+- [Region hotspot checks]({{ '/assets/demo/v0.10/internal/contour_hotspots.json' | relative_url }})
+- [Review GDS]({{ '/assets/demo/v0.10/internal/pya_native_combined_review.gds' | relative_url }})
 
-이 workflow의 상세 구현 변경점은 [릴리즈 노트]({{ '/ko/release-notes/' | relative_url }})에 정리했습니다.
+PW 검증은 focus −0.40…+0.40 µm, step 0.05 µm와 dose 0.80…1.20, step 0.02를 사용합니다. 각 preset은 357조건 × 3개 위치 = 1,071행입니다. 이 예제의 common nominal-dose DoF는 0입니다. Anchor fitting이 다른 취약 후보의 PASS를 보장하지 않습니다. 시간과 메모리는 로컬 측정이며 Render 성능 보장이 아닙니다.
 
----
-
-## 2. Candidate Selection in This Demo
-
-현재 demo에서는 minimum width / space 관점에서 후보 영역을 먼저 찾은 뒤, 현재 서비스 기본값과 동일하게 5개 ROI를 선택하여 aerial image와 contour를 생성합니다.
-
-선택된 후보는 최종 hotspot 판정이 아니라 representative review example입니다. 구체적인 screening rule과 ordering 방식은 데모를 구체화하고 계산량을 관리하기 위한 preview-stage heuristic입니다.
-
-중요한 것은 다음 구조입니다.
-
-```text
-geometry 기준으로 취약 가능성이 높은 위치를 먼저 찾고
-    -> 해당 위치에서 optical response를 계산하고
-    -> threshold contour를 통해 형상 변화를 확인한다
-```
-
-현재 결과의 재현 조건은 다음과 같습니다.
-
-| 설정 | 값 |
-| --- | --- |
-| 입력 layout | `sky130_fd_sc_hd_dfrtp_1.gds` |
-| 대상 layer / datatype | `67/20` |
-| Width / space threshold | 엄격한 `< 0.175 / 0.175 µm` |
-| Geometry engine | `pya-native` |
-| ROI size / pixel size | `2.56 / 0.01 µm` |
-| Imaging | KrF 248 nm, NA 0.68, sigma 0.60, dense7 |
-| 선택 candidate | `WIDTH_0001`, `SPACE_0001`, `WIDTH_0002`, `SPACE_0002`, `WIDTH_0003` |
-
-v0.6의 pya-native geometry handling과 candidate ordering은 [v0.6 릴리즈 노트]({{ '/ko/release-notes/v0.6/' | relative_url }})에 정리했습니다. 통합 review GDS, candidate별 contour datatype, 서비스 메모리 변경은 [v0.7 릴리즈 노트]({{ '/ko/release-notes/v0.7/' | relative_url }})에 정리했습니다. Optional focus/dose process-window workflow와 성능 개선은 [v0.8]({{ '/ko/release-notes/v0.8/' | relative_url }}) 및 [v0.8.1]({{ '/ko/release-notes/v0.8.1/' | relative_url }})에서 확인할 수 있습니다. v0.9의 exact Hopkins 교차검증은 이 페이지의 Abbe 기반 snapshot을 변경하지 않습니다. 상세 내용은 [v0.9 milestone notes]({{ '/ko/release-notes/v0.9/' | relative_url }})에 정리했습니다.
-
----
-
-## 3. What This Demo Shows
-
-| 항목 | 설명 |
-| --- | --- |
-| Geometry-based Candidate | layout 상의 minimum width / space 기준으로 먼저 선별한 후보 영역 |
-| ROI Selection | 계산 가능한 범위에서 우선 검토할 후보 영역 선택 |
-| Rasterized Mask | layout polygon을 pixel grid 위의 binary mask로 변환한 결과 |
-| Aerial Image | simplified Abbe-based imaging으로 계산한 optical intensity map |
-| Multi-threshold Contour | threshold 0.20 / 0.30 / 0.40 기준으로 추출한 contour |
-| Hotspot-like Shape Review | necking, pinch, corner rounding, line-end pullback, bridge-like behavior 등을 시각적으로 검토 |
-
-핵심 비교 구조는 다음과 같습니다.
-
-```text
-geometry-based candidate
-    vs
-aerial-image-based optical response
-    vs
-threshold-contour-based printed-shape-like behavior
-```
-
-Threshold contour는 calibrated resist contour가 아닙니다. Aerial image가 threshold level에 따라 어떤 contour behavior로 나타나는지 확인하기 위한 정성적 시각화 기준입니다.
-
----
-
-## 4. Representative Candidate Results
-
-아래 결과는 현재 Render interface와 같은 순서로 구성했습니다. 공개 hosted instance는 가벼운 interactive 사용을 위한 것이므로, 같은 service path를 로컬에서 실행해 결과를 생성했습니다.
-
-<div class="demo-meta-strip" aria-label="데모 결과 메타데이터">
-  <span><strong>입력</strong> sky130_fd_sc_hd_dfrtp_1.gds</span>
-  <span><strong>Layer / datatype</strong> 67 / 20</span>
-  <span><strong>Backend</strong> pya-native</span>
-  <span><strong>Runtime</strong> 3.68 s</span>
-</div>
-
-### Analysis Summary
-
-<div class="demo-summary-grid">
-  <div class="demo-summary-block"><span>입력 도형</span><strong>32</strong></div>
-  <div class="demo-summary-block"><span>Raw edge pair</span><strong>116</strong></div>
-  <div class="demo-summary-block"><span>Width component</span><strong>27</strong></div>
-  <div class="demo-summary-block"><span>Space component</span><strong>34</strong></div>
-</div>
-
-### Approximate Printed Metrics and Imaging Condition
-
-<div class="demo-summary-grid demo-summary-grid-wide">
-  <div class="demo-summary-block"><span>Minimum printed width</span><strong>0.169 µm</strong><small>threshold 0.30</small></div>
-  <div class="demo-summary-block"><span>Minimum printed space</span><strong>0.174 µm</strong><small>threshold 0.30</small></div>
-  <div class="demo-summary-block"><span>Optical condition</span><strong>248 nm · NA 0.68</strong><small>sigma 0.60 · dense7 · source 29개</small></div>
-</div>
-
-### Main Hotspot Overlay
-
-![선택된 WIDTH_0002 hotspot overlay]({{ '/assets/demo/v0.7/main_hotspot_overlay.png' | relative_url }})
-
-Main overlay는 유효한 direct-intensity width metric이 가장 작은 `WIDTH_0002`를 중심으로 aerial image, 세 threshold contour, inner ROI, worst-width 위치를 함께 표시합니다.
-
-### Worst Printed Width and Space
-
-<div class="demo-image-grid">
-  <figure>
-    <img src="{{ '/assets/demo/v0.7/worst_width_zoom.png' | relative_url }}" alt="0.169 마이크로미터 worst approximate printed width 확대 결과">
-    <figcaption>Worst approximate printed width: <code>WIDTH_0002</code> 주변 0.169 µm.</figcaption>
-  </figure>
-  <figure>
-    <img src="{{ '/assets/demo/v0.7/worst_space_zoom.png' | relative_url }}" alt="0.174 마이크로미터 worst approximate printed space 확대 결과">
-    <figcaption>Worst approximate printed space: <code>SPACE_0001</code> 주변 0.174 µm.</figcaption>
-  </figure>
-</div>
-
-### Geometry Candidate Overview
-
-![pya-native geometry candidate overview]({{ '/assets/demo/v0.7/geometry_candidate_overview.png' | relative_url }})
-
-Overview는 병합된 전체 width / space violation region과 선택 candidate anchor를 보여줍니다. Marker가 조밀하게 보이는 것은 geometry screening map이기 때문이며, 위의 이미지가 선택 ROI에 대한 optical review 결과입니다.
-
----
-
-## 5. Common Interpretation Points
-
-Summary, 선택 overlay, measurement 확대 결과, geometry overview를 함께 검토해야 합니다.
-
-주요 확인 포인트는 다음과 같습니다.
-
-* aerial image에서 edge blur 또는 intensity spreading이 보이는가?
-* line-end pullback-like behavior가 나타나는가?
-* corner rounding-like behavior가 나타나는가?
-* narrow-width 주변에서 necking 또는 pinch-like behavior가 보이는가?
-* narrow-space 주변에서 bridge-like behavior가 보이는가?
-* 0.20 / 0.30 / 0.40 threshold contour가 얼마나 이동하는가?
-* 큰 contour movement가 geometry-based candidate 위치와 맞물리는가?
-
-이 demo의 목적은 최종 hotspot 판정이 아니라, 추가 검토할 위치를 빠르게 좁히는 것입니다.
-
----
-
-## 6. Current Scope and Limitations
-
-현재 demo는 public preview를 위한 정성적 시각화 결과입니다.
-
-다음과 같은 한계가 있습니다.
-
-* width / space screening criterion은 preview heuristic이며 calibrated process rule이 아닙니다.
-* candidate selection은 optimized hotspot-ranking logic이 아닙니다.
-* 계산량을 고려해 소수의 대표 ROI만 보여줍니다.
-* simplified Abbe-based imaging model을 사용합니다.
-* Wafer-data-based calibration은 포함하지 않습니다.
-* Resist 및 etch model은 포함하지 않습니다.
-* threshold contour는 qualitative visualization 기준입니다.
-* CD prediction accuracy가 목표가 아닙니다.
-* Public 또는 synthetic example을 사용합니다.
-* live demo에는 public, non-confidential GDS/OAS file만 사용해야 합니다.
-* Public preview repository에는 core implementation code를 포함하지 않습니다.
-
-따라서 현재 결과는 다음과 같은 의미로 해석해야 합니다.
-
-```text
-qualitative visual indicators
-```
-
-다음과 같은 의미는 아닙니다.
-
-```text
-production specifications
-```
-
----
-
-## 7. Feedback Points
-
-다음 항목에 대한 feedback이 특히 도움이 됩니다.
-
-* multi-threshold contour가 contour sensitivity를 이해하는 데 도움이 되는지
-* hotspot-like shape 관찰이 직관적인지
-* necking, corner rounding, line-end pullback, bridge-like behavior 관찰이 유용한지
-* 어떤 pattern case를 추가하면 preview가 더 명확해지는지
-
-<a href="{{ site.feedback_url }}" target="_blank" rel="noopener noreferrer">GeoSignal Preview form으로 feedback 남기기</a>
-
----
-
-## 8. Related Pages
-
-* [Home]({{ '/ko/' | relative_url }})
-* [Method]({{ '/ko/method/' | relative_url }})
-* [Technical Notes]({{ '/ko/notes/' | relative_url }})
-* [Release Notes]({{ '/ko/release-notes/' | relative_url }})
+[Method]({{ '/ko/method/' | relative_url }}) · [Validation notes]({{ '/ko/notes/v0.10-validation/' | relative_url }}) · [Legacy Demo]({{ '/ko/demo-legacy/' | relative_url }})

@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: 기술 노트
 description: GeoSignal Preview 기술 노트 한국어 목록
@@ -26,3 +26,5 @@ lang: ko
 * [홈]({{ '/ko/' | relative_url }})
 * [데모]({{ '/ko/demo/' | relative_url }})
 * [방법론]({{ '/ko/method/' | relative_url }})
+
+- [v0.10 validation]({{ '/ko/notes/v0.10-validation/' | relative_url }})

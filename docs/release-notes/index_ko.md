@@ -32,7 +32,7 @@ v0.1부터 v0.4까지는 저장소 커밋 이력을 바탕으로 복원한 과�
 | [v0.9]({{ '/ko/release-notes/v0.9/' | relative_url }}) | 정확한 Hopkins/TCC/SOCS 교차검증과 bounded optical-mode cache |
 
 v0.8.0, v0.8.1, v0.9.0은 application 저장소에 tag가 생성된 릴리스입니다.
-v0.9.0은 2026년 8월 12일 릴리스됐으며, 공개 service의 default는 Abbe로
+v0.9.0에서 공개 service의 default는 Abbe로
 유지됩니다.
 
 ## 읽는 순서
@@ -59,3 +59,5 @@ Release Notes
 * [데모]({{ '/ko/demo/' | relative_url }})
 * [방법론]({{ '/ko/method/' | relative_url }})
 * [기술 노트]({{ '/ko/notes/' | relative_url }})
+
+- [v0.10 — validation snapshot]({{ '/ko/release-notes/v0.10/' | relative_url }})

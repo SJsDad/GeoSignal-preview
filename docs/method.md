@@ -13,7 +13,7 @@ permalink: /method/
 
 This page explains the calculation concept and interpretation flow used in **GeoSignal Preview**.
 
-GeoSignal Preview is not intended to be a production-level lithography simulator or a calibrated wafer prediction model. Instead, it is a preview workflow that first identifies candidate regions from layout geometry, then reviews selected ROIs using a simplified optical model and multi-threshold contour visualization.
+GeoSignal Preview is not intended to be a production-level lithography simulator or a calibrated wafer prediction model. Instead, it is a preview workflow that first identifies candidate regions from layout geometry, then reviews selected ROIs using a simplified optical model and relative-dose contour visualization.
 
 The basic method flow is:
 
@@ -23,7 +23,7 @@ Layout Geometry
     -> ROI Selection
     -> ROI Rasterization
     -> Abbe-based Aerial Image Calculation
-    -> Multi-threshold Contour Extraction
+    -> Relative-dose Contour Extraction
     -> Hotspot-like Shape Review
 ```
 
@@ -64,6 +64,8 @@ Find potentially weak locations from layout geometry
 ```
 
 Specific rule thresholds, ordering heuristics, backend changes, and benchmark results are documented in [v0.5]({{ '/release-notes/v0.5/' | relative_url }}) and [v0.6]({{ '/release-notes/v0.6/' | relative_url }}) release notes.
+
+Candidates are ranked by measured minimum width/space first, then smaller width-component area or larger space-component area; deterministic ties and missing-distance fallback follow.
 
 ---
 
@@ -184,49 +186,37 @@ The following image compares how aerial-image and contour behavior may change de
 
 ![Source result comparison]({{ '/assets/method/source_result_comparison.png' | relative_url }})
 
-In the current preview, the source-sampling condition is selected by considering both visual stability and computational cost. The detailed rationale for recent default choices is recorded in the release notes.
+Legacy fixed-threshold comparison image; visualization only, not a dose-aware result.
+
+
+In the current preview, the source-sampling condition is selected by considering both visual stability and computational cost. The detailed rationale for default choices is recorded in the release notes.
 
 The current result should be interpreted as qualitative optical-response visualization, not as a scanner-calibrated lithography model.
 
 ---
 
-## 6. Multi-threshold Contour Extraction
+## 6. Relative Dose and Effective Threshold
 
-After the aerial image is calculated, threshold contours are extracted from the intensity image.
+The model resist threshold T0 is fixed; it is not a measured material parameter. The relative exposure model is
+`D0 * d * I(x,y,z) >= T0`, equivalently `I >= T_eff = T0 / (D0 * d)`.
+I is raw clear-field-relative intensity per unit dose. Best-focus dose-to-size
+calibration supplies D0 using the same convention as Process Window.
+The preview compares d = 0.90, 1.00, 1.10 and displays both relative dose and
+T_eff; increasing dose lowers T_eff, not the physical resist threshold T0.
 
-A threshold contour is the curve where aerial-image intensity crosses a selected threshold level.
+Contour extraction, CD/space measurements and PW use raw intensity without
+per-ROI peak or min/max normalization. Normalized backgrounds may be used for
+display only. Failed or out-of-tolerance calibration makes quantitative preview
+unavailable rather than substituting an arbitrary threshold.
 
-```text
-Aerial image
-    -> Intensity threshold
-    -> Threshold contour
-```
+This is an idealized relative exposure model, not scanner/resist calibrated
+signoff and not exposure in mJ/cm². The current Demo uses relative-dose results. Legacy fixed-threshold images are isolated in Legacy Demo and are not convergence evidence.
 
-In GeoSignal Preview, the threshold contour is used as a printed-shape-like visual indicator. It is not a calibrated resist contour.
+The nominal CD fit matches the model to a designed reference/anchor CD, not to measured printed CD. Actual process-model calibration generally uses measured CDs across multiple patterns and focus/exposure conditions; see [Mack et al., Improved Methods for Lithography Model Calibration](https://www.lithoguru.com/scientist/litho_papers/2007_156_Improved%20Methods%20for%20Lithography%20Model%20Calibration.pdf). The fitted value is specific to the reference geometry, optical conditions and numerical settings. It is not a measured resist property. With `Tnorm = T0 / D0`, the contour threshold is `T_eff = Tnorm / d`; T0 and D0 are not independently identified physical parameters in this fit.
 
-The current demo commonly compares the following threshold levels:
+The current binary-mask convention is polygon transmission = 1 and background = 0. The reported high-intensity region (`I >= T_eff`) must not be interpreted as remaining positive-tone resist. A positive-tone remaining-pattern study requires an explicit mask-polarity convention and low-intensity-region measurement, followed by a new nominal fit. Complementing a mask requires recomputing the optical image, not replacing intensity with `1 - I`.
 
-```text
-0.20 / 0.30 / 0.40
-```
-
-These threshold values are used for qualitative comparison only. They should not be interpreted as process-calibrated thresholds or wafer CD references.
-
-Multi-threshold contour comparison helps visualize how the aerial image appears as contour behavior under different threshold levels.
-
-This is useful for reviewing:
-
-* threshold-dependent contour shift
-* weak image-contrast regions
-* necking-like behavior
-* bridge-like behavior
-* line-end-pullback-like behavior
-* corner-rounding-like behavior
-* locations with large contour movement
-
-If a contour moves significantly across threshold levels, the region may have relatively weak or unstable optical response. If a contour remains relatively stable, the region may be more robust from a contour-behavior viewpoint.
-
-Metric implementation changes and convergence checks are summarized in the [v0.6 Release Notes]({{ '/release-notes/v0.6/' | relative_url }}).
+For positive-tone development, the high-intensity contour can describe an idealized resist opening. Whether that opening corresponds to the final conductor depends on the subsequent pattern-transfer process; the GDS layer name alone does not establish this correspondence.
 
 ---
 
@@ -298,7 +288,7 @@ The [Demo]({{ '/demo/' | relative_url }}) page shows visual outputs generated th
 | Geometry-based candidate | Candidate ROI Selection |
 | Rasterized mask | ROI Rasterization |
 | Aerial image | Abbe-based Aerial Image Calculation |
-| Multi-threshold contour | Multi-threshold Contour Extraction |
+| Relative-dose contour | Relative-dose Contour Extraction |
 | Hotspot-like annotation | Hotspot-like Shape Review |
 
 Recommended reading order:
@@ -316,3 +306,9 @@ Recommended reading order:
 * [Demo]({{ '/demo/' | relative_url }})
 * [Technical Notes]({{ '/notes/' | relative_url }})
 * [Release Notes]({{ '/release-notes/' | relative_url }})
+
+## v0.10 geometry and measurement path
+
+Input geometry is rescaled to 0.1 nm DBU without changing physical size. Float intensity produces filled contours with outer/hole associations, then pya Regions. Open contours follow the sampled-domain boundary instead of arbitrary closing chords. Width/space screening checks the full sampled domain and clips paired edges to the inner ROI/domain guard. Curved edges use Euclidean metrics, a 90-degree ignore-angle and shielding. These markers are distinct from fixed-gauge CD or physical hotspot classification.
+
+Registered references are identified by file hash and layer. Other inputs require a gauge center, direction and design CD, checked against geometry. Results record source, pixel, ROI, ambit, optics, DBU, reference and Tnorm.

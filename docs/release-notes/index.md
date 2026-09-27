@@ -34,8 +34,7 @@ General visitors can read [Home]({{ '/' | relative_url }}), [Demo]({{ '/demo/' |
 | [v0.8.1]({{ '/release-notes/v0.8.1/' | relative_url }}) | Backend-neutral imaging contract and focus/dose performance refactor |
 | [v0.9]({{ '/release-notes/v0.9/' | relative_url }}) | Exact Hopkins/TCC/SOCS cross-validation and bounded optical-mode caching |
 
-v0.8.0, v0.8.1, and v0.9.0 are tagged application releases. v0.9.0 was
-released on August 12, 2026 with Abbe retained as the public service default.
+v0.8.0, v0.8.1, and v0.9.0 are tagged application releases. v0.9.0 retains Abbe as the public service default.
 
 ## Reading Guide
 
@@ -61,3 +60,5 @@ The notes below are technical records. They are not required to understand the l
 * [Demo]({{ '/demo/' | relative_url }})
 * [Method]({{ '/method/' | relative_url }})
 * [Technical Notes]({{ '/notes/' | relative_url }})
+
+- [v0.10 — validation snapshot]({{ '/release-notes/v0.10/' | relative_url }})

@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: Technical Notes
 description: Supporting technical notes for GeoSignal Preview
@@ -30,3 +30,5 @@ These notes provide background concepts related to the simplified optical-imagin
 * [Home]({{ '/' | relative_url }})
 * [Demo]({{ '/demo/' | relative_url }})
 * [Method]({{ '/method/' | relative_url }})
+
+- [v0.10 validation]({{ '/notes/v0.10-validation/' | relative_url }})

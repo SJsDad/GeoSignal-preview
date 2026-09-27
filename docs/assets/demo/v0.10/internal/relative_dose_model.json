@@ -1,0 +1,80 @@
+{
+  "nominal_threshold_T0": 0.3,
+  "Tnorm": 0.35391705069124424,
+  "dose_to_size_D0": 0.84765625,
+  "calibration": {
+    "candidate_id": "REFERENCE_ANCHOR",
+    "dose_to_size": 0.84765625,
+    "target_cd_um": 0.17,
+    "measured_cd_um": 0.16997863502992788,
+    "cd_error_fraction": 0.00012567629454193925,
+    "calibrated": true,
+    "search_min": 0.5,
+    "search_max": 2.0,
+    "search_step": 0.05,
+    "search_strategy": "coarse_bracket_refine_continuous_refine",
+    "measurement_evaluations": 18,
+    "at_search_boundary": false,
+    "within_tolerance": true,
+    "calibration_tolerance_um": 0.0001,
+    "calibration_error_um": 2.1364970072129674e-05,
+    "refinement_evaluations": 6,
+    "input_sha256": "464528a971396cdec3a9ae4da1c800092f3e3035ae72f242c539a1601321cada",
+    "reference_gauge": {
+      "x": 147.77,
+      "y": 108.46,
+      "axis": "y",
+      "target_um": 0.17,
+      "feature": "width"
+    },
+    "preset": "internal",
+    "source_mode": "dense11",
+    "pixel_um": 0.01,
+    "roi_um": 2.56,
+    "ambit_um": 0.32,
+    "layer": 67,
+    "datatype": 20,
+    "wavelength_um": 0.248,
+    "na": 0.68,
+    "sigma": 0.6,
+    "meaning": "design anchor nominal CD fit; not measured process calibration"
+  },
+  "model": "T_eff = T0 / (D0 * d); raw clear-field-relative intensity",
+  "physical_dose_units": null,
+  "internal_dbu_um": 0.0001,
+  "source_dbu_um": 0.001,
+  "mask_convention": "polygon transmission=1; contour is high-intensity phase, no development model",
+  "filled_region_layers": [
+    10120,
+    10130,
+    10140
+  ],
+  "width_hotspot_layers": [
+    10220,
+    10230,
+    10240
+  ],
+  "space_hotspot_layers": [
+    10221,
+    10231,
+    10241
+  ],
+  "gds_datatypes": "1-based evaluation order; reference appended after ranked candidates",
+  "contours": [
+    {
+      "relative_dose": 0.9,
+      "effective_threshold": 0.39324116743471577,
+      "review_gds_layer": 10020
+    },
+    {
+      "relative_dose": 1.0,
+      "effective_threshold": 0.35391705069124424,
+      "review_gds_layer": 10030
+    },
+    {
+      "relative_dose": 1.1,
+      "effective_threshold": 0.3217427733556765,
+      "review_gds_layer": 10040
+    }
+  ]
+}

@@ -38,3 +38,6 @@ jobs:
         with:
           source: ./docs
           destination: ./_site
+
+      - name: Validate generated routes and links
+        run: python scripts/validate_pages.py --site _site

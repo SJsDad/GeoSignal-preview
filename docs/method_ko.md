@@ -24,7 +24,7 @@ Layout Geometry
     -> ROI Selection
     -> ROI Rasterization
     -> Abbe-based Aerial Image Calculation
-    -> Multi-threshold Contour Extraction
+    -> Relative-dose Contour Extraction
     -> Hotspot-like Shape Review
 ```
 
@@ -65,6 +65,8 @@ layout geometry에서 잠재적으로 취약한 위치 탐색
 ```
 
 구체적인 threshold, ordering heuristic, backend 변경, benchmark 결과는 [v0.5]({{ '/ko/release-notes/v0.5/' | relative_url }}) 및 [v0.6]({{ '/ko/release-notes/v0.6/' | relative_url }}) 릴리즈 노트에 정리했습니다.
+
+Candidate는 measured minimum width/space 오름차순을 우선하며, 동일 거리에서는 width 면적 오름차순·space 면적 내림차순과 deterministic tie-breaker를 사용합니다. 측정 거리 누락은 후순위입니다.
 
 ---
 
@@ -181,47 +183,38 @@ Final aerial image는 sampling한 모든 source point의 image contribution을 �
 
 ![Source result comparison]({{ '/assets/method/source_result_comparison.png' | relative_url }})
 
+Legacy 고정-threshold 비교 그림이며, dose-aware 정량 결과가 아닙니다.
+
+
 현재 preview에서는 visual stability와 computational cost를 함께 고려해 source-sampling condition을 선택합니다. 최근 default 선택의 상세 근거는 release notes에 정리했습니다.
 
 현재 결과는 scanner-calibrated lithography model이 아니라 정성적 optical-response visualization로 해석해야 합니다.
 
 ---
 
-## 6. Multi-threshold Contour Extraction
+## 6. Relative Dose와 Effective Threshold
 
-Aerial image가 계산되면 intensity image에서 threshold contour를 추출합니다.
+모델의 resist threshold T0는 고정이며, 실측 물성값은 아닙니다. Relative exposure 모델은
+`D0 * d * I(x,y,z) >= T0`, 즉 `I >= T_eff = T0 / (D0 * d)`입니다.
+I는 단위 dose당 raw clear-field-relative intensity입니다. Process Window와
+같은 best-focus dose-to-size calibration으로 D0를 구합니다.
+Preview는 d = 0.90, 1.00, 1.10과 각 T_eff를 함께 표시합니다.
+Dose가 증가하면 T_eff가 감소하며, 물리적 resist threshold T0가 바뀌는 것은 아닙니다.
 
-```text
-Aerial image
-    -> Intensity threshold
-    -> Threshold contour
-```
+Contour, CD/space, PW 계산에는 per-ROI peak 또는 min/max normalization을
+사용하지 않습니다. 정규화된 background는 표시 용도로만 사용할 수 있습니다.
+Calibration 실패 또는 target CD 허용 오차 초과 시 임의 threshold로 대체하지 않고
+정량 preview를 제공할 수 없음을 표시합니다.
 
-GeoSignal Preview에서 threshold contour는 printed-shape-like visual indicator입니다. Calibrated resist contour가 아닙니다.
+이 모델은 idealized relative exposure model이며 scanner/resist calibrated
+signoff 또는 mJ/cm² 단위의 실제 exposure dose가 아닙니다.
+현재 Demo는 relative-dose 결과입니다. 기존 고정-threshold 그림은 Legacy Demo로 구분하며 수렴성 근거로 사용하지 않습니다.
 
-현재 demo는 주로 다음 threshold level을 비교합니다.
+현재 nominal CD fitting은 실제 인쇄 CD 실측값이 아니라 설계한 reference/anchor CD에 모델 결과를 맞추는 것입니다. 실제 공정 모델 calibration은 일반적으로 여러 패턴의 실측 CD와 focus–exposure 데이터를 사용합니다. [Mack 등의 Improved Methods for Lithography Model Calibration](https://www.lithoguru.com/scientist/litho_papers/2007_156_Improved%20Methods%20for%20Lithography%20Model%20Calibration.pdf)을 참고하세요. 보정값은 reference geometry, 광학 조건 및 수치 설정에 종속되며 실측 resist 물성이 아닙니다. `Tnorm = T0 / D0`로 두면 contour threshold는 `T_eff = Tnorm / d`입니다. 이 fitting에서 T0와 D0를 각각 독립적인 물리량으로 식별한 것은 아닙니다.
 
-```text
-0.20 / 0.30 / 0.40
-```
+현재 binary mask는 polygon 투과율 = 1, background = 0이며, 측정하는 high-intensity 영역(`I >= T_eff`)을 positive-tone 현상 후 남는 resist로 해석하면 안 됩니다. 남는 패턴을 평가하려면 mask polarity와 low-intensity 영역 측정을 명시하고 nominal fitting을 다시 해야 합니다. Mask 반전은 광학 이미지를 다시 계산해야 하며 intensity를 단순히 `1 - I`로 바꾸는 것과 다릅니다.
 
-이 threshold 값은 정성적 비교를 위한 것이며 process-calibrated threshold나 wafer CD reference로 해석하면 안 됩니다.
-
-Multi-threshold contour 비교는 aerial image가 threshold level에 따라 어떤 contour behavior를 보이는지 시각화합니다.
-
-다음 항목을 검토하는 데 유용합니다.
-
-* threshold-dependent contour shift
-* weak image-contrast region
-* necking-like behavior
-* bridge-like behavior
-* line-end-pullback-like behavior
-* corner-rounding-like behavior
-* contour movement가 큰 위치
-
-Threshold level에 따라 contour가 크게 이동하면 상대적으로 약하거나 불안정한 optical response일 수 있습니다. Contour가 비교적 안정적이면 contour-behavior 관점에서 더 robust할 수 있습니다.
-
-Metric 구현 변경과 convergence check는 [v0.6 릴리즈 노트]({{ '/ko/release-notes/v0.6/' | relative_url }})에 정리했습니다.
+Positive-tone 현상에서 high-intensity contour는 이상화된 resist 개구부로 해석할 수 있습니다. 그 개구부가 최종 배선 형상에 대응하는지는 후속 패턴 전사 공정에 달려 있으며, GDS layer 이름만으로 이 대응을 확정하지 않습니다.
 
 ---
 
@@ -293,7 +286,7 @@ production lithography verification
 | Geometry-based candidate | Candidate ROI Selection |
 | Rasterized mask | ROI Rasterization |
 | Aerial image | Abbe-based Aerial Image Calculation |
-| Multi-threshold contour | Multi-threshold Contour Extraction |
+| Relative-dose contour | Relative-dose Contour Extraction |
 | Hotspot-like annotation | Hotspot-like Shape Review |
 
 권장 읽기 순서는 다음과 같습니다.
@@ -311,3 +304,9 @@ production lithography verification
 * [Demo]({{ '/ko/demo/' | relative_url }})
 * [Technical Notes]({{ '/ko/notes/' | relative_url }})
 * [Release Notes]({{ '/ko/release-notes/' | relative_url }})
+
+## v0.10 형상 및 측정 경로
+
+입력 geometry는 물리 크기를 유지하며 0.1 nm DBU로 변환합니다. Float intensity에서 외곽과 hole 관계가 포함된 filled contour를 생성한 뒤 pya Region으로 변환합니다. Open contour는 domain 경계로 연결하며 임의 chord로 닫지 않습니다. Width/space screening은 전체 sampled domain에서 수행하고 paired edge를 inner ROI 및 domain guard 안으로 제한합니다. 곡선은 Euclidean metric, ignore-angle 90°, shielding으로 검사합니다. 이 marker는 고정 단면 CD 또는 공정 hotspot 판정과 다릅니다.
+
+등록 reference는 입력 hash와 layer로 식별합니다. 다른 입력은 기준 위치·방향·설계 CD를 지정하고 geometry 일치를 검증합니다. Source, pixel, ROI, ambit, 광학 조건, DBU, reference와 Tnorm을 기록합니다.

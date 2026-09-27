@@ -2,7 +2,7 @@
 
 **GeoSignal Preview** is a documentation-focused public preview of a lightweight, lithography-aware layout visualization workflow.
 
-It connects geometry-based candidate selection with rasterized mask generation, simplified aerial-image calculation, and multi-threshold contour visualization using public GDS or synthetic layout examples.
+It connects geometry-based candidate selection with rasterized mask generation, simplified aerial-image calculation, and relative-dose contour visualization using public GDS or synthetic layout examples.
 
 > This repository presents documentation, demo results, and method explanations.
 > The private core implementation code is not included.
@@ -27,7 +27,7 @@ Layout geometry
     → ROI selection
     → Rasterized mask
     → Simplified aerial image
-    → Multi-threshold contour
+    → Relative-dose contour
     → Hotspot-like shape review
 ```
 
@@ -68,9 +68,9 @@ The current demo uses public or synthetic layout examples and includes:
 * selected regions of interest
 * rasterized binary masks
 * simplified aerial-image intensity maps
-* contours at threshold levels 0.20, 0.30, and 0.40
-* approximate printed minimum width and space at representative threshold 0.30
-* polygon-edge segment measurement with a raster distance-transform comparison baseline
+* relative-dose contours at d = 0.90, 1.00, and 1.10, labeled with effective threshold
+* approximate nominal-dose printed width and space on raw clear-field-relative intensity
+* fixed-reference calibration and fixed-transect CD, with separate pya Region hotspot screening
 * ROI markers
 * hotspot-like shape annotations
 
@@ -91,7 +91,7 @@ These observations should be treated as review signals rather than confirmed pro
 ## 4. Method Summary
 
 The current preview builds on the v0.6 pya-native geometry engine and the v0.7
-bounded-memory review workflow. v0.8 adds physical focus/dose process-window
+bounded-memory review workflow. v0.8 adds idealized relative focus/dose process-window
 analysis, and v0.8.1 makes the imaging integration backend-neutral while
 improving repeated focus/dose execution. The v0.9.0 release adds an exact
 full-rank Hopkins/TCC/SOCS cross-validation path and a bounded optical-mode
@@ -110,8 +110,10 @@ width or space < 0.200 µm
 
 This value is a preview-stage heuristic, not a process rule or calibrated hotspot threshold.
 The comparison is intentionally strict, so geometry measured exactly at `0.200 µm`
-is not included. Width candidates are ranked by smaller component area first, while
-space candidates are ranked by larger component area first.
+is not included. Candidates are primarily prioritized by measured minimum width/space severity.
+Component geometry is a secondary heuristic: smaller area for width and larger
+area for space, followed by deterministic bounding-box ordering. Missing measured
+distances are ordered last.
 
 ### Stage 2: Optical-response review
 
@@ -126,7 +128,7 @@ Rasterized mask
     → Shifted pupil filtering
     → Coherent image contribution
     → Partially coherent aerial image
-    → Multi-threshold contours
+    → Relative-dose contours
 ```
 
 The resulting contours are used as printed-shape-like visual indicators. They are not calibrated resist or wafer contours.
@@ -289,7 +291,7 @@ Useful feedback includes:
 
 * whether the workflow is easy to understand
 * whether the demo images are useful
-* whether multi-threshold contours help explain pattern sensitivity
+* whether relative-dose contours help explain pattern sensitivity
 * whether geometry and optical-response comparisons are meaningful
 * which technical topics need more explanation
 * which layout examples should be added
@@ -310,3 +312,8 @@ No open-source license has been selected for this repository.
 The repository is currently shared as a public documentation and result preview for technical discussion and feedback. The absence of a license does not grant permission to reuse, modify, or redistribute the repository contents.
 
 An appropriate license may be reviewed later if the public scope of the code or documentation expands.
+
+
+## Prepared v0.10 validation snapshot
+
+Home and Demo show regenerated relative-dose results with Speed dense7, Internal dense11, a separate 170 nm reference and 0.1 nm DBU. Speed detailed Region checks are optional; Internal checks all three preview doses. Both export all three filled contours. This prepared snapshot does not claim the live Render deployment or a release tag was updated.
