@@ -1,0 +1,8 @@
+Metric,gdstk,pya
+Extraction runtime,0.128 s,2.583 s
+Extraction peak memory,3.13 MB,5.11 MB
+Width runtime,0.376 s,0.322 s
+Space runtime,0.828 s,0.633 s
+Full service runtime,13.521 s,15.506 s
+Full service wall runtime,13.527 s,15.509 s
+Full service peak memory,115.24 MB,113.22 MB

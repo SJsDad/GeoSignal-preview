@@ -1,0 +1,6 @@
+Measurement,Result
+Warm Abbe median,234.22 ms
+Hopkins first cache miss,390.56 ms
+Hopkins cache-hit median,115.10 ms
+Maximum aerial error,2.66e-15
+Retained Hopkins mode payload,45.31 MiB

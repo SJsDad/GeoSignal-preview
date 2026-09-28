@@ -3,7 +3,7 @@
     "candidate_id": "WIDTH_0001",
     "relative_dose": 0.9,
     "T_eff": 0.40442338072669826,
-    "construction_seconds": 0.009212699998897733,
+    "construction_seconds": 0.004339399994933046,
     "status": "NOT_EVALUATED",
     "dbu_um": 0.0001,
     "reason": "Detailed Region screening disabled or outside Speed nominal-dose scope; all filled contours are exported"
@@ -12,7 +12,7 @@
     "candidate_id": "WIDTH_0001",
     "relative_dose": 1.0,
     "T_eff": 0.3639810426540284,
-    "construction_seconds": 0.008975500000815373,
+    "construction_seconds": 0.0051472999912220985,
     "status": "NOT_EVALUATED",
     "dbu_um": 0.0001,
     "reason": "Detailed Region screening disabled or outside Speed nominal-dose scope; all filled contours are exported"
@@ -21,7 +21,7 @@
     "candidate_id": "WIDTH_0001",
     "relative_dose": 1.1,
     "T_eff": 0.3308918569582076,
-    "construction_seconds": 0.009127599998464575,
+    "construction_seconds": 0.00414329998602625,
     "status": "NOT_EVALUATED",
     "dbu_um": 0.0001,
     "reason": "Detailed Region screening disabled or outside Speed nominal-dose scope; all filled contours are exported"
@@ -30,7 +30,7 @@
     "candidate_id": "SPACE_0001",
     "relative_dose": 0.9,
     "T_eff": 0.40442338072669826,
-    "construction_seconds": 0.00601729999834788,
+    "construction_seconds": 0.006096600001910701,
     "status": "NOT_EVALUATED",
     "dbu_um": 0.0001,
     "reason": "Detailed Region screening disabled or outside Speed nominal-dose scope; all filled contours are exported"
@@ -39,7 +39,7 @@
     "candidate_id": "SPACE_0001",
     "relative_dose": 1.0,
     "T_eff": 0.3639810426540284,
-    "construction_seconds": 0.007542700001067715,
+    "construction_seconds": 0.005674100000760518,
     "status": "NOT_EVALUATED",
     "dbu_um": 0.0001,
     "reason": "Detailed Region screening disabled or outside Speed nominal-dose scope; all filled contours are exported"
@@ -48,7 +48,7 @@
     "candidate_id": "SPACE_0001",
     "relative_dose": 1.1,
     "T_eff": 0.3308918569582076,
-    "construction_seconds": 0.0058070000013685785,
+    "construction_seconds": 0.005422500005806796,
     "status": "NOT_EVALUATED",
     "dbu_um": 0.0001,
     "reason": "Detailed Region screening disabled or outside Speed nominal-dose scope; all filled contours are exported"
@@ -57,7 +57,7 @@
     "candidate_id": "REFERENCE_ANCHOR",
     "relative_dose": 0.9,
     "T_eff": 0.40442338072669826,
-    "construction_seconds": 0.006464199999754783,
+    "construction_seconds": 0.006170299995574169,
     "status": "NOT_EVALUATED",
     "dbu_um": 0.0001,
     "reason": "Detailed Region screening disabled or outside Speed nominal-dose scope; all filled contours are exported"
@@ -66,7 +66,7 @@
     "candidate_id": "REFERENCE_ANCHOR",
     "relative_dose": 1.0,
     "T_eff": 0.3639810426540284,
-    "construction_seconds": 0.0065238000024692155,
+    "construction_seconds": 0.005932900006882846,
     "status": "NOT_EVALUATED",
     "dbu_um": 0.0001,
     "reason": "Detailed Region screening disabled or outside Speed nominal-dose scope; all filled contours are exported"
@@ -75,7 +75,7 @@
     "candidate_id": "REFERENCE_ANCHOR",
     "relative_dose": 1.1,
     "T_eff": 0.3308918569582076,
-    "construction_seconds": 0.006460399999923538,
+    "construction_seconds": 0.006093699994380586,
     "status": "NOT_EVALUATED",
     "dbu_um": 0.0001,
     "reason": "Detailed Region screening disabled or outside Speed nominal-dose scope; all filled contours are exported"

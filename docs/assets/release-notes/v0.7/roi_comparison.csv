@@ -1,0 +1,4 @@
+Local comparison,ROI,Raster,Approx. width / space
+"tt04_pwm.gds`, `< 0.175 um",2.56 um,320 x 320,0.259 / 0.197 um
+"tt04_pwm.gds`, `< 0.175 um",5.00 um,564 x 564,0.254 / 0.194 um
+"sky130_fd_sc_hd_dfrtp_1.gds`, `< 0.175 um",2.56 um,320 x 320,0.169 / 0.174 um

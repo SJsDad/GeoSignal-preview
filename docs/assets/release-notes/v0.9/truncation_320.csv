@@ -1,0 +1,6 @@
+Policy,Modes,Energy,Max aerial error,Mean aerial error,Median,Peak,Logical modes
+top 1,1/29,62.0430%,5.112e-2,1.424e-2,4.52 ms,5.47 MiB,1.56 MiB
+top 5,5/29,87.8349%,2.656e-2,5.111e-3,21.88 ms,7.04 MiB,7.81 MiB
+95% energy,13/29,95.2860%,4.132e-3,1.317e-3,49.05 ms,7.04 MiB,20.31 MiB
+99% energy,25/29,99.1822%,9.821e-4,1.469e-4,94.77 ms,7.04 MiB,39.06 MiB
+99.9% energy,29/29,100%,2.665e-15,1.441e-16,118.79 ms,7.04 MiB,45.31 MiB

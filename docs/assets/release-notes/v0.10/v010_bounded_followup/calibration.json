@@ -1,0 +1,82 @@
+{
+  "dense7": {
+    "coarse": {
+      "candidate_id": "DENSE_67_20_170",
+      "dose_to_size": 0.8,
+      "target_cd_um": 0.17,
+      "measured_cd_um": 0.16512311114949513,
+      "cd_error_fraction": 0.028687581473558144,
+      "calibrated": true,
+      "search_min": 0.5,
+      "search_max": 2.0,
+      "search_step": 0.05,
+      "search_strategy": "coarse_bracket_refine",
+      "measurement_evaluations": 12,
+      "at_search_boundary": false,
+      "within_tolerance": true,
+      "calibration_tolerance_um": null,
+      "calibration_error_um": 0.004876888850504885,
+      "refinement_evaluations": 0
+    },
+    "precise": {
+      "candidate_id": "DENSE_67_20_170",
+      "dose_to_size": 0.82421875,
+      "target_cd_um": 0.17,
+      "measured_cd_um": 0.17001807396233193,
+      "cd_error_fraction": 0.00010631742548185845,
+      "calibrated": true,
+      "search_min": 0.5,
+      "search_max": 2.0,
+      "search_step": 0.05,
+      "search_strategy": "coarse_bracket_refine_continuous_refine",
+      "measurement_evaluations": 18,
+      "at_search_boundary": false,
+      "within_tolerance": true,
+      "calibration_tolerance_um": 0.0001,
+      "calibration_error_um": 1.8073962331915938e-05,
+      "refinement_evaluations": 6
+    },
+    "combined_search_seconds": 0.003577499999664724,
+    "Tnorm": 0.3639810426540284
+  },
+  "dense11": {
+    "coarse": {
+      "candidate_id": "DENSE_67_20_170",
+      "dose_to_size": 0.8500000000000001,
+      "target_cd_um": 0.17,
+      "measured_cd_um": 0.1704161079984693,
+      "cd_error_fraction": 0.0024476941086428138,
+      "calibrated": true,
+      "search_min": 0.5,
+      "search_max": 2.0,
+      "search_step": 0.05,
+      "search_strategy": "coarse_bracket_refine",
+      "measurement_evaluations": 12,
+      "at_search_boundary": false,
+      "within_tolerance": true,
+      "calibration_tolerance_um": null,
+      "calibration_error_um": 0.00041610799846927837,
+      "refinement_evaluations": 0
+    },
+    "precise": {
+      "candidate_id": "DENSE_67_20_170",
+      "dose_to_size": 0.84765625,
+      "target_cd_um": 0.17,
+      "measured_cd_um": 0.16997863502992774,
+      "cd_error_fraction": 0.0001256762945427556,
+      "calibrated": true,
+      "search_min": 0.5,
+      "search_max": 2.0,
+      "search_step": 0.05,
+      "search_strategy": "coarse_bracket_refine_continuous_refine",
+      "measurement_evaluations": 18,
+      "at_search_boundary": false,
+      "within_tolerance": true,
+      "calibration_tolerance_um": 0.0001,
+      "calibration_error_um": 2.1364970072268452e-05,
+      "refinement_evaluations": 6
+    },
+    "combined_search_seconds": 0.003594000001612585,
+    "Tnorm": 0.35391705069124424
+  }
+}

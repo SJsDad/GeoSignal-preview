@@ -1,0 +1,5 @@
+Preset,Abbe calls/time,CD calls/time,Calibration,Full sweep
+smoke,9 / 0.036 s,51 / 0.131 s,0.068 s,0.416 s
+medium,21 / 0.269 s,195 / 0.476 s,0.078 s,1.032 s
+default-grid-proxy,37 / 0.199 s,747 / 1.862 s,0.067 s,2.454 s
+production-shape-smoke,5 / 2.648 s,41 / 0.277 s,0.953 s,2.916 s

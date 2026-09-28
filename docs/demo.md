@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Demo
-description: Find weak layout candidates and review their optical contours from GDS/OAS
+description: Demo results and interpretation for GeoSignal Preview
 permalink: /demo/
 ---
 
@@ -9,47 +9,211 @@ permalink: /demo/
 
 # Demo
 
-## From layout geometry to locations worth reviewing
+## 1. Demo Overview
 
-This example follows the result workflow: **find candidates → inspect local contours → take the results back to a layout viewer.** It uses the public TT04 PWM layout and the Speed preset.
+This page summarizes representative demo results for **GeoSignal Preview**.
 
 {% include live-demo-cta.html %}
 
-## 1. Find the candidate locations
+GeoSignal Preview starts from layout geometry, selects candidate ROIs for review, and generates rasterized masks, simplified Abbe-based aerial images, and relative-dose contours for those selected regions.
 
-The overview highlights narrow-width and narrow-space regions. It helps you see where candidates are concentrated before inspecting individual locations. Markers are screening results, not a count of confirmed defects.
+The purpose of this demo is not to provide accurate process prediction or an optimized hotspot detector. It is to show how geometry-only review can be extended with optical-response and contour-behavior visualization.
 
-![Width and space candidate overview for the public TT04 PWM layout]({{ '/assets/demo/v0.10/speed/geometry_candidate_overview.png' | relative_url }})
+The basic demo flow is:
 
-This illustrated snapshot reviews two ranked candidates and a separate model reference. The live default reviews five ranked candidates plus that reference. The reference sets the comparison baseline; it is not an extra detected hotspot.
+```text
+Layout Geometry
+    -> Geometry-based Candidate Filtering
+    -> ROI Selection
+    -> Rasterized Mask
+    -> Abbe-based Aerial Image
+    -> Relative-dose Contour
+    -> Hotspot-like Shape Review
+```
 
-## 2. Inspect a narrow-width candidate
+The workflow can be understood in two parts:
 
-![Width candidate with geometry, optical intensity and relative-dose contours]({{ '/assets/demo/v0.10/speed/width_candidate.png' | relative_url }})
+```text
+Layout Geometry
+    -> Width / Space screening
+    -> Candidate ROI selection
 
-Look at the cross and the nearby contours. The original geometry selects this location for review, but the nominal optical contour does not retain the feature at its measurement center. The width measurement is therefore unavailable (`missing_feature`), rather than reported as zero or a pass. This is a model observation to investigate, not proof of a wafer defect.
+Candidate ROI
+    -> Rasterized Mask
+    -> Aerial Image
+    -> Relative-dose Contour
+    -> Hotspot-like Shape Review
+```
 
-## 3. Compare a narrow-space candidate
+This demo does not run optical simulation on every layout region. Instead, it first narrows down regions that may deserve review from a geometry viewpoint, then applies optical-model-based contour review to a limited number of ROIs.
 
-![Space candidate with geometry, optical intensity and relative-dose contours]({{ '/assets/demo/v0.10/speed/space_candidate.png' | relative_url }})
+Detailed implementation changes behind this workflow are recorded in [Release Notes]({{ '/release-notes/' | relative_url }}).
 
-Here the gap remains measurable on the selected cross-section: approximately **0.199 µm** at nominal dose, compared with the geometry candidate's **0.170 µm** gap. Check where the three contours separate, and how the nearby line ends and corners change shape.
+---
 
-The red, dark and blue outlines represent relative dose **−10%, nominal and +10%**. The legend also reports their effective thresholds. Large movement suggests sensitivity worth reviewing; it does not by itself establish a defect.
+## 2. Candidate Selection in This Demo
 
-## 4. Continue the review
+The service identifies narrow-width and narrow-gap candidates and reviews five locations by default. The gallery shows six leading width candidates and six leading gap candidates. Downloadable data covers one width candidate, one gap candidate, and a separate reference pattern. An ROI is the small review area around a selected location.
 
-Download the [combined review GDS]({{ '/assets/demo/v0.10/speed/pya_native_combined_review.gds' | relative_url }}) to inspect the original geometry, selected ROIs and contours in a layout viewer. The [result data and reference checks]({{ '/notes/v0.10-validation/' | relative_url }}) are available for readers who want the measurements and model details.
+The selected candidates should be understood as representative review examples, not final hotspot judgments. The exact screening rule and ordering method are preview-stage heuristics used to make the demo concrete and computationally manageable.
 
-These figures use the validated relative-dose calculation for the same saved candidate locations. Detailed contour Region screening is off in the Speed snapshot: absent detailed markers do not mean a pass.
+The important point is the review structure:
 
-<h2 id="getting-started">Try your own public example</h2>
+```text
+Find potentially weak locations from layout geometry
+    -> Calculate optical response at those locations
+    -> Review shape changes through threshold contours
+```
 
-- Choose a public GDS/OAS file, target layer and the Speed preset.
-- The registered TT04 example has a built-in reference. Other files currently require a reference location, direction and design width; this remains a setup limitation of the preview.
-- Start with the candidate overview, then inspect the local contours and measurement status. Use Method only when you want the calculation details.
-- Hosted processing can take time. A completed public-sample request took about 109 seconds; this is one observation, not a response-time guarantee.
+This example uses public TT04 PWM layer 67/20 with the Speed setting. Narrower width/gap comes first; equal measurements prefer larger merged candidate regions. Short interactions are retained. This is not a dedicated line-end selection rule.
 
-Only upload non-confidential layouts. This simplified model is for relative comparison and learning, not manufacturing signoff.
+| Example item | Value |
+| --- | --- |
+| Input | Public TT04 PWM GDS |
+| Layer | 67/20 |
+| Screening | Width or gap strictly below 0.200 µm |
+| Results shown | Width candidate, gap candidate and separate reference |
+| Comparison | 10% less light / baseline / 10% more light |
 
-[How it works]({{ '/method/' | relative_url }}) · [Technical validation and downloads]({{ '/notes/v0.10-validation/' | relative_url }}) · [Earlier Demo]({{ '/demo-legacy/' | relative_url }})
+Optical settings, measurement conventions and evaluations are in [v0.10 Release Notes]({{ '/release-notes/v0.10/' | relative_url }}).
+
+---
+
+## 3. What This Demo Shows
+
+This demo reviews the following items.
+
+| Item | Description |
+| --- | --- |
+| Geometry-based Candidate | Candidate region first selected from minimum width / space in the layout |
+| ROI Selection | Selected review region within the current runtime budget |
+| Rasterized Mask | Binary mask generated by rasterizing layout polygons onto a pixel grid |
+| Aerial Image | Optical intensity map calculated using a simplified Abbe-based imaging model |
+| Relative-dose Contour | Outlines calculated for 10% less light, baseline and 10% more light |
+| Hotspot-like Shape Review | Visual review of necking, pinch, corner rounding, line-end pullback, and bridge-like behavior |
+
+The key comparison is:
+
+```text
+geometry-based candidate
+    vs
+aerial-image-based optical response
+    vs
+threshold-contour-based printed-shape-like behavior
+```
+
+The outlines come from a relative model fitted to the design width of a reference pattern. They show how shape responds to changing the amount of light; they are not process predictions fitted to measured wafers.
+
+---
+
+## 4. Representative Candidate Results
+
+These public-example figures were generated locally through the current analysis code. Start with the candidate overview, then compare the drawing and calculated outlines at selected locations.
+
+### Analysis Summary
+
+Width and gap candidates are locations to inspect. The separate reference pattern sets the comparison baseline; it is not an additional detected hotspot. Large marked regions can combine several smaller geometry-check results.
+
+### Geometry Candidate Overview
+
+![Width and gap candidate overview]({{ '/assets/demo/v0.10/speed/geometry_candidate_overview.png' | relative_url }})
+
+The overview shows narrow-width/gap regions and selected locations across the layout. Marker clusters can guide your review, but their count is not a count of manufacturing defects.
+
+### Six leading width candidates
+
+![Six leading width candidates with aerial images and relative-dose contours]({{ '/assets/release-notes/v0.10/width_area_desc_review/top6.png' | relative_url }})
+
+These six width candidates use the same imaging conditions. The warm-colored background shows the calculated light distribution over the mask; brighter regions receive more light. Cyan, white, and lime outlines show 10% less light, the baseline, and 10% more light, respectively. The orange cross marks the review location.
+
+The CD in each panel is the width measured in the original geometry. Candidates are ordered by that width, then by larger candidate area when widths match. This is distinct from the simulated contour width or a ranking of actual process risk.
+
+[Open the full-size six-candidate image]({{ '/assets/release-notes/v0.10/width_area_desc_review/top6.png' | relative_url }}) · [Conditions and detailed evaluation]({{ '/release-notes/v0.10/' | relative_url }})
+
+### Six leading space candidates
+
+![Six leading space candidates]({{ '/assets/release-notes/v0.10/width_area_desc_review/space_top6.png' | relative_url }})
+
+The six leading gap candidates use the same conditions and colors as the width gallery. Narrower gaps come first, followed by larger merged candidate areas when gaps match. The first three panels show a repeated pattern at different coordinates.
+
+[Open the full-size six-gap image]({{ '/assets/release-notes/v0.10/width_area_desc_review/space_top6.png' | relative_url }})
+
+### Download and Continue
+
+Download the [review GDS]({{ '/assets/demo/v0.10/speed/pya_native_combined_review.gds' | relative_url }}) to view original shapes, review areas and outlines in another layout viewer. Measurements, calibration conditions and additional graphs are in [v0.10 Release Notes]({{ '/release-notes/v0.10/' | relative_url }}).
+
+<h3 id="getting-started">Try your own example</h3>
+
+Choose a non-confidential GDS/OAS file, target layer and Speed. The registered TT04 example includes a reference pattern. Other files currently require a reference location, direction and design width. Check unavailable measurements and skipped-check statuses as well as the figures.
+
+---
+
+## 5. Common Interpretation Points
+
+The summary, selected overlay, measurement zooms, and geometry overview should be reviewed together.
+
+The main points to check are:
+
+* whether edge blur or intensity spreading appears in the aerial image
+* whether line-end pullback-like behavior appears near line ends
+* whether corner rounding-like behavior appears around corners
+* whether necking or pinch-like behavior appears around narrow-width regions
+* whether bridge-like behavior may appear around narrow-space regions
+* how much the relative-dose outliness move
+* whether large contour movement aligns with the geometry-based candidate region
+
+The philosophy of this demo is not to make a final hotspot judgment. It is to help reviewers quickly narrow down locations that deserve attention.
+
+---
+
+## 6. Current Scope and Limitations
+
+The current demo is a qualitative visualization result for public preview.
+
+It has the following limitations.
+
+* The width / space screening criterion is a preview heuristic, not a calibrated process rule.
+* The candidate selection method is not an optimized hotspot-ranking logic.
+* Only a small number of representative ROIs are shown due to runtime considerations.
+* A simplified Abbe-based imaging model is used.
+* Wafer-data-based calibration is not included.
+* Resist and etch models are not included.
+* Threshold contours are used for qualitative comparison and visualization.
+* CD prediction accuracy is not the goal.
+* Public or synthetic examples are used.
+* Use only public, non-confidential GDS/OAS files with the live demo.
+* Core implementation code is not included in this public preview repository.
+
+Therefore, the current results should be interpreted as:
+
+```text
+qualitative visual indicators
+```
+
+not as:
+
+```text
+production specifications
+```
+
+---
+
+## 7. Feedback Points
+
+Feedback is especially helpful for the following points.
+
+* whether relative-dose contour helps understand contour sensitivity
+* whether hotspot-like shape observation is intuitive
+* whether observing necking, corner rounding, line-end pullback, and bridge-like behavior is useful
+* what additional pattern cases would make the preview clearer
+
+<a href="{{ site.feedback_url }}" target="_blank" rel="noopener noreferrer">Share feedback through the GeoSignal Preview form</a>
+
+---
+
+## 8. Related Pages
+
+* [Home]({{ '/' | relative_url }})
+* [Method]({{ '/method/' | relative_url }})
+* [Technical Notes]({{ '/notes/' | relative_url }})
+* [Release Notes]({{ '/release-notes/' | relative_url }})

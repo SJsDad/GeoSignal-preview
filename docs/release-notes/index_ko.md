@@ -30,6 +30,7 @@ v0.1부터 v0.4까지는 저장소 커밋 이력을 바탕으로 복원한 과�
 | [v0.8]({{ '/ko/release-notes/v0.8/' | relative_url }}) | Focus/dose process-window 분석, calibration, PW artifact |
 | [v0.8.1]({{ '/ko/release-notes/v0.8.1/' | relative_url }}) | Backend-neutral imaging contract와 focus/dose 성능 개선 |
 | [v0.9]({{ '/ko/release-notes/v0.9/' | relative_url }}) | 정확한 Hopkins/TCC/SOCS 교차검증과 bounded optical-mode cache |
+| [v0.10]({{ '/ko/release-notes/v0.10/' | relative_url }}) | CD·면적 후보 정렬, 상대 도즈 보정, 조명·픽셀·ambit·DBU 검증과 결과 자료 |
 
 v0.8.0, v0.8.1, v0.9.0은 application 저장소에 tag가 생성된 릴리스입니다.
 v0.9.0에서 공개 service의 default는 Abbe로
@@ -37,7 +38,7 @@ v0.9.0에서 공개 service의 default는 Abbe로
 
 ## 읽는 순서
 
-공개 페이지는 핵심 내용을 짧게 전달합니다.
+홈·데모·방법론은 충분한 소개와 해석을 제공하며, 버전별 세부 평가는 릴리즈 노트에 모읍니다.
 
 ```text
 Home / Demo / Method
@@ -59,5 +60,3 @@ Release Notes
 * [데모]({{ '/ko/demo/' | relative_url }})
 * [방법론]({{ '/ko/method/' | relative_url }})
 * [기술 노트]({{ '/ko/notes/' | relative_url }})
-
-- [v0.10 — validation snapshot]({{ '/ko/release-notes/v0.10/' | relative_url }})

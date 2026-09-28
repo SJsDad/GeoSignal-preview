@@ -1,0 +1,5 @@
+Preset,v0.8,v0.8.1,Change,Result signature
+smoke,1.62 s,1.41 s,-12.7%,identical
+medium,2.10 s,2.07 s,-1.4%,identical
+default-grid-proxy,3.51 s,3.37 s,-4.0%,identical
+production-shape-smoke,4.30 s,2.94 s,-31.7%,identical

@@ -111,8 +111,7 @@ width or space < 0.200 µm
 This value is a preview-stage heuristic, not a process rule or calibrated hotspot threshold.
 The comparison is intentionally strict, so geometry measured exactly at `0.200 µm`
 is not included. Candidates are primarily prioritized by measured minimum width/space severity.
-Component geometry is a secondary heuristic: smaller area for width and larger
-area for space, followed by deterministic bounding-box ordering. Missing measured
+Component geometry is a secondary heuristic: larger merged marker area for both width and space, followed by deterministic bounding-box ordering. Missing measured
 distances are ordered last.
 
 ### Stage 2: Optical-response review

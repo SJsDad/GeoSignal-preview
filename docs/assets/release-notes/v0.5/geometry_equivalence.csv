@@ -1,0 +1,15 @@
+Metric,gdstk,pya
+Top cell,tt_um_pwm,tt_um_pwm
+Cells,41,41
+Top cells,1,1
+Unit,1e-6,1e-6
+Precision,1e-9,1e-9
+DBU,n/a,0.001 um
+Target polygons,"5,511","5,511"
+Vertex histogram,"{4: 5431, 20: 80}","{4: 5431, 20: 80}"
+BBox,"(2.76, 2.48, 166.4, 109.04)","(2.76, 2.48, 166.4, 109.04)"
+Area sum,9479.90034999995,9479.900349999998
+Width markers,666,666
+Space markers,616,616
+ROI polygons in service run,10,15
+Result images,layout/aerial/contour/overlay all generated,layout/aerial/contour/overlay all generated

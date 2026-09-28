@@ -1,4 +1,33 @@
 {
+  "width_roi_selection": {
+    "policy": "measured CD ascending, component area descending, deterministic bbox ties; no short-support exclusion",
+    "eligible_components": 1929,
+    "short_support_components": 280,
+    "excluded_components": 0
+  },
+  "selected_candidates": [
+    {
+      "candidate_id": "WIDTH_0001",
+      "rule_type": "width",
+      "cx": 145.615,
+      "cy": 108.80000000000001,
+      "projection_length_um": 1.6
+    },
+    {
+      "candidate_id": "SPACE_0001",
+      "rule_type": "space",
+      "cx": 16.1,
+      "cy": 108.0475,
+      "projection_length_um": 0.995
+    },
+    {
+      "candidate_id": "REFERENCE_ANCHOR",
+      "rule_type": "width",
+      "cx": 147.77,
+      "cy": 108.46000000000001,
+      "projection_length_um": null
+    }
+  ],
   "nominal_threshold_T0": 0.3,
   "Tnorm": 0.3639810426540284,
   "dose_to_size_D0": 0.82421875,

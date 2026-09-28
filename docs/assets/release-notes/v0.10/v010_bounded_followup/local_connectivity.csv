@@ -1,0 +1,4 @@
+case,inner_component_count,local_strip_count,probe_component_ids,three_lines_present,three_lines_globally_distinct
+dense7_32,6,3,"[3, 2, 6]",True,True
+dense11_32,6,3,"[3, 2, 6]",True,True
+dense13_32,6,3,"[3, 2, 6]",True,True

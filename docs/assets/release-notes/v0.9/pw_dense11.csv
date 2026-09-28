@@ -1,0 +1,6 @@
+Policy,Runtime,Status differences,PASS differences,Grid differences,Max CD error,DoF equal
+Abbe reference,1335.72 ms,0,0,0,0,yes
+top 5,1291.18 ms,5,0,0,1.405e-1 um,yes
+99% energy,1312.10 ms,0,0,0,6.065e-4 um,yes
+99.9% energy,1441.65 ms,0,0,0,6.347e-5 um,yes
+99.99% energy,1333.33 ms,0,0,0,2.577e-5 um,yes

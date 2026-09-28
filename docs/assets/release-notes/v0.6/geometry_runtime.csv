@@ -1,0 +1,5 @@
+Step,gdstk baseline,pya-native,pya speedup
+read + target extraction,0.027074 s,0.022355 s,1.21x
+width rule + candidate construction,0.289389 s,0.039591 s,7.31x
+space rule + candidate construction,0.569764 s,0.120845 s,4.71x
+geometry total,0.871751 s,0.189478 s,4.60x

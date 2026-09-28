@@ -33,12 +33,13 @@ General visitors can read [Home]({{ '/' | relative_url }}), [Demo]({{ '/demo/' |
 | [v0.8]({{ '/release-notes/v0.8/' | relative_url }}) | Focus/dose process-window analysis, calibration, and PW artifacts |
 | [v0.8.1]({{ '/release-notes/v0.8.1/' | relative_url }}) | Backend-neutral imaging contract and focus/dose performance refactor |
 | [v0.9]({{ '/release-notes/v0.9/' | relative_url }}) | Exact Hopkins/TCC/SOCS cross-validation and bounded optical-mode caching |
+| [v0.10]({{ '/release-notes/v0.10/' | relative_url }}) | CD/area ranking, relative-dose fitting, source/pixel/ambit/DBU validation and result artifacts |
 
 v0.8.0, v0.8.1, and v0.9.0 are tagged application releases. v0.9.0 retains Abbe as the public service default.
 
 ## Reading Guide
 
-The public pages keep the main story short:
+Home, Demo and Method explain the workflow and interpretation; release notes collect version-specific evidence:
 
 ```text
 Home / Demo / Method
@@ -60,5 +61,3 @@ The notes below are technical records. They are not required to understand the l
 * [Demo]({{ '/demo/' | relative_url }})
 * [Method]({{ '/method/' | relative_url }})
 * [Technical Notes]({{ '/notes/' | relative_url }})
-
-- [v0.10 — validation snapshot]({{ '/release-notes/v0.10/' | relative_url }})
