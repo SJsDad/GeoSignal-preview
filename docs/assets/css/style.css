@@ -8,7 +8,8 @@
 --accent-soft: #ddf4ff;
 --code-bg: #f6f8fa;
 --focus-ring: rgba(9, 105, 218, 0.35);
---max-content-width: 980px;
+--max-content-width: none;
+--prose-width: 76ch;
 --sidebar-width: 260px;
 }
 
@@ -562,4 +563,26 @@ border-radius: 10px;
 .page-content td {
 padding: 8px 10px;
 }
+}
+
+/* Wide visual review layout: prose stays readable; figures use the full card. */
+.page-content > p:not(:has(img)),
+.page-content > ul,
+.page-content > ol,
+.page-content > blockquote,
+.page-content details > p:not(:has(img)),
+.page-content details > ul,
+.page-content details > ol {
+max-width: var(--prose-width);
+}
+.page-content p:has(> img) {
+max-width: none;
+}
+.page-content p > img {
+width: 100%;
+}
+.page-content iframe {
+display: block;
+width: 100%;
+max-width: 100%;
 }
