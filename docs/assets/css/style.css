@@ -9,7 +9,6 @@
 --code-bg: #f6f8fa;
 --focus-ring: rgba(9, 105, 218, 0.35);
 --max-content-width: none;
---prose-width: 76ch;
 --sidebar-width: 260px;
 }
 
@@ -565,15 +564,10 @@ padding: 8px 10px;
 }
 }
 
-/* Wide visual review layout: prose stays readable; figures use the full card. */
-.page-content > p:not(:has(img)),
-.page-content > ul,
-.page-content > ol,
-.page-content > blockquote,
-.page-content details > p:not(:has(img)),
-.page-content details > ul,
-.page-content details > ol {
-max-width: var(--prose-width);
+/* Text and visuals follow the same available content width. */
+.page-content:lang(ko) {
+word-break: keep-all;
+overflow-wrap: break-word;
 }
 .page-content p:has(> img) {
 max-width: none;
