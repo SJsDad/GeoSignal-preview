@@ -13,7 +13,7 @@ permalink: /
 
 ![Automatically selected width candidate and relative-dose outlines]({{ '/assets/demo/v0.10/speed/home_aerial_overlay.png' | relative_url }})
 
-<p class="demo-caption">The mask is overlaid with a warm-colored aerial image and outlines. The cross marks the review location; the green dashed box marks the review area. The three outlines compare 10% less light, the baseline amount and 10% more light. <a href="{{ '/demo/' | relative_url }}">Explore the results on Demo →</a></p>
+<p class="demo-caption">The mask is overlaid with a warm-colored aerial image and outlines. The cross marks the review location; the green dashed box marks the 2.56 × 2.56 µm review ROI. A 0.32 µm optical margin on each side makes the full displayed area 3.20 × 3.20 µm. The three outlines compare 10% less light, the baseline amount and 10% more light. <a href="{{ '/demo/' | relative_url }}">Explore the results on Demo →</a></p>
 
 {% include live-demo-cta.html %}
 

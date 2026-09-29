@@ -25,5 +25,8 @@
   ],
   "cd_spec_applied": false,
   "measurement": "fixed gauge; 100 nm edge-correspondence guard, not a CD specification",
-  "runtime_scope": "local calculation; not Render verification"
+  "runtime_scope": "local calculation; not Render verification",
+  "display_zoom_um": 1.28,
+  "optical_field_um": 3.2,
+  "display_note": "Candidate close-ups show the central 1.28 um square within the 2.56 um inner ROI; 0.32 um optical margin per side is included in calculation."
 }

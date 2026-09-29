@@ -21,7 +21,7 @@ The basic method flow is:
 
 The same 67/20 width candidate is followed from layout selection to mask, light distribution and relative-dose outlines. The marked region is a candidate for review, not a confirmed defect. Focus / Dose comparison is an optional next step; see the [Demo examples]({{ '/demo/' | relative_url }}).
 
-The dashed box marks the inner review ROI; the surrounding margin supplies optical context. Contours compare relative doses 0.90, 1.00 and 1.10.
+The dashed box marks the 2.56 × 2.56 µm inner review ROI. Panels 2–6 show a 3.20 × 3.20 µm field, including a 0.32 µm optical margin on each side. The layout in panel 1 shows the full layer. Contours compare relative doses 0.90, 1.00 and 1.10.
 
 [Open full-size diagram]({{ '/assets/demo/tt04-comparison/method_flow_67_roi.png' | relative_url }})
 

@@ -22,7 +22,7 @@ GeoSignal Preview는 production-level lithography simulator나 calibrated wafer 
 
 동일한 67/20 폭 후보를 선택한 뒤 마스크, 빛의 분포, 상대 도즈별 윤곽으로 이어지는 흐름입니다. 표시된 위치는 검토 후보이며 확정된 불량이 아닙니다. Focus/Dose 비교는 이후 선택 단계입니다. [Demo 사례]({{ '/ko/demo/' | relative_url }})에서 확인할 수 있습니다.
 
-점선은 실제 검토 영역인 inner ROI이며, 바깥 여유 영역은 주변 패턴의 광학 영향을 계산하기 위한 것입니다. 윤곽은 상대 도즈 0.90·1.00·1.10을 비교합니다.
+점선은 2.56 × 2.56 µm inner ROI입니다. 2–6번 그림은 각 변 바깥의 광학 여유 폭 0.32 µm를 포함한 3.20 × 3.20 µm 범위를 보여줍니다. 1번은 전체 레이어입니다. 윤곽은 상대 도즈 0.90·1.00·1.10을 비교합니다.
 
 [흐름 그림 크게 보기]({{ '/assets/demo/tt04-comparison/method_flow_67_roi.png' | relative_url }})
 

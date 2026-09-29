@@ -14,7 +14,7 @@ lang: ko
 
 ![자동 선택한 폭 후보와 조건별 윤곽]({{ '/assets/demo/v0.10/speed/home_aerial_overlay.png' | relative_url }})
 
-<p class="demo-caption">마스크 위에 붉은색 계열의 빛 분포와 윤곽을 겹쳐 표시했습니다. 십자는 검토 위치, 녹색 점선은 검토 영역입니다. 세 윤곽은 빛을 주는 양을 기준보다 10% 줄인 경우, 기준, 10% 늘린 경우를 보여줍니다. <a href="{{ '/ko/demo/' | relative_url }}">데모에서 결과 살펴보기 →</a></p>
+<p class="demo-caption">마스크 위에 붉은색 계열의 빛 분포와 윤곽을 겹쳐 표시했습니다. 십자는 검토 위치, 녹색 점선은 2.56 × 2.56 µm 검토 ROI입니다. 각 변 바깥의 광학 여유 폭은 0.32 µm이며, 그림 전체 범위는 3.20 × 3.20 µm입니다. 세 윤곽은 빛을 주는 양을 기준보다 10% 줄인 경우, 기준, 10% 늘린 경우를 보여줍니다. <a href="{{ '/ko/demo/' | relative_url }}">데모에서 결과 살펴보기 →</a></p>
 
 {% include live-demo-cta.html %}
 

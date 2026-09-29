@@ -51,6 +51,8 @@ The overview locates candidates across TT04 PWM 67/20. Markers identify places t
 
 Narrower geometry comes first; ties prefer larger candidate regions. The galleries below show six Width and six Space examples. Warm colors show light intensity; cyan, white and lime contours represent dose −10%, nominal and +10%.
 
+**Image scale:** Candidate close-ups (including nominal and 3×3 images) show a **1.28 × 1.28 µm zoom** inside a **2.56 × 2.56 µm calculation ROI**. The calculation also includes a **0.32 µm optical margin on each side**. Zooming changes only the displayed area, not the calculation conditions. The layout overview shows the full layer.
+
 ### Width · top 6
 
 ![Six Width candidates]({{ '/assets/release-notes/v0.10/width_area_desc_review/top6.png' | relative_url }})
@@ -64,6 +66,8 @@ Narrower geometry comes first; ties prefer larger candidate regions. The galleri
 These are actual local calculations on the public TT04 PWM GDS, using the same 67/20 reference. Each example keeps its candidate and measurement location fixed. They are not Render runtime tests or a ranking of entire layers.
 
 Start with the nominal pattern pair. Open the optional comparison to see nine conditions and the corresponding Bossung curves.
+
+The examples below use the same 1.28 µm zoom and 2.56 µm calculation ROI.
 
 ### TT04 PWM 67/20
 
