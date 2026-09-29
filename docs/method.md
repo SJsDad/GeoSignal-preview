@@ -17,15 +17,13 @@ GeoSignal Preview is not intended to be a production-level lithography simulator
 
 The basic method flow is:
 
-```text
-Layout Geometry
-    -> Geometry-based Candidate Filtering
-    -> ROI Selection
-    -> ROI Rasterization
-    -> Abbe-based Aerial Image Calculation
-    -> Relative-dose Contour Extraction
-    -> Hotspot-like Shape Review
-```
+![Six steps from TT04 PWM 67/20 layout to pattern review]({{ '/assets/demo/tt04-comparison/method_flow_67_roi.png' | relative_url }})
+
+The same 67/20 width candidate is followed from layout selection to mask, light distribution and relative-dose outlines. The marked region is a candidate for review, not a confirmed defect. Focus / Dose comparison is an optional next step; see the [Demo examples]({{ '/demo/' | relative_url }}).
+
+The dashed box marks the inner review ROI; the surrounding margin supplies optical context. Contours compare relative doses 0.90, 1.00 and 1.10.
+
+[Open full-size diagram]({{ '/assets/demo/tt04-comparison/method_flow_67_roi.png' | relative_url }})
 
 This method does not run optical simulation on every layout location. It narrows down potentially useful review regions first, then calculates optical-response visualizations only for selected ROIs.
 

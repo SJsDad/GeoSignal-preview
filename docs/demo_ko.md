@@ -10,209 +10,111 @@ lang: ko
 
 # Demo
 
-## 1. Demo Overview
-
-이 페이지는 **GeoSignal Preview**의 대표 데모 결과를 정리한 페이지입니다.
+GDS를 올리고, 좁은 곳을 찾고, 관심 있는 패턴을 크게 살펴봅니다.
 
 {% include live-demo-cta.html %}
 
-GeoSignal Preview는 layout geometry에서 후보 ROI를 선택하고, 해당 영역에 대해 rasterized mask, simplified Abbe-based aerial image, relative-dose contour를 생성한 뒤 hotspot-like 형상을 시각적으로 확인하는 workflow입니다.
+**전체 후보 위치와 주요 패턴이 먼저입니다.** 선택한 레이어에서 폭·간격이 좁은 곳을 찾고, 일부 후보에 대해 빛의 분포와 윤곽을 계산합니다. Focus/Dose 비교는 더 자세히 보고 싶을 때 사용하는 옵션입니다.
 
-정확한 공정 예측이나 최적화된 hotspot 검출기가 목표는 아닙니다. 이 데모는 geometry-only review를 optical-response 및 contour-behavior visualization으로 확장하는 흐름을 보여줍니다.
+## 1. 화면 사용 가이드
 
-기본 데모 흐름은 다음과 같습니다.
+전체 지도 다음에 **유형별 기본 6개 후보**를 보여줍니다. 4·6·8개 중 선택하고 Width/Space를 전환할 수 있습니다. 카드를 누르면 아래에 결과 영역 너비를 채우는 큰 이미지가 나타납니다. 표시 개수는 상세 검토 개수이며 전체 기하학 검사 범위를 제한하지 않습니다.
 
-```text
-Layout Geometry
-    -> Geometry-based Candidate Filtering
-    -> ROI Selection
-    -> Rasterized Mask
-    -> Abbe-based Aerial Image
-    -> Relative-dose Contour
-    -> Hotspot-like Shape Review
-```
+아래는 저장된 데이터를 이용한 인터랙티브 초안입니다. 유형별 6개 예시가 있으며 실제 PW 데이터는 Width·Space 각각 1번 후보에 연결했습니다. 나머지는 미계산으로 표시하고, 8개를 선택해도 없는 예시를 만들어 표시하지 않습니다. 현재 배포 앱과는 화면이 다를 수 있습니다.
 
-전체 workflow는 다음 두 부분으로 이해할 수 있습니다.
+<iframe src="{{ '/assets/demo/ui-guide/reference-draft.html' | relative_url }}" title="Candidate review UI draft" width="100%" height="850" loading="lazy" style="border:1px solid #dce3ec;border-radius:10px" sandbox="allow-scripts allow-downloads allow-popups"></iframe>
 
-```text
-Layout Geometry
-    -> Width / Space screening
-    -> Candidate ROI selection
+[Open the interactive screen ↗]({{ '/assets/demo/ui-guide/reference-draft.html' | relative_url }})
 
-Candidate ROI
-    -> Rasterized Mask
-    -> Aerial Image
-    -> Relative-dose Contour
-    -> Hotspot-like Shape Review
-```
+| 번호 | 항목 | 사용 방법 |
+| --- | --- | --- |
+| ① | File | 공개 가능한 GDS/OAS를 선택합니다. |
+| ② | Layer / Datatype | 분석할 레이어를 지정합니다. TT04 PWM의 68/20도 대상이 될 수 있습니다. |
+| ③ | Width / Space limit | 기하학적 후보를 찾는 기준입니다. 인쇄 CD 허용 오차가 아닙니다. |
+| ④ | ROI / Pixel size | 검토 범위와 픽셀 간격입니다. 조명은 dense7로 고정됩니다. |
+| ⑤ | Focus / Dose | ±범위를 지정합니다. 각 축 3점, 총 9개 조합의 모양과 CD 변화를 비교합니다. |
+| ⑥ | Override reference | 보통 비워 둡니다. 다른 설계 기준에 맞추려면 중심 X/Y, 설계 폭, 측정 방향을 입력합니다. |
+| ⑦ | Candidate locations | 전체 GDS에서 후보 분포를 확인합니다. |
+| ⑧ | Main candidates | 기본 6개, 4·6·8개 선택. 카드를 누르면 아래에 크게 표시됩니다. |
+| ⑨ | Optional comparison | 선택 후보의 3×3 이미지와 Bossung 그래프를 펼칩니다. 합격/불합격 판정은 하지 않습니다. |
 
-이 demo는 모든 layout 영역에서 optical simulation을 실행하지 않습니다. Geometry 관점에서 검토 가치가 있는 영역을 먼저 좁힌 다음, 제한된 수의 ROI에 optical-model 기반 contour review를 적용합니다.
+<h3 id="getting-started">현재 배포 앱 사용 시</h3>
 
-이 workflow의 상세 구현 변경점은 [릴리즈 노트]({{ '/ko/release-notes/' | relative_url }})에 정리했습니다.
+위 화면은 변경 예정 흐름의 미리보기입니다. 현재 배포 앱에서는 등록 예제 외 파일에 기준 위치·측정 방향·설계 폭 입력이 필요할 수 있습니다. 실제 앱에 표시되는 기준 입력 안내를 따라 주세요.
 
----
+**Override reference는 보통 비워 둡니다.** 아래 예시는 TT04 PWM 67/20의 **(147.770, 108.460) µm** anchor를 **설계 폭 170 nm**에 맞춘 기준을 공유합니다. 실제 웨이퍼 측정값에 맞춘 보정은 아니며, 각 후보의 폭을 개별적으로 다시 맞추지 않습니다.
 
-## 2. Candidate Selection in This Demo
+## 2. 주요 후보 찾기
 
-현재 서비스는 폭·간격이 좁은 후보를 찾아 기본적으로 5개 위치를 검토합니다. 아래에는 상위 폭 후보 6개와 간격 후보 6개를 표시했습니다. 다운로드 자료는 폭·간격 후보 각 한 곳과 별도의 기준 패턴 한 곳을 포함합니다. ROI는 선택한 위치 주변의 작은 검토 영역입니다.
+TT04 PWM 67/20 전체에서 후보가 어디에 있는지 먼저 확인합니다. 표시는 검토할 위치이며 실제 제조 불량 판정이 아닙니다.
 
-선택된 후보는 최종 hotspot 판정이 아니라 representative review example입니다. 구체적인 screening rule과 ordering 방식은 데모를 구체화하고 계산량을 관리하기 위한 preview-stage heuristic입니다.
+![TT04 67/20 candidate locations]({{ '/assets/demo/v0.10/speed/geometry_candidate_overview.png' | relative_url }})
 
-중요한 것은 다음 구조입니다.
+원래 도형의 폭·간격이 좁은 순서로, 같으면 후보 면적이 큰 순서로 검토합니다. 아래는 Width·Space 각 6개입니다. 붉은 계열은 빛의 분포, 하늘색·흰색·연두색 윤곽은 도즈 −10%·기준·+10%입니다.
 
-```text
-geometry 기준으로 취약 가능성이 높은 위치를 먼저 찾고
-    -> 해당 위치에서 optical response를 계산하고
-    -> threshold contour를 통해 형상 변화를 확인한다
-```
+### Width · top 6
 
-현재 예제는 공개 TT04 PWM layout의 67/20 레이어를 Speed 설정으로 계산했습니다. 더 좁은 폭·간격을 우선하고, 같은 값이면 병합된 후보 영역이 큰 곳을 먼저 봅니다. 짧은 구간을 일괄 제외하지 않으며, 선 끝만을 따로 찾는 규칙은 아닙니다.
+![Six Width candidates]({{ '/assets/release-notes/v0.10/width_area_desc_review/top6.png' | relative_url }})
 
-| 예제 항목 | 내용 |
-| --- | --- |
-| 입력 | 공개 TT04 PWM GDS |
-| 대상 레이어 | 67/20 |
-| 검사 기준 | 폭 또는 간격이 0.200 µm보다 좁은 곳 |
-| 표시한 결과 | 상위 폭 후보 6개와 간격 후보 6개 |
-| 비교 조건 | 빛의 양 −10% / 기준 / +10% |
+### Space · top 6
 
-광학 설정, 측정 기준과 평가 결과는 [v0.10 릴리즈 노트]({{ '/ko/release-notes/v0.10/' | relative_url }})에서 확인할 수 있습니다.
+![Six Space candidates]({{ '/assets/release-notes/v0.10/width_area_desc_review/space_top6.png' | relative_url }})
 
----
+## 3. 실제 사례: 67/20과 68/20
 
-## 3. What This Demo Shows
+공개 TT04 PWM GDS를 로컬에서 실제 계산한 결과입니다. 두 레이어에 같은 67/20 기준을 적용하고 각 후보와 측정 위치를 고정했습니다. Render 실행 검증이나 레이어 간 성능 순위는 아닙니다.
 
-| 항목 | 설명 |
-| --- | --- |
-| Geometry-based Candidate | layout 상의 minimum width / space 기준으로 먼저 선별한 후보 영역 |
-| ROI Selection | 계산 가능한 범위에서 우선 검토할 후보 영역 선택 |
-| Rasterized Mask | layout polygon을 pixel grid 위의 binary mask로 변환한 결과 |
-| Aerial Image | simplified Abbe-based imaging으로 계산한 optical intensity map |
-| Relative-dose Contour | 빛의 양을 기준 대비 −10% / 기준 / +10%로 바꾸어 계산한 경계선 |
-| Hotspot-like Shape Review | necking, pinch, corner rounding, line-end pullback, bridge-like behavior 등을 시각적으로 검토 |
+먼저 nominal 패턴 두 개를 보고, 필요하면 아래 비교를 펼쳐 9개 조건과 Bossung 그래프를 확인하세요.
 
-핵심 비교 구조는 다음과 같습니다.
+### TT04 PWM 67/20
 
-```text
-geometry-based candidate
-    vs
-aerial-image-based optical response
-    vs
-threshold-contour-based printed-shape-like behavior
-```
+![TT04 67/20 nominal Width and Space]({{ '/assets/demo/tt04-comparison/layer67_nominal.png' | relative_url }})
 
-윤곽은 기준 패턴의 설계 폭에 맞춘 상대 비교 모델의 결과입니다. 빛의 양을 바꿀 때 모양이 어떻게 달라지는지 살펴볼 수 있지만, 실제 웨이퍼 측정값에 맞춘 공정 예측은 아닙니다.
+공통 기준을 사용하므로 원래 도형의 치수와 모델 결과가 다를 수 있습니다. 이 후보들에 따로 치수를 맞춘 것은 아닙니다.
 
----
+<details markdown="1">
+<summary>선택 보기: Focus/Dose 이미지와 Bossung 그래프</summary>
 
-## 4. Representative Candidate Results
+![TT04 67/20 width comparison]({{ '/assets/demo/tt04-comparison/layer67_width.png' | relative_url }})
 
-아래 그림은 현재 코드의 분석 경로로 로컬에서 생성한 공개 예제입니다. 먼저 전체 후보 분포를 보고, 선택한 위치의 원래 도형과 계산한 윤곽을 비교합니다.
+![TT04 67/20 space comparison]({{ '/assets/demo/tt04-comparison/layer67_space.png' | relative_url }})
 
-### Analysis Summary
+![TT04 67/20 bossung comparison]({{ '/assets/demo/tt04-comparison/layer67_bossung.png' | relative_url }})
 
-폭 후보와 간격 후보는 검토할 위치를 뜻합니다. 별도의 기준 패턴은 비교 출발점을 맞추기 위한 것이며 추가로 발견한 hotspot이 아닙니다. 넓게 표시된 후보 영역에는 여러 작은 검사 결과가 병합되어 있을 수 있습니다.
+초점 −0.20 / 0 / +0.20 µm, 상대 도즈 0.90 / 1.00 / 1.10입니다. Bossung 그래프는 가로축 초점, 세로축 측정 치수이며 도즈별 선을 표시합니다. 측정 불가는 연결하지 않습니다. 초점 3점은 추세 확인용으로 정밀한 DoF 추정이나 CD 합격/불합격 판정을 하지 않습니다.
 
-### Geometry Candidate Overview
+</details>
 
-![전체 폭·간격 후보 분포]({{ '/assets/demo/v0.10/speed/geometry_candidate_overview.png' | relative_url }})
+### TT04 PWM 68/20
 
-분포도는 전체 도면에서 폭·간격이 좁은 곳과 선택한 위치를 보여줍니다. 표시가 조밀한 부분부터 살펴볼 수 있지만, 표시 개수를 실제 불량 개수로 해석하지는 않습니다.
+![TT04 68/20 nominal Width and Space]({{ '/assets/demo/tt04-comparison/layer68_nominal.png' | relative_url }})
 
-### 상위 Width 후보 6개
+선택된 Width 후보는 목이 좁아지는 패턴입니다. 원래 폭은 140 nm이고 nominal 모델 측정값은 약 88 nm입니다. 도즈 0.90·초점 ±0.20 µm에서는 고정 측정선 기준으로 형상이 소실되어 측정 불가로 표시됩니다. 이는 해당 위치의 모델 반응이며 실제 웨이퍼 불량 판정은 아닙니다.
 
-![에어리얼 이미지와 도즈별 윤곽선을 표시한 상위 폭 후보 6개]({{ '/assets/release-notes/v0.10/width_area_desc_review/top6.png' | relative_url }})
+<details markdown="1">
+<summary>선택 보기: Focus/Dose 이미지와 Bossung 그래프</summary>
 
-같은 조건에서 선택한 폭 후보 6개를 나란히 비교합니다. 마스크 위의 붉은색 계열은 계산한 빛의 분포이며, 밝을수록 빛의 세기가 큽니다. 하늘색·흰색·연두색 선은 각각 기준보다 빛을 10% 적게, 기준만큼, 10% 많이 주었을 때의 윤곽입니다. 주황색 십자는 검토 위치입니다.
+![TT04 68/20 width comparison]({{ '/assets/demo/tt04-comparison/layer68_width.png' | relative_url }})
 
-그림의 CD는 원래 도형에서 측정한 폭입니다. 후보의 순서는 이 폭을 먼저 비교하고, 같으면 후보 영역의 면적이 큰 쪽을 우선합니다. 빛을 계산한 뒤의 윤곽이나 실제 공정의 위험도 순위와는 구분해야 합니다. 아래 링크에서 큰 크기로 볼 수 있습니다.
+![TT04 68/20 space comparison]({{ '/assets/demo/tt04-comparison/layer68_space.png' | relative_url }})
 
-[6개 후보 이미지 크게 보기]({{ '/assets/release-notes/v0.10/width_area_desc_review/top6.png' | relative_url }}) · [조건과 자세한 평가]({{ '/ko/release-notes/v0.10/' | relative_url }})
+![TT04 68/20 bossung comparison]({{ '/assets/demo/tt04-comparison/layer68_bossung.png' | relative_url }})
 
-### 상위 Space 후보 6개
+초점 −0.20 / 0 / +0.20 µm, 상대 도즈 0.90 / 1.00 / 1.10입니다. Bossung 그래프는 가로축 초점, 세로축 측정 치수이며 도즈별 선을 표시합니다. 측정 불가는 연결하지 않습니다. 초점 3점은 추세 확인용으로 정밀한 DoF 추정이나 CD 합격/불합격 판정을 하지 않습니다.
 
-![상위 Space 후보 6개]({{ '/assets/release-notes/v0.10/width_area_desc_review/space_top6.png' | relative_url }})
+</details>
 
-Width와 같은 조건·색상으로 상위 간격 후보 6개를 비교합니다. 간격이 좁은 순서로, 같으면 병합된 후보 영역이 큰 순서로 선택했습니다. 첫 세 후보가 비슷하게 보이는 것은 서로 다른 좌표에 반복된 패턴이 있기 때문입니다.
+## 4. 결과 읽기
 
-[6개 간격 후보 이미지 크게 보기]({{ '/assets/release-notes/v0.10/width_area_desc_review/space_top6.png' | relative_url }})
+목이 좁아지는지, 간격이 닫히는지, 코너가 둥글어지거나 선 끝이 물러나는지 살펴보세요. 주황 십자는 측정 위치입니다. 3×3의 시안색 선은 계산한 윤곽, Δ는 해당 후보의 nominal 대비 변화입니다. 비교 이미지 안의 밝기 기준은 동일하게 유지했습니다.
 
-### Download and Continue
+모델에서는 폴리곤 영역에 빛이 들어간다고 가정합니다. 이 윤곽만으로 현상·식각 후 어떤 재료가 남는지 결정하지 않습니다. 학습용 상대 모델이며 실측 공정에 보정된 예측이 아닙니다.
 
-[검토용 GDS]({{ '/assets/demo/v0.10/speed/pya_native_combined_review.gds' | relative_url }})를 내려받아 다른 레이아웃 뷰어에서도 원래 도형, 검토 영역과 윤곽을 함께 볼 수 있습니다. 측정 수치, 보정 조건과 추가 그래프는 [v0.10 릴리즈 노트]({{ '/ko/release-notes/v0.10/' | relative_url }})에 있습니다.
+## 5. Data and details
 
-<h3 id="getting-started">직접 예제를 사용하려면</h3>
+- [Measurements CSV]({{ '/assets/demo/tt04-comparison/measurements.csv' | relative_url }})
+- [Reference and conditions]({{ '/assets/demo/tt04-comparison/conditions.json' | relative_url }})
+- [67/20 review GDS]({{ '/assets/demo/v0.10/speed/pya_native_combined_review.gds' | relative_url }})
+- [v0.10 evaluation and technical details]({{ '/ko/release-notes/v0.10/' | relative_url }})
 
-공개 가능한 GDS/OAS와 레이어를 선택하고 Speed 설정으로 시작합니다. 등록된 TT04 예제에는 기준 패턴이 준비되어 있습니다. 다른 파일은 현재 기준 위치·방향·설계 폭을 입력해야 합니다. 결과에서는 측정 불가나 검사 생략 상태도 함께 확인해 주세요.
-
----
-
-## 5. Common Interpretation Points
-
-Summary, 선택 overlay, measurement 확대 결과, geometry overview를 함께 검토해야 합니다.
-
-주요 확인 포인트는 다음과 같습니다.
-
-* aerial image에서 edge blur 또는 intensity spreading이 보이는가?
-* line-end pullback-like behavior가 나타나는가?
-* corner rounding-like behavior가 나타나는가?
-* narrow-width 주변에서 necking 또는 pinch-like behavior가 보이는가?
-* narrow-space 주변에서 bridge-like behavior가 보이는가?
-* 상대 노광량별 윤곽가 얼마나 이동하는가?
-* 큰 contour movement가 geometry-based candidate 위치와 맞물리는가?
-
-이 demo의 목적은 최종 hotspot 판정이 아니라, 추가 검토할 위치를 빠르게 좁히는 것입니다.
-
----
-
-## 6. Current Scope and Limitations
-
-현재 demo는 public preview를 위한 정성적 시각화 결과입니다.
-
-다음과 같은 한계가 있습니다.
-
-* width / space screening criterion은 preview heuristic이며 calibrated process rule이 아닙니다.
-* candidate selection은 optimized hotspot-ranking logic이 아닙니다.
-* 계산량을 고려해 소수의 대표 ROI만 보여줍니다.
-* simplified Abbe-based imaging model을 사용합니다.
-* Wafer-data-based calibration은 포함하지 않습니다.
-* Resist 및 etch model은 포함하지 않습니다.
-* threshold contour는 qualitative visualization 기준입니다.
-* CD prediction accuracy가 목표가 아닙니다.
-* Public 또는 synthetic example을 사용합니다.
-* live demo에는 public, non-confidential GDS/OAS file만 사용해야 합니다.
-* Public preview repository에는 core implementation code를 포함하지 않습니다.
-
-따라서 현재 결과는 다음과 같은 의미로 해석해야 합니다.
-
-```text
-qualitative visual indicators
-```
-
-다음과 같은 의미는 아닙니다.
-
-```text
-production specifications
-```
-
----
-
-## 7. Feedback Points
-
-다음 항목에 대한 feedback이 특히 도움이 됩니다.
-
-* relative-dose contour가 contour sensitivity를 이해하는 데 도움이 되는지
-* hotspot-like shape 관찰이 직관적인지
-* necking, corner rounding, line-end pullback, bridge-like behavior 관찰이 유용한지
-* 어떤 pattern case를 추가하면 preview가 더 명확해지는지
-
-<a href="{{ site.feedback_url }}" target="_blank" rel="noopener noreferrer">GeoSignal Preview form으로 feedback 남기기</a>
-
----
-
-## 8. Related Pages
-
-* [Home]({{ '/ko/' | relative_url }})
-* [Method]({{ '/ko/method/' | relative_url }})
-* [Technical Notes]({{ '/ko/notes/' | relative_url }})
-* [Release Notes]({{ '/ko/release-notes/' | relative_url }})
+검토용 GDS는 저장된 67/20 예시이며 68/20 비교 결과는 포함하지 않습니다. 업로드에는 공개 가능한 비기밀 레이아웃만 사용하세요.

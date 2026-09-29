@@ -1,0 +1,29 @@
+{
+  "input_sha256": "464528a971396cdec3a9ae4da1c800092f3e3035ae72f242c539a1601321cada",
+  "reference_layer": "67/20",
+  "reference_xy_um": [
+    147.77,
+    108.46
+  ],
+  "reference_design_nm": 170,
+  "reference_measured_nm": 170.01807396233193,
+  "T0": 0.3,
+  "D0": 0.82421875,
+  "source": "dense7",
+  "pixel_um": 0.01,
+  "roi_um": 2.56,
+  "ambit_um": 0.32,
+  "focus_um": [
+    -0.2,
+    0,
+    0.2
+  ],
+  "relative_dose": [
+    0.9,
+    1,
+    1.1
+  ],
+  "cd_spec_applied": false,
+  "measurement": "fixed gauge; 100 nm edge-correspondence guard, not a CD specification",
+  "runtime_scope": "local calculation; not Render verification"
+}

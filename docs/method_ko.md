@@ -18,15 +18,13 @@ GeoSignal Preview는 production-level lithography simulator나 calibrated wafer 
 
 기본 method flow는 다음과 같습니다.
 
-```text
-Layout Geometry
-    -> Geometry-based Candidate Filtering
-    -> ROI Selection
-    -> ROI Rasterization
-    -> Abbe-based Aerial Image Calculation
-    -> Relative-dose Contour Extraction
-    -> Hotspot-like Shape Review
-```
+![Six steps from TT04 PWM 67/20 layout to pattern review]({{ '/assets/demo/tt04-comparison/method_flow_67_roi.png' | relative_url }})
+
+동일한 67/20 폭 후보를 선택한 뒤 마스크, 빛의 분포, 상대 도즈별 윤곽으로 이어지는 흐름입니다. 표시된 위치는 검토 후보이며 확정된 불량이 아닙니다. Focus/Dose 비교는 이후 선택 단계입니다. [Demo 사례]({{ '/ko/demo/' | relative_url }})에서 확인할 수 있습니다.
+
+점선은 실제 검토 영역인 inner ROI이며, 바깥 여유 영역은 주변 패턴의 광학 영향을 계산하기 위한 것입니다. 윤곽은 상대 도즈 0.90·1.00·1.10을 비교합니다.
+
+[흐름 그림 크게 보기]({{ '/assets/demo/tt04-comparison/method_flow_67_roi.png' | relative_url }})
 
 모든 layout 영역에 대해 optical simulation을 수행하는 것이 아니라, geometry 기준으로 후보를 먼저 좁힌 뒤 선택된 ROI에 대해서만 optical-response visualization을 계산합니다.
 

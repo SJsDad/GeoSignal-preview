@@ -9,211 +9,111 @@ permalink: /demo/
 
 # Demo
 
-## 1. Demo Overview
-
-This page summarizes representative demo results for **GeoSignal Preview**.
+Upload a layout, find narrow features, and inspect the patterns that deserve a closer look.
 
 {% include live-demo-cta.html %}
 
-GeoSignal Preview starts from layout geometry, selects candidate ROIs for review, and generates rasterized masks, simplified Abbe-based aerial images, and relative-dose contours for those selected regions.
+**Start with locations and patterns.** GeoSignal screens the selected GDS layer for narrow widths and gaps, then calculates optical images for a limited set of candidates. Focus / Dose comparison is an optional next step.
 
-The purpose of this demo is not to provide accurate process prediction or an optimized hotspot detector. It is to show how geometry-only review can be extended with optical-response and contour-behavior visualization.
+## 1. Screen guide
 
-The basic demo flow is:
+The proposed screen below starts with a layout overview and **six candidates per type by default**. Choose 4, 6 or 8, switch between Width and Space, and click a pattern to see it at full width below. Candidate count controls detailed review; it does not limit geometry detection.
 
-```text
-Layout Geometry
-    -> Geometry-based Candidate Filtering
-    -> ROI Selection
-    -> Rasterized Mask
-    -> Abbe-based Aerial Image
-    -> Relative-dose Contour
-    -> Hotspot-like Shape Review
-```
+This is an interactive, saved-data preview, not a live analysis session. Six examples per type are available. Actual PW data is available for Width #1 and Space #1; the other cards show an uncalculated state. Choosing 8 does not invent additional examples. The deployed app may still show the previous interface.
 
-The workflow can be understood in two parts:
+<iframe src="{{ '/assets/demo/ui-guide/reference-draft.html' | relative_url }}" title="Candidate review UI draft" width="100%" height="850" loading="lazy" style="border:1px solid #dce3ec;border-radius:10px" sandbox="allow-scripts allow-downloads allow-popups"></iframe>
 
-```text
-Layout Geometry
-    -> Width / Space screening
-    -> Candidate ROI selection
+[Open the interactive screen ↗]({{ '/assets/demo/ui-guide/reference-draft.html' | relative_url }})
 
-Candidate ROI
-    -> Rasterized Mask
-    -> Aerial Image
-    -> Relative-dose Contour
-    -> Hotspot-like Shape Review
-```
+| No. | Item | How to use it |
+| --- | --- | --- |
+| ① | File | Choose a public, non-confidential GDS/OAS file. |
+| ② | Layer / Datatype | Select the target layer. TT04 PWM 68/20 can also be reviewed. |
+| ③ | Width / Space limit | Geometry screening limits, not printed-CD tolerances. |
+| ④ | ROI / Pixel size | Review area and pixel spacing. Illumination stays at dense7. |
+| ⑤ | Focus / Dose | Enter symmetric ranges. Compare shapes and CD changes at nine combinations. |
+| ⑥ | Override reference | Usually leave blank. To fit another design reference, enter its center X/Y, design width and measurement direction. |
+| ⑦ | Candidate locations | Locate candidate regions across the GDS. |
+| ⑧ | Main candidates | Default: 6 per type; choose 4 / 6 / 8. Click a card for a full-width detail image. |
+| ⑨ | Optional comparison | Expand the selected candidate’s 3×3 images and Bossung curve. No pass/fail grading. |
 
-This demo does not run optical simulation on every layout region. Instead, it first narrows down regions that may deserve review from a geometry viewpoint, then applies optical-model-based contour review to a limited number of ROIs.
+<h3 id="getting-started">Using the live demo</h3>
 
-Detailed implementation changes behind this workflow are recorded in [Release Notes]({{ '/release-notes/' | relative_url }}).
+The screen above previews the updated workflow. In the currently deployed app, files outside the registered examples may still require an explicit reference location, direction and design width. Follow the reference fields shown in that app.
 
----
+Usually, leave **Override reference** blank. These examples share the TT04 PWM 67/20 anchor at **(147.770, 108.460) µm**, fitted to its **170 nm design width**. This is a common comparison baseline, not calibration to measured wafers. Other patterns are not individually fitted.
 
-## 2. Candidate Selection in This Demo
+## 2. Find the main candidates
 
-The service identifies narrow-width and narrow-gap candidates and reviews five locations by default. The gallery shows six leading width candidates and six leading gap candidates. Downloadable data covers one width candidate, one gap candidate, and a separate reference pattern. An ROI is the small review area around a selected location.
+The overview locates candidates across TT04 PWM 67/20. Markers identify places to inspect, not confirmed manufacturing defects.
 
-The selected candidates should be understood as representative review examples, not final hotspot judgments. The exact screening rule and ordering method are preview-stage heuristics used to make the demo concrete and computationally manageable.
+![TT04 67/20 candidate locations]({{ '/assets/demo/v0.10/speed/geometry_candidate_overview.png' | relative_url }})
 
-The important point is the review structure:
+Narrower geometry comes first; ties prefer larger candidate regions. The galleries below show six Width and six Space examples. Warm colors show light intensity; cyan, white and lime contours represent dose −10%, nominal and +10%.
 
-```text
-Find potentially weak locations from layout geometry
-    -> Calculate optical response at those locations
-    -> Review shape changes through threshold contours
-```
+### Width · top 6
 
-This example uses public TT04 PWM layer 67/20 with the Speed setting. Narrower width/gap comes first; equal measurements prefer larger merged candidate regions. Short interactions are retained. This is not a dedicated line-end selection rule.
+![Six Width candidates]({{ '/assets/release-notes/v0.10/width_area_desc_review/top6.png' | relative_url }})
 
-| Example item | Value |
-| --- | --- |
-| Input | Public TT04 PWM GDS |
-| Layer | 67/20 |
-| Screening | Width or gap strictly below 0.200 µm |
-| Results shown | Width candidate, gap candidate and separate reference |
-| Comparison | 10% less light / baseline / 10% more light |
+### Space · top 6
 
-Optical settings, measurement conventions and evaluations are in [v0.10 Release Notes]({{ '/release-notes/v0.10/' | relative_url }}).
+![Six Space candidates]({{ '/assets/release-notes/v0.10/width_area_desc_review/space_top6.png' | relative_url }})
 
----
+## 3. Actual examples: 67/20 and 68/20
 
-## 3. What This Demo Shows
+These are actual local calculations on the public TT04 PWM GDS, using the same 67/20 reference. Each example keeps its candidate and measurement location fixed. They are not Render runtime tests or a ranking of entire layers.
 
-This demo reviews the following items.
+Start with the nominal pattern pair. Open the optional comparison to see nine conditions and the corresponding Bossung curves.
 
-| Item | Description |
-| --- | --- |
-| Geometry-based Candidate | Candidate region first selected from minimum width / space in the layout |
-| ROI Selection | Selected review region within the current runtime budget |
-| Rasterized Mask | Binary mask generated by rasterizing layout polygons onto a pixel grid |
-| Aerial Image | Optical intensity map calculated using a simplified Abbe-based imaging model |
-| Relative-dose Contour | Outlines calculated for 10% less light, baseline and 10% more light |
-| Hotspot-like Shape Review | Visual review of necking, pinch, corner rounding, line-end pullback, and bridge-like behavior |
+### TT04 PWM 67/20
 
-The key comparison is:
+![TT04 67/20 nominal Width and Space]({{ '/assets/demo/tt04-comparison/layer67_nominal.png' | relative_url }})
 
-```text
-geometry-based candidate
-    vs
-aerial-image-based optical response
-    vs
-threshold-contour-based printed-shape-like behavior
-```
+The geometry and model measurements differ because the common reference is not fitted separately to these candidates.
 
-The outlines come from a relative model fitted to the design width of a reference pattern. They show how shape responds to changing the amount of light; they are not process predictions fitted to measured wafers.
+<details markdown="1">
+<summary>Optional: Focus / Dose images and Bossung curves</summary>
 
----
+![TT04 67/20 width comparison]({{ '/assets/demo/tt04-comparison/layer67_width.png' | relative_url }})
 
-## 4. Representative Candidate Results
+![TT04 67/20 space comparison]({{ '/assets/demo/tt04-comparison/layer67_space.png' | relative_url }})
 
-These public-example figures were generated locally through the current analysis code. Start with the candidate overview, then compare the drawing and calculated outlines at selected locations.
+![TT04 67/20 bossung comparison]({{ '/assets/demo/tt04-comparison/layer67_bossung.png' | relative_url }})
 
-### Analysis Summary
+Focus: −0.20 / 0 / +0.20 µm. Relative dose: 0.90 / 1.00 / 1.10. Bossung plots show measured size against focus, one line per dose. Missing measurements are not connected; three sampled points show a trend, not a precise DoF estimate. No CD pass/fail specification is applied.
 
-Width and gap candidates are locations to inspect. The separate reference pattern sets the comparison baseline; it is not an additional detected hotspot. Large marked regions can combine several smaller geometry-check results.
+</details>
 
-### Geometry Candidate Overview
+### TT04 PWM 68/20
 
-![Width and gap candidate overview]({{ '/assets/demo/v0.10/speed/geometry_candidate_overview.png' | relative_url }})
+![TT04 68/20 nominal Width and Space]({{ '/assets/demo/tt04-comparison/layer68_nominal.png' | relative_url }})
 
-The overview shows narrow-width/gap regions and selected locations across the layout. Marker clusters can guide your review, but their count is not a count of manufacturing defects.
+The selected width candidate has a narrow neck. Its nominal model width is about 88 nm versus 140 nm in the geometry. At dose 0.90 and focus ±0.20 µm, the fixed-gauge measurement reports a missing feature. This is a local model response, not a wafer-defect claim.
 
-### Six leading width candidates
+<details markdown="1">
+<summary>Optional: Focus / Dose images and Bossung curves</summary>
 
-![Six leading width candidates with aerial images and relative-dose contours]({{ '/assets/release-notes/v0.10/width_area_desc_review/top6.png' | relative_url }})
+![TT04 68/20 width comparison]({{ '/assets/demo/tt04-comparison/layer68_width.png' | relative_url }})
 
-These six width candidates use the same imaging conditions. The warm-colored background shows the calculated light distribution over the mask; brighter regions receive more light. Cyan, white, and lime outlines show 10% less light, the baseline, and 10% more light, respectively. The orange cross marks the review location.
+![TT04 68/20 space comparison]({{ '/assets/demo/tt04-comparison/layer68_space.png' | relative_url }})
 
-The CD in each panel is the width measured in the original geometry. Candidates are ordered by that width, then by larger candidate area when widths match. This is distinct from the simulated contour width or a ranking of actual process risk.
+![TT04 68/20 bossung comparison]({{ '/assets/demo/tt04-comparison/layer68_bossung.png' | relative_url }})
 
-[Open the full-size six-candidate image]({{ '/assets/release-notes/v0.10/width_area_desc_review/top6.png' | relative_url }}) · [Conditions and detailed evaluation]({{ '/release-notes/v0.10/' | relative_url }})
+Focus: −0.20 / 0 / +0.20 µm. Relative dose: 0.90 / 1.00 / 1.10. Bossung plots show measured size against focus, one line per dose. Missing measurements are not connected; three sampled points show a trend, not a precise DoF estimate. No CD pass/fail specification is applied.
 
-### Six leading space candidates
+</details>
 
-![Six leading space candidates]({{ '/assets/release-notes/v0.10/width_area_desc_review/space_top6.png' | relative_url }})
+## 4. Read the results
 
-The six leading gap candidates use the same conditions and colors as the width gallery. Narrower gaps come first, followed by larger merged candidate areas when gaps match. The first three panels show a repeated pattern at different coordinates.
+Look for a narrowing neck, a closing gap, rounded corners or a line end pulling back. The orange cross marks the measurement location. In the 3×3 images, cyan marks the calculated contour and Δ shows the change from that candidate’s nominal result. Brightness is held consistent within each comparison.
 
-[Open the full-size six-gap image]({{ '/assets/release-notes/v0.10/width_area_desc_review/space_top6.png' | relative_url }})
+The model treats polygons as illuminated regions. These contours do not determine which material remains after resist development or etch. They are relative model results for study, not calibrated process predictions.
 
-### Download and Continue
+## 5. Data and details
 
-Download the [review GDS]({{ '/assets/demo/v0.10/speed/pya_native_combined_review.gds' | relative_url }}) to view original shapes, review areas and outlines in another layout viewer. Measurements, calibration conditions and additional graphs are in [v0.10 Release Notes]({{ '/release-notes/v0.10/' | relative_url }}).
+- [Measurements CSV]({{ '/assets/demo/tt04-comparison/measurements.csv' | relative_url }})
+- [Reference and conditions]({{ '/assets/demo/tt04-comparison/conditions.json' | relative_url }})
+- [67/20 review GDS]({{ '/assets/demo/v0.10/speed/pya_native_combined_review.gds' | relative_url }})
+- [v0.10 evaluation and technical details]({{ '/release-notes/v0.10/' | relative_url }})
 
-<h3 id="getting-started">Try your own example</h3>
-
-Choose a non-confidential GDS/OAS file, target layer and Speed. The registered TT04 example includes a reference pattern. Other files currently require a reference location, direction and design width. Check unavailable measurements and skipped-check statuses as well as the figures.
-
----
-
-## 5. Common Interpretation Points
-
-The summary, selected overlay, measurement zooms, and geometry overview should be reviewed together.
-
-The main points to check are:
-
-* whether edge blur or intensity spreading appears in the aerial image
-* whether line-end pullback-like behavior appears near line ends
-* whether corner rounding-like behavior appears around corners
-* whether necking or pinch-like behavior appears around narrow-width regions
-* whether bridge-like behavior may appear around narrow-space regions
-* how much the relative-dose outliness move
-* whether large contour movement aligns with the geometry-based candidate region
-
-The philosophy of this demo is not to make a final hotspot judgment. It is to help reviewers quickly narrow down locations that deserve attention.
-
----
-
-## 6. Current Scope and Limitations
-
-The current demo is a qualitative visualization result for public preview.
-
-It has the following limitations.
-
-* The width / space screening criterion is a preview heuristic, not a calibrated process rule.
-* The candidate selection method is not an optimized hotspot-ranking logic.
-* Only a small number of representative ROIs are shown due to runtime considerations.
-* A simplified Abbe-based imaging model is used.
-* Wafer-data-based calibration is not included.
-* Resist and etch models are not included.
-* Threshold contours are used for qualitative comparison and visualization.
-* CD prediction accuracy is not the goal.
-* Public or synthetic examples are used.
-* Use only public, non-confidential GDS/OAS files with the live demo.
-* Core implementation code is not included in this public preview repository.
-
-Therefore, the current results should be interpreted as:
-
-```text
-qualitative visual indicators
-```
-
-not as:
-
-```text
-production specifications
-```
-
----
-
-## 7. Feedback Points
-
-Feedback is especially helpful for the following points.
-
-* whether relative-dose contour helps understand contour sensitivity
-* whether hotspot-like shape observation is intuitive
-* whether observing necking, corner rounding, line-end pullback, and bridge-like behavior is useful
-* what additional pattern cases would make the preview clearer
-
-<a href="{{ site.feedback_url }}" target="_blank" rel="noopener noreferrer">Share feedback through the GeoSignal Preview form</a>
-
----
-
-## 8. Related Pages
-
-* [Home]({{ '/' | relative_url }})
-* [Method]({{ '/method/' | relative_url }})
-* [Technical Notes]({{ '/notes/' | relative_url }})
-* [Release Notes]({{ '/release-notes/' | relative_url }})
+The review GDS is the saved 67/20 example; it does not include the 68/20 comparison. Upload only public, non-confidential layouts.
