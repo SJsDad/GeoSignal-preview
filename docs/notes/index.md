@@ -1,11 +1,10 @@
 ---
-layout: default
+layout: technical
 title: Technical Notes
-description: Supporting technical notes for GeoSignal Preview
 permalink: /notes/
 ---
 
-<p class="language-switch"><a href="{{ '/ko/notes/' | relative_url }}" lang="ko">한국어로 보기</a></p>
+<p class="language-switch"><a href="{{ '/ko/notes/' | relative_url }}">한국어로 보기</a></p>
 
 # Technical Notes
 
@@ -13,22 +12,25 @@ This section provides supporting notes for understanding the demo and method pag
 
 These notes provide background concepts related to the simplified optical-imaging and contour-visualization workflow used in GeoSignal Preview.
 
-## Notes
+Study the optical and mathematical foundations, then examine research architectures and practical OPC implications. Research reviews are written in Korean.
 
-{% assign abbe_url = '/notes/abbe-imaging/' | relative_url %}
-{% assign fourier_url = '/notes/fourier-optics/' | relative_url %}
+## Physics & Math Foundations
 
-| Topic                               | Description                                                                  |
-| ----------------------------------- | ---------------------------------------------------------------------------- |
-| [Abbe Imaging]({{ abbe_url }})      | Simplified explanation of Abbe-style imaging used in the preview workflow    |
-| [Fourier Optics]({{ fourier_url }}) | Background note on Fourier-optics concepts related to aerial-image formation |
+* [Foundations Overview]({{ '/notes/foundations/' | relative_url }})
+* [Abbe Imaging]({{ '/notes/abbe-imaging/' | relative_url }}) — Partial coherence · Source sampling · Pupil
+* [Fourier Optics]({{ '/notes/fourier-optics/' | relative_url }}) — FFT · Convolution · Sampling
+* [Hopkins / TCC / SOCS]({{ '/ko/notes/foundations/hopkins-tcc-socs/' | relative_url }}) — 한국어
+* [Inverse Problem / Metrics]({{ '/ko/notes/foundations/inverse-and-metrics/' | relative_url }}) — 한국어
 
----
+## Research Paper Reviews
+
+[Overview · 비교 및 탐색]({{ '/ko/notes/research/' | relative_url }}) — 8편의 연구 분야, 입력·출력, 물리 지식의 주입 위치를 비교합니다. 접근 제한은 각 리뷰에 표시합니다.
+
+{% include research-catalog.html %}
 
 ## Related Pages
 
 * [Home]({{ '/' | relative_url }})
 * [Demo]({{ '/demo/' | relative_url }})
 * [Method]({{ '/method/' | relative_url }})
-
-- [v0.10 validation]({{ '/notes/v0.10-validation/' | relative_url }})
+* [v0.10 validation]({{ '/notes/v0.10-validation/' | relative_url }}) — 기존 검증 기록

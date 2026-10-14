@@ -4,14 +4,14 @@ on:
   pull_request:
     paths:
       - "docs/**"
-      - "scripts/validate_pages.py"
+      - "scripts/**"
       - ".github/workflows/pages-ci.yml"
   push:
     branches:
       - main
     paths:
       - "docs/**"
-      - "scripts/validate_pages.py"
+      - "scripts/**"
       - ".github/workflows/pages-ci.yml"
   workflow_dispatch:
 
@@ -32,6 +32,11 @@ jobs:
 
       - name: Validate source links and front matter
         run: python scripts/validate_pages.py
+
+      - name: Check JavaScript and Python syntax
+        run: |
+          node --check docs/assets/js/technical-notes.js
+          python -m py_compile scripts/validate_pages.py scripts/test_technical_notes.py
 
       - name: Build Jekyll site
         uses: actions/jekyll-build-pages@v1

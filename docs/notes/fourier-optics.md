@@ -1,5 +1,6 @@
 ---
-layout: default
+layout: technical
+category: foundations
 title: Fourier Optics
 description: Technical note on Fourier optics for GeoSignal Preview
 permalink: /notes/fourier-optics/
@@ -18,3 +19,8 @@ This technical note is reserved for future updates if needed.
 * [Back to Technical Notes]({{ '/notes/' | relative_url }})
 * [Method]({{ '/method/' | relative_url }})
 * [Demo]({{ '/demo/' | relative_url }})
+
+
+## Extended foundations
+
+The detailed equations, derivations, implementation notes and research connections are available in the [Korean learning note]({{ '/ko/notes/fourier-optics/' | relative_url }}). The original URL and content remain available.

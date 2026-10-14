@@ -1,0 +1,23 @@
+{% assign inventory = site.data.figure_coverage[page.paper_id] %}
+<p class="evidence-note">{{ inventory.scope | escape }} {{ inventory.rights | escape }}</p>
+{% if inventory.figures.size > 0 %}
+<table class="figure-coverage">
+  <thead><tr><th scope="col">원문 Figure</th><th scope="col">Caption 요지 / 확인 주제</th><th scope="col">확인 상태</th><th scope="col">원본·caption 위치</th></tr></thead>
+  <tbody>{% for figure in inventory.figures %}
+    <tr><td>Fig. {{ figure.number }}</td><td>{{ figure.caption | escape }}</td><td>{{ figure.status | escape }}</td><td><a href="{{ figure.url | escape }}">원문 열기{% if figure.page %} · p. {{ figure.page }}{% endif %}</a></td></tr>
+  {% endfor %}</tbody>
+</table>
+{% for figure in inventory.figures %}{% if figure.reading %}
+<details class="figure-explanation">
+  <summary>Fig. {{ figure.number }} — {{ figure.caption | escape }}</summary>
+  <dl>
+    <dt>이미지·subfigure·axis 읽기</dt><dd>{{ figure.visual | escape }}</dd>
+    <dt>해석 순서와 확인한 주장</dt><dd>{{ figure.reading | escape }}</dd>
+    <dt>OPC 관점의 독자적 해석</dt><dd>{{ figure.opc | escape }}</dd>
+  </dl>
+  <p><a href="{{ figure.url | escape }}">원문 Figure 및 caption 확인</a></p>
+</details>
+{% endif %}{% endfor %}
+{% endif %}
+<p><strong>Supplementary coverage:</strong> {{ inventory.supplementary | escape }}</p>
+<p>Caption 전문을 복제하는 대신 요지와 원문 위치를 제공합니다. 이 페이지의 독자 제작 도식은 원본 Figure coverage 수에 포함하지 않습니다.</p>

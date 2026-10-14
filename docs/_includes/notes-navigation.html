@@ -1,0 +1,15 @@
+{% if page.lang == 'ko' %}{% assign foundation_prefix = '/ko/notes' %}{% else %}{% assign foundation_prefix = '/notes' %}{% endif %}
+<details class="notes-navigation" {% if current_url contains notes_url %}open{% endif %}>
+  <summary>Technical Notes</summary>
+  <a href="{{ foundation_prefix | append: '/foundations/' | relative_url }}" {% if page.category == 'foundations' %}class="active"{% endif %}>Physics &amp; Math Foundations</a>
+  <div class="note-nav-children">
+    <a href="{{ foundation_prefix | append: '/abbe-imaging/' | relative_url }}">Abbe Imaging</a>
+    <a href="{{ foundation_prefix | append: '/fourier-optics/' | relative_url }}">Fourier Optics · FFT</a>
+    <a href="{{ '/ko/notes/foundations/hopkins-tcc-socs/' | relative_url }}" lang="ko">Hopkins · TCC · SOCS</a>
+    <a href="{{ '/ko/notes/foundations/inverse-and-metrics/' | relative_url }}" lang="ko">Inverse Problem · Metrics</a>
+  </div>
+  <a href="{{ '/ko/notes/research/' | relative_url }}" lang="ko" {% if page.category == 'research' %}class="active"{% endif %}>Research Paper Reviews <small>한국어</small></a>
+  <div class="note-nav-children">{% for paper in site.data.papers %}
+    <a href="{{ '/ko/notes/research/' | append: paper.id | append: '/' | relative_url }}" {% if page.paper_id == paper.id %}aria-current="page" class="active"{% endif %}>{{ paper.name }} <small>{{ paper.year }}</small></a>
+  {% endfor %}</div>
+</details>

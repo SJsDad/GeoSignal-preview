@@ -1,0 +1,56 @@
+- id: optico
+  name: OptiCo
+  year: 2026
+  venue: CVPR
+  field: ILT / Forward Simulation
+  architecture: Optical Convolution
+  evidence: 색인 본문 일부 확인
+- id: hi-ilt
+  name: Hi-ILT
+  year: 2026
+  venue: Optics and Lasers in Engineering
+  field: ILT
+  architecture: Hierarchical VAE + ILT
+  evidence: 초록·Highlights 확인
+- id: lmlitho
+  name: LMLitho
+  year: 2025
+  venue: ICCAD
+  field: Forward Simulation
+  architecture: Transformer
+  evidence: 원문 확인
+- id: tokman
+  name: TokMan
+  year: 2025
+  venue: NeurIPS
+  field: ILT
+  architecture: Diffusion Transformer
+  evidence: 색인 본문 일부 확인
+- id: resgnn-opc
+  name: ResGNN-OPC
+  year: 2025
+  venue: Applied Optics
+  field: OPC
+  architecture: Residual GNN
+  evidence: 초록·Table 1 확인
+- id: tempo
+  name: TEMPO
+  year: 2020
+  venue: ISPD
+  field: Mask Topography
+  architecture: Conditional GAN
+  evidence: 원문 확인
+- id: doinn
+  name: DOINN
+  year: 2022
+  venue: DAC
+  field: Forward Simulation
+  architecture: FNO + CNN
+  evidence: 원문 확인
+- id: nitho
+  name: Nitho
+  year: 2023
+  venue: DAC
+  field: Forward Simulation
+  architecture: Complex Neural Field
+  evidence: 원문 확인

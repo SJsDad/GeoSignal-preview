@@ -10,3 +10,6 @@ feedback_url: "https://docs.google.com/forms/d/e/1FAIpQLSerlp3xN8b82NyXBjl5tSNPC
 live_demo_url: "https://geosignal-lab.onrender.com/"
 
 markdown: kramdown
+
+kramdown:
+  toc_levels: "2,3"

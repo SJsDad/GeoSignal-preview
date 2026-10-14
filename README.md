@@ -251,7 +251,7 @@ The main public content is organized through GitHub Pages rather than through th
 | Demo page                 | Available                                  |
 | Method page               | Available                                  |
 | Technical Notes index     | Available                                  |
-| Detailed technical notes  | Reserved for future expansion              |
+| Detailed technical notes  | Physics/math foundations and Korean OPC paper reviews |
 | Representative images     | Available                                  |
 | Core implementation       | Private                                    |
 | Layout examples           | Public or synthetic                        |
@@ -316,3 +316,28 @@ An appropriate license may be reviewed later if the public scope of the code or 
 ## Prepared v0.10 validation snapshot
 
 Home and Demo show regenerated relative-dose results with Speed dense7, Internal dense11, a separate 170 nm reference and 0.1 nm DBU. Speed detailed Region checks are optional; Internal checks all three preview doses. Both export all three filled contours. This prepared snapshot does not claim the live Render deployment or a release tag was updated.
+
+
+## Technical Notes learning path
+
+Technical Notes now groups the existing Abbe/Fourier URLs under **Physics & Math Foundations** and adds Korean **Research Paper Reviews** for OptiCo, Hi-ILT, LMLitho, TokMan, ResGNN-OPC, TEMPO, DOINN and Nitho. Existing document bodies and routes remain available.
+
+* Built review overview route: `/ko/notes/research/`
+* Foundation index routes: `/notes/foundations/`, `/ko/notes/foundations/`
+* Access limits and figure inventory: `/ko/notes/research/sources/`
+* Code-verified scope and research hypotheses: `/ko/notes/research/geosignal-scope/`
+
+The reviews distinguish full-text evidence, indexed excerpts and publisher-only abstracts/tables. The figure registry records 55 known figure numbers: 45 have text-based explanations (including 12 based on indexed excerpts), and 10 subscription-restricted figures have original-source links. Unknown figure totals and supplementary coverage remain explicit. Eight original SVG teaching diagrams are included; original paper figure files are not redistributed.
+
+The existing Jekyll layout and colors are reused. New notes support hierarchical navigation, an in-page table of contents, year/field/architecture filters, previous/next links, local MathJax 3.2.2 rendering and keyboard-accessible image enlargement. No ML model was added to the GeoSignal core.
+
+Validation:
+
+```sh
+python scripts/validate_pages.py
+jekyll build --source docs --destination work/site
+python scripts/validate_pages.py --site work/site
+node --check docs/assets/js/technical-notes.js
+```
+
+Optional browser checks use `scripts/test_technical_notes.py` with Playwright and a locally served build. See the script's usage. Building or committing does not itself confirm publication to the live GitHub Pages site.
