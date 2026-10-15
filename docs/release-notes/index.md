@@ -21,6 +21,9 @@ General visitors can read [Home]({{ '/' | relative_url }}), [Demo]({{ '/demo/' |
 
 ## Versions
 
+v0.11.0 is a benchmark/analysis release. The live Render demo retains the v0.10 screen, options and defaults.
+
+
 | Version | Main Focus |
 | --- | --- |
 | [v0.1]({{ '/release-notes/v0.1/' | relative_url }}) | Initial CLI and SVRF-like geometry-rule experiments |
@@ -34,6 +37,8 @@ General visitors can read [Home]({{ '/' | relative_url }}), [Demo]({{ '/demo/' |
 | [v0.8.1]({{ '/release-notes/v0.8.1/' | relative_url }}) | Backend-neutral imaging contract and focus/dose performance refactor |
 | [v0.9]({{ '/release-notes/v0.9/' | relative_url }}) | Exact Hopkins/TCC/SOCS cross-validation and bounded optical-mode caching |
 | [v0.10]({{ '/release-notes/v0.10/' | relative_url }}) | CD/area ranking, relative-dose fitting, source/pixel/ambit/DBU validation and result artifacts |
+
+| [v0.11]({{ '/release-notes/v0.11/' | relative_url }}) | KrF numerical benchmarks, full cross/split grids, TT04 resource audit; Render integration deferred |
 
 v0.8.0, v0.8.1, and v0.9.0 are tagged application releases. v0.9.0 retains Abbe as the public service default.
 

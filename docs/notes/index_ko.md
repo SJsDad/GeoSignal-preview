@@ -33,3 +33,4 @@ lang: ko
 * [Demo]({{ '/ko/demo/' | relative_url }})
 * [Method]({{ '/ko/method/' | relative_url }})
 * [v0.10 validation]({{ '/ko/notes/v0.10-validation/' | relative_url }}) — 기존 검증 기록
+* [v0.11 sampling benchmark]({{ '/ko/release-notes/v0.11/' | relative_url }}) — Source·Raster·AI 보간 및 자원 비교

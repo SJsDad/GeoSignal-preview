@@ -34,3 +34,4 @@ Study the optical and mathematical foundations, then examine research architectu
 * [Demo]({{ '/demo/' | relative_url }})
 * [Method]({{ '/method/' | relative_url }})
 * [v0.10 validation]({{ '/notes/v0.10-validation/' | relative_url }}) — 기존 검증 기록
+* [v0.11 sampling benchmark]({{ '/release-notes/v0.11/' | relative_url }}) — Source·Raster·AI 보간 및 자원 비교

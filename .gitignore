@@ -1,4 +1,4 @@
-﻿# JetBrains / PyCharm
+# JetBrains / PyCharm
 .idea/
 
 # OS generated files
@@ -44,3 +44,6 @@ internal/
 # This exact folder contains reviewed public preset results, not private notes.
 !docs/assets/demo/v0.10/internal/
 !docs/assets/demo/v0.10/internal/*
+
+# Local release validation/builds
+/work/

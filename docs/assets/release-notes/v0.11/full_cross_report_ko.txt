@@ -1,0 +1,142 @@
+# GeoSignal — 전수 Cross 검증과 최종 Numerical 후보
+
+> **v0.11.0 판독 안내:** 이 문서는 전수 Cross Snapshot의 상세 기록이다. 최신4후보·보통 Mask10 보충·TT04 자원 검토·Render 보류 범위는 [릴리즈 요약](BENCHMARK_V011_RELEASE.md)을 함께 읽는다. 아래 “최종 후보”는 정밀 연구 Gate의 후보이며 보통/프리뷰를 대체하는 단일 제품 기본값이 아니다.8절의 Render 미측정은 당시 Snapshot을 뜻하며, 이후 실제 호스팅이 아닌 Free 동급 컨테이너에서 기존 전체HTTP와 신규1ROI 자원을 별도 검증했다.
+
+
+## 1. Executive Summary
+
+**앞선 Dense11/20 nm 속도 중심 후보를 고정확도 권고로 해석하면 안 된다. 전수 검증에서는 Dense31도 Contact의 Source 오차를 충분히 줄이지 못했다. 가장 유망한 이번 후보는 `Cell-area Dense51 + Exact Area Mask 5 nm + Native AI 25 nm + B-Spline`이다.**
+
+공유 Mask/AI Grid만 쓰면 최대 CD오차 0.4350 nm를 얻는 5 nm 계산에 L/S Optical TAT 18.14 s가 들었다. **Fine Mask의 FFT 성분을 유지하면서 AI Grid만 분리하면 최대 CD오차 0.4403 nm를 유지하고 L/S 계산 0.526 s, Contact 계산 0.109 s를 얻었다.** 같은 Source/Mask에서 광학 계산만 약 34.5배 / 28.6배 빨랐다.
+
+| Source | Mask / AI Pixel | 최대 CD오차 (nm) | 최대 AI RMSE | L/S Abbe (s) | Contact Abbe (s) |
+|---|---|---|---|---|---|
+| Cell-area51 | 5 / 5 | 0.4350 | 0.000712 | 18.1387 | 3.1284 |
+| Cell-area51 | 5 / 25 | 0.4403 | 0.000722 | 0.5256 | 0.1093 |
+| Equal101 | 5 / 25 | 0.4593 | 0.000280 | 1.9451 | 0.4298 |
+
+CD/RMSE는 해당 실험의 모든 Pattern/Phase 최대값, 시간은 각 Pattern의 실제 Production Abbe median 3회 warm 측정이다. 전체 요청 TAT가 아니다. 공통 Grid는 4개 Mask Phase/Contact 16 X/Y Phase, 독립 Grid는 Mask와 AI Phase를 각각 독립 sweep하여 Contact 256 조합을 사용했다. 두 측정 범위가 다르므로 작은 CD 차이를 알고리즘 우열로 해석하지 않는다.
+
+Equal101은 최대 AI RMSE가 더 작고 계산은 더 비싸다. Cell-area51은 이번 CD 0.5 nm/RMSE 0.005 연구 기준에서 더 낮은 비용을 보인 후보다. 이는 실제 제품·장비 signoff 사양이 아니며, 범용 최적값이나 실제 장비의 Source 분포를 확정한 결과도 아니다.
+
+Production 코드·기본값·Render 배포는 변경하지 않았다. 독립 Grid도 Benchmark adapter이며 제품 연결 작업이 남아 있다.
+
+## 2. 실제 완료 범위
+
+- KrF 248 nm / NA 0.68 / Conventional sigma 0.60. Nominal focus, raw T0=0.30, D0=1 고정 연구 가정.
+- L/S 125/125,150/150,250/250 nm, Width137/Pitch300 nm, Width100/Pitch200 nm; Contact Width180/Pitch400 nm.
+- Pixel 25/20/15/10/5/2.5 nm × Dense7/11/15/21/31/51/101/201 × Equal/Cell-area × Binary/Area/SSAA2/4/8/진단용 Bandlimited Oracle × 보간 8조건.
+- **전수 165,888행**: L/S 92,160, Contact 73,728. 동일 Native AI를 모든 보간에 재사용했다.
+- **독립 Mask/AI Grid 21,504행**: Mask5 nm, AI25/20/15/10 nm, Cell-area51 및 Equal101, 6 Patterns, 독립 Phase, 8 보간조건. 각 Source별 10,752행이다.
+- Native Binary Mask **216조건**: 모든 요청 Pixel/Phase를 기존 pya rasterizer와 비교, 불일치 0. Benchmark DBU 0.025 nm로 2.5 nm quarter phase를 정확히 적용했다.
+- Production 2D Abbe **342조건**: 최대 잔차 9.801e-13, 허용오차 1e-10. 독립 Grid 10개의 실제 FFT 검증과 임의 Binary Mask의 별도 Fourier 합/Defocus 단위 테스트도 수행했다.
+- Native Runtime 22 isolated optical cases / 88 보간 행. 고비용 L/S Equal101의 10/5 nm 및 Equal51 5 nm는 1회 측정, 나머지는 median3이며 CSV에 반복 수를 기록했다.
+- 전체 회귀: **181 passed in 54.37s**. Core restart에서 1,296 blocks 전체 재사용, 신규 계산 0. 독립 Grid는 Pattern checkpoint로 재사용 가능하다.
+
+## 3. Reference와 조건부 오차 해석
+
+R0는 정확한 Binary Fourier Mask + 연속 Uniform Source이다. R1은 같은 Mask + 선택한 Discrete Source이다. R2는 실제 Raster의 전체 유효 DFT + 같은 Source이며, R3는 R2의 Native samples를 선택 보간으로 평가한 결과이다.
+
+- Source: R1 ↔ R0
+- Raster: R2 ↔ R1
+- 보간: R3 ↔ R2
+- End-to-End: R3 ↔ R0
+
+이들은 **조건부 Reference를 직접 비교한 값**이다. 서로 다른 최대 오차를 더하거나 빼서 인과적 Error Contribution을 계산하지 않았다. 모든 Pattern/Phase에서 전체와 각 단계의 CD 0.5 nm / RMSE 0.005, Printed/Unprinted status 일치를 확인하는 연구 Gate를 사용했다. 가장 작은 Pixel이나 가장 높은 Density를 Reference로 가정하지 않았다.
+
+주기 Contact의 Mask 계수는 `c[m,n] = duty² sinc(m*duty) sinc(n*duty)`다. Nominal focus에서 회절차수 쌍의 Source 적분은 Source disk와 두 shifted pupil disk의 공통 면적이다. 일반 2D disk 교차를 수직 slice의 공통 Y interval 길이로 적분했다. Pair quadrature 최대 오차 추정 4.149e-12, epsabs 1e-11→1e-13 변경의 최대 AI 차이 5.551e-17였다. Lens의 알려진 면적 공식, 회전 및 기존 1D 적분과도 검증했다.
+
+## 4. Source 수렴: Dense31 이상이라는 기준도 충분하지 않았다
+
+모든 숫자는 Source-only 최대 절대 CD오차 nm이다.
+
+| Dense | Equal: L/S CD오차 | Equal: Contact CD오차 | Cell-area: L/S CD오차 | Cell-area: Contact CD오차 |
+|---|---|---|---|---|
+| 7 | 8.3571 | 15.6890 | 13.3786 | 19.4720 |
+| 11 | 4.3849 | 4.3673 | 1.6241 | 3.2908 |
+| 15 | 1.0769 | 4.8126 | 1.9059 | 7.5258 |
+| 21 | 1.5660 | 1.3960 | 0.2440 | 3.3940 |
+| 31 | 0.8529 | 3.7388 | 0.1499 | 2.1916 |
+| 51 | 0.0785 | 0.7921 | 0.3620 | 0.0499 |
+| 101 | 0.0280 | 0.2928 | 0.0205 | 0.1239 |
+| 201 | 0.0322 | 0.0379 | 0.0206 | 0.0793 |
+
+Equal source는 L/S만 보면 Dense51이 충분했지만 Contact에서는 Dense51도 약 0.7921 nm였다. 모든 Pattern에서 연구 Gate를 만족하고 더 높은 시험 Density도 만족한 최소 시험 후보는 **Equal101 또는 Cell-area51**이었다. Cell-area31은 L/S에서 좋았어도 Contact는 2.1916 nm였다. 밀도가 커져도 결과는 비단조이며 Dense201을 연속 Source의 정답으로 취급하지 않았다.
+
+Cell-area51은 2,077 points, Equal101은 7,845 points다. Boundary cell의 면적을 반영하지만 일부 외부 center를 원 경계로 투영하고 node 수도 달라진다. 따라서 가중치만의 순수 대조 실험도, 장비의 실측 비균일 Source를 적용한 실험도 아니다. 낮은 Density의 Cell-area가 더 나쁜 조건도 그대로 기록했다.
+
+## 5. 오차 상쇄와 비정수 Pitch/Pixel
+
+LS137 / Dense21 Equal / Area20 nm / B-Spline / phase0에서 총 CD오차는 약 0.0856 nm였지만 Source 조건부 오차 1.5660 nm, Raster 조건부 오차 1.4782 nm였다. 반대 부호의 단계 오차가 최종 CD를 작게 만들었다. 전수에서 **3,114행**이 전체 Gate는 만족하지만 조건부 단계 Gate는 실패했다.
+
+전체 Pattern/Phase 공통 설정으로 집계하면 배포 가능한 Raster의 total-only passing과 joint passing은 모두 76개였다. Contact-only에서는 168→165개로 줄었다. 전수 Pattern/Phase 자체가 많은 우연한 합격을 제거했고, 단계 Reference는 그 이유를 설명했다. 이번 데이터에서 전체 후보 수가 추가로 줄지 않았다는 사실도 기록한다.
+
+검증 중 초기 축약 계산 4조건에서 최대 0.002652 AI 불일치를 발견했다. Pitch가 Pixel의 정수배가 아니면 Binary/Area/SSAA sampling이 원래 회절차수 외의 **FFT supercell 저주파 alias 성분**을 만든다. 초기 계산은 이를 누락했다. 수정 후 비정합 조건에는 fixed FFT domain의 모든 optical-passband DFT 성분을 포함했다. 160 blocks / 20,480행을 무효화하고 다시 계산했으며 실패 CSV와 cache migration 기록을 보존했다. 최종 342조건은 모두 round-off 수준으로 일치했다.
+
+기존 Phase2의 `B` spectral adapter 중 LS125 20/15 nm, LS250 15 nm, LS100 15 nm의 noncommensurate 결과에는 같은 회절차수 제한이 있다. 원본 snapshot은 보존하고, 해당 Raster 판단은 이번 전수 R2 결과를 사용한다. 기존 Production 계산을 수정한 것은 아니다.
+
+## 6. Raster와 보간
+
+Binary는 면적·위치 양자화와 False Printing 문제를 보였다. 전수의 Unprinted Reference가 Printed로 바뀐 행은 3,211개였다. 이는 resist 실제 printing 검증이 아니라 이 고정 threshold의 수치 status mismatch다. Exact Area는 최적 Mask 외관이 아니라 R2 ↔ R1 AI/CD를 기준으로 평가했다. SSAA 수렴은 비단조이고, Full joint gate의 가장 낮은 작업량 후보는 Area5 nm였다. Bandlimited Oracle는 음수/1초과 Mask 값을 허용한 이론 진단으로, 제품 Raster 후보에서 제외했다.
+
+Fine Mask5 / AI25 / Cell-area51의 보간 비교:
+
+| 보간 | 최대 CD오차 (nm) | 보간 조건부 최대 CD오차 (nm) | 전체/단계 Gate |
+|---|---|---|---|
+| nearest | 22.9658 | 23.1144 | False |
+| bilinear | 7.8710 | 7.7809 | False |
+| bicubic | 0.6732 | 0.2383 | False |
+| bspline | 0.4403 | 0.0324 | True |
+| sinc R4 | 27.2586 | 27.0408 | False |
+| blackman R2 | 6.4867 | 6.4719 | False |
+| blackman R4 | 0.5097 | 0.2409 | False |
+| blackman R8 | 0.4393 | 0.0985 | True |
+
+B-Spline은 조건부 보간 오차 0.0324 nm로 Blackman R8의 0.0985 nm보다 작았다. Blackman R8의 최종 CD가 약 0.001 nm 작더라도 Source/Mask와의 부호 상쇄가 포함되므로 보간의 우월성으로 해석하지 않는다. R4는 이번 독립 Grid worst case에서 0.5 nm를 소폭 넘겼다. Keys Bicubic과 B-Spline은 별도 구현이다. 모든 보간은 Threshold 전 Raw Intensity에 적용했고 음수/overshoot를 자동 제거하지 않았다.
+
+## 7. Fine Mask / Coarse AI: 물리 모델을 유지한 주요 성능 개선
+
+Mask FFT의 normalized Fourier 성분을 같은 물리 Domain의 작은 FFT에 옮긴다. `M_out[k] = (N_out/N_mask)² M_mask[k] exp(2πi(fx*dx+fy*dy))`, `dx=(p_image-p_mask)/2+image_phase_x*p_image`이며 Y도 동일하다. 이 보정은 FFT normalization과 서로 다른 Pixel center의 좌표 차이를 처리한다.
+
+`Nyquist_image > max(NA/lambda + source_radius, 2*NA/lambda)`를 검사한다. Source-shifted pupil을 통과하는 모든 Field 성분과 Intensity bandwidth를 보존한다. Frequency resolution `1/domain`은 변하지 않는다. **Coarse Mask로 재-rasterize하거나 Binary Image를 보간한 것이 아니다.** 기존 Production `compute_abbe_image_from_context`를 그대로 사용했다.
+
+Cell-area51 / Mask5 / B-Spline:
+
+| AI Pixel (nm) | 최대 CD오차 (nm) | 조건부 보간 CD오차 (nm) | L/S 계산 (s) | Contact 계산 (s) |
+|---|---|---|---|---|
+| 25 | 0.4403 | 0.0324 | 0.5256 | 0.1093 |
+| 20 | 0.4372 | 0.0113 | 0.9568 | 0.1479 |
+| 15 | 0.4356 | 0.0040 | 1.5746 | 0.2289 |
+| 10 | 0.4351 | 0.0008 | 3.5489 | 0.5345 |
+
+AI25는 AI20보다 약 두 배 빠르면서 이번 joint gate를 만족했다. Field adapter의 실제 잔차는 2e-14 수준이었다. 임의 Binary Mask를 사용한 직접 Fourier field 합과 focus 0/0.05 µm에서도 검증했다. 다만 **Source convergence와 CD Gate의 전수 검증은 nominal focus만** 수행했다.
+
+## 8. 평가 Grid, Runtime 및 Render 해석
+
+Core Contact RMSE/Max error는 10 nm 공통 평가점의 값으로 연속 적분 RMSE가 아니다. 이 Grid가 보간 오차를 특정 sample phase에서 작게 보일 수 있어, 추천 B-Spline의 독립 256 Contact phase 쌍을 10/5/2/1 nm로 추가 평가했다. AI25의 worst Contact RMSE는 10 nm 평가에서 0.00007984, 1 nm에서 0.00007983였다. Max intensity error도 1 nm 평가 결과를 따로 기록했다. CD는 별도 0.25 nm bracket + 연속 root/jump 탐색으로 계산하므로 이 RMSE mesh와 다르다.
+
+광학 계산 약 35배 절감은 전체 웹 요청의 35배 절감이 아니다. 일반 TT04 3 µm ROI / 7 polygons에서 Exact Area5 nm 준비 비용은 median3 **5.875 s**였다. Binary5 nm는 약 0.050 s였다. Scalar GEOS per-cell 구현의 비용이며 면적 보존은 floating round-off 수준이다. 이 비용을 ROI당 한 번 지불하고 Source nodes / Fine Mask FFT / cropped field context를 Focus/Dose 계산에 재사용해야 한다. Raster 경계 Cell만 처리하는 최적화는 미실행이다.
+
+기존 서비스는 Mask/Image 공유 Grid, max axis 384이며 기본 outer window 3.2 µm의 Mask5 nm는 640 cells이므로 현재 API에 그대로 넣을 수 없다. Benchmark adapter·Source quadrature·B-Spline FixedGauge/Contour 연결과 별도 Mask/Image resource limit이 필요하다. Render 실제 CPU/RAM·전체 요청 TAT는 미측정이다. Scalar Model, 실제 Layout/line-end/corner, Dose fitting, Resist, Defocus 전수 검증, 범용 Contour EPE와 최신 weighted-source SOCS는 후속 과제다. 기존 작은-grid Full-rank SOCS 검증은 이전 보고서 범위로 유지한다.
+
+## 9. 이번 추천과 다음 제품 작업
+
+1. **성능/정확도 후보:** Cell-area51 + Area Mask5 nm + AI25 nm + B-Spline. 이번 최대 CD오차 0.4403 nm, 최대 RMSE 0.000722.
+2. **더 작은 AI 오차 후보:** Equal101 + Area Mask5 + AI25 + B-Spline. 최대 CD오차 0.4593 nm, 최대 RMSE 0.000280, 광학 계산은 약 3.7–3.9배 비쌌다.
+3. 기존 공유 Grid를 유지해야 한다면 Cell-area51 / Area5 / B-Spline을 검증 후보로 사용하되, L/S 약 18 s/focus의 비용을 감수해야 한다. Dense11이나 Density만 올리는 방식으로 이번 고정확도 요구를 해결하지 않는다.
+4. 제품 적용 시 Fine Mask/Coarse AI adapter와 cache, 정확도 있는 Source quadrature, B-Spline Gauge/Contour를 선택 가능한 경로로 연결하고 실제 Layout/Focus/Dose/Render TAT를 검증한다. 현재 결과를 근거로 기본값이나 제품 버전을 자동 변경하지 않는다.
+
+## 10. 재현과 산출물
+
+```bash
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python -m src.benchmark.full_cross
+.venv/bin/python -m src.benchmark.cross_validate
+.venv/bin/python -m src.benchmark.full_cross_analysis
+.venv/bin/python -m src.benchmark.cross_performance
+.venv/bin/python -m src.benchmark.split_grid
+.venv/bin/python -m src.benchmark.split_grid --source-density 101 --source-weighting equal --validate-pixels 25 --output work/full_cross/split_grid_equal101
+.venv/bin/python -m src.benchmark.evaluation_grid_check
+.venv/bin/python -m src.benchmark.cross_report
+```
+
+`configs/benchmark_full_cross.json`이 물리 조건/전수 축/Gate를 고정한다. 독립 Grid CLI의 Mask/Source 인자도 completion JSON에 저장한다. 결과는 `benchmark_results/full_cross/`의 CSV.gz, CSV, JSON, PNG와 이 보고서다. 압축 CSV는 일반 CSV이며 `pandas.read_csv(path)`로 읽을 수 있다. 원본 checkpoints는 `work/`에 남기고 snapshot과 구분한다. 미측정 값은 0으로 채우지 않았다.

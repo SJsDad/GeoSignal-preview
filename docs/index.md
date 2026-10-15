@@ -21,7 +21,7 @@ permalink: /
 
 Width and gap checks find candidates before optical images and outlines are calculated at selected locations. A reference pattern sets the comparison baseline. Files outside the registered examples currently require a reference location, direction and design width; see the getting-started guidance on Demo.
 
-Version-specific changes and validation results are collected in [v0.10 Release Notes]({{ '/release-notes/v0.10/' | relative_url }}).
+The current demo model and operating settings are documented in [v0.10 Release Notes]({{ '/release-notes/v0.10/' | relative_url }}). The new [v0.11 benchmark release]({{ '/release-notes/v0.11/' | relative_url }}) compares source, pixel and interpolation accuracy/cost. Render screen and option integration awaits a separate review.
 
 ## 1. What is GeoSignal Preview?
 

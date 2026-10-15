@@ -341,3 +341,17 @@ node --check docs/assets/js/technical-notes.js
 ```
 
 Optional browser checks use `scripts/test_technical_notes.py` with Playwright and a locally served build. See the script's usage. Building or committing does not itself confirm publication to the live GitHub Pages site.
+
+
+## v0.11 benchmark documentation
+
+Bilingual release notes are available at `/ko/release-notes/v0.11/` and
+`/release-notes/v0.11/`. They publish the measured source convergence, four
+candidate configurations, independent mask/image grids, conditional-error
+analysis and TT04 resource audit. Downloads include case summaries, controlled
+pairs, variable effects, stage timings and the existing HTTP quota smoke.
+
+This is a benchmark/analysis release. Render application code, UI, defaults and
+new numerical-option deployment are deferred for a separate integration review.
+Only reviewed synthetic and public TT04 data is included; the application source
+repository remains private. The existing Home/Demo figures remain v0.10 examples.
