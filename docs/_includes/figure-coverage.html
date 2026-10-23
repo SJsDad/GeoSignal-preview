@@ -1,23 +1,23 @@
-{% assign inventory = site.data.figure_coverage[page.paper_id] %}
+{% if page.lang == 'ko' %}{% assign inventory = site.data.figure_coverage[page.paper_id] %}{% else %}{% assign inventory = site.data.figure_coverage_en[page.paper_id] %}{% endif %}
 <p class="evidence-note">{{ inventory.scope | escape }} {{ inventory.rights | escape }}</p>
 {% if inventory.figures.size > 0 %}
 <table class="figure-coverage">
-  <thead><tr><th scope="col">원문 Figure</th><th scope="col">Caption 요지 / 확인 주제</th><th scope="col">확인 상태</th><th scope="col">원본·caption 위치</th></tr></thead>
+  <thead><tr><th scope="col">{% if page.lang == 'ko' %}원문 Figure{% else %}Source figure{% endif %}</th><th scope="col">{% if page.lang == 'ko' %}Caption 요지 / 확인 주제{% else %}Caption summary / Topic{% endif %}</th><th scope="col">{% if page.lang == 'ko' %}확인 상태{% else %}Verification status{% endif %}</th><th scope="col">{% if page.lang == 'ko' %}원본·caption 위치{% else %}Source and caption location{% endif %}</th></tr></thead>
   <tbody>{% for figure in inventory.figures %}
-    <tr><td>Fig. {{ figure.number }}</td><td>{{ figure.caption | escape }}</td><td>{{ figure.status | escape }}</td><td><a href="{{ figure.url | escape }}">원문 열기{% if figure.page %} · p. {{ figure.page }}{% endif %}</a></td></tr>
+    <tr><td>Fig. {{ figure.number }}</td><td>{{ figure.caption | escape }}</td><td>{{ figure.status | escape }}</td><td><a href="{{ figure.url | escape }}">{% if page.lang == 'ko' %}원문 열기{% else %}Open source{% endif %}{% if figure.page %} · p. {{ figure.page }}{% endif %}</a></td></tr>
   {% endfor %}</tbody>
 </table>
 {% for figure in inventory.figures %}{% if figure.reading %}
 <details class="figure-explanation">
   <summary>Fig. {{ figure.number }} — {{ figure.caption | escape }}</summary>
   <dl>
-    <dt>이미지·subfigure·axis 읽기</dt><dd>{{ figure.visual | escape }}</dd>
-    <dt>해석 순서와 확인한 주장</dt><dd>{{ figure.reading | escape }}</dd>
-    <dt>OPC 관점의 독자적 해석</dt><dd>{{ figure.opc | escape }}</dd>
+    <dt>{% if page.lang == 'ko' %}이미지·subfigure·axis 읽기{% else %}Reading the image, subfigures and axes{% endif %}</dt><dd>{{ figure.visual | escape }}</dd>
+    <dt>{% if page.lang == 'ko' %}해석 순서와 확인한 주장{% else %}Reading order and supported claims{% endif %}</dt><dd>{{ figure.reading | escape }}</dd>
+    <dt>{% if page.lang == 'ko' %}OPC 관점의 독자적 해석{% else %}Independent OPC interpretation{% endif %}</dt><dd>{{ figure.opc | escape }}</dd>
   </dl>
-  <p><a href="{{ figure.url | escape }}">원문 Figure 및 caption 확인</a></p>
+  <p><a href="{{ figure.url | escape }}">{% if page.lang == 'ko' %}원문 Figure 및 caption 확인{% else %}Read the source figure and caption{% endif %}</a></p>
 </details>
 {% endif %}{% endfor %}
 {% endif %}
 <p><strong>Supplementary coverage:</strong> {{ inventory.supplementary | escape }}</p>
-<p>Caption 전문을 복제하는 대신 요지와 원문 위치를 제공합니다. 이 페이지의 독자 제작 도식은 원본 Figure coverage 수에 포함하지 않습니다.</p>
+<p>{% if page.lang == 'ko' %}Caption 전문을 복제하는 대신 요지와 원문 위치를 제공합니다. 이 페이지의 독자 제작 도식은 원본 Figure coverage 수에 포함하지 않습니다.{% else %}Caption summaries and source locations are provided instead of reproducing full captions. The independently drawn diagrams on this page do not count toward original-figure coverage.{% endif %}</p>

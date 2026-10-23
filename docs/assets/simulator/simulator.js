@@ -1,6 +1,10 @@
 import {prepareGrating,evaluateImage,traceSixF,phaseRate,FOCAL_UM} from './optics-engine.mjs';
 
 const form=document.getElementById('simulator-controls');
+const labels=JSON.parse(document.getElementById('simulator-strings').textContent);
+const tr=(key,values={})=>labels[key].replace(/\{(\w+)\}/g,(_,name)=>String(values[name]??''));
+const languageLink=document.getElementById('language-switch');
+const languageURL=new URL(languageLink.href);
 const defaults=JSON.parse(document.getElementById('simulator-defaults').textContent);
 const fields=[...Object.keys(defaults),'focus_um'];
 const el=Object.fromEntries(fields.map(name=>[name,document.getElementById(name)]));
@@ -30,9 +34,9 @@ function drawRays(data,p){
   const axis=184,R=108,x=z=>65+155*z,y=height=>axis-R*height;
   const dz=p.focus_um/FOCAL_UM,magnification=2000,wafer=6+dz*magnification;
   line(ctx,[[20,axis],[1100,axis]],colors.grid,1,1,[5,5]);
-  const labels=['Source (0f)','Condenser (1f)','Mask (2f)','Objective (3f)','Pupil (4f)','Imaging lens (5f)','Wafer (6f)'];
+  const planes=labels.planes;
   ctx.font='13px system-ui';ctx.textAlign='center';
-  labels.forEach((label,i)=>{
+  planes.forEach((label,i)=>{
     ctx.fillStyle=colors.muted;ctx.fillText(label,x(i),22);
     if([1,3,5].includes(i)){
       ctx.fillStyle='rgba(56,189,248,.07)';ctx.strokeStyle='#3b7896';ctx.lineWidth=1.3;
@@ -80,11 +84,11 @@ function drawRays(data,p){
         ctx.globalAlpha=1;
       }
     }else{dot(ctx,x(4),yy,3,'#68768a');}
-    if(major){ctx.fillStyle=order.passed?color:'#68768a';ctx.textAlign='left';ctx.fillText(`${order.order>0?'+':''}${order.order}${order.passed?'':' blocked'}`,x(4)+18,yy+4);ctx.textAlign='center';}
+    if(major){ctx.fillStyle=order.passed?color:'#68768a';ctx.textAlign='left';ctx.fillText(`${order.order>0?'+':''}${order.order}${order.passed?'':` ${tr('blocked')}`}`,x(4)+18,yy+4);ctx.textAlign='center';}
   });
   ctx.fillStyle=colors.muted;ctx.font='12px system-ui';
-  ctx.fillText('Köhler illumination · collimated at mask',x(1),351);
-  ctx.fillText('4f relay · inverted image',x(4),351);
+  ctx.fillText(tr('collimated'),x(1),351);
+  ctx.fillText(tr('relay'),x(4),351);
   canvas.dataset.transmitted=data.active_orders.join(',');
   canvas.dataset.blocked=rays.filter(q=>!q.passed).map(q=>q.order).join(',');
   canvas.dataset.rayCount=String(rays.length*maskPoints.length);
@@ -113,7 +117,7 @@ function curve(ctx,x,values,sx,sy,color,width=2,dash=[]){
 function drawPupil(data,p){
   const extent=Math.max(p.na*1.2,Math.min(2,Math.abs(p.source_u)+1.5*data.u0));
   const ymax=Math.max(.12,...data.spectrum.map(s=>Math.abs(s.coefficient)*1.25));
-  const a=axes('pupil-chart',-extent,extent,0,ymax,'Pupil u = λ₀ f','|cⱼ|',49);if(!a)return;
+  const a=axes('pupil-chart',-extent,extent,0,ymax,tr('pupilAxis'),'|cⱼ|',49);if(!a)return;
   const {ctx,sx,sy,top,bottom,w}=a;
   ctx.fillStyle='rgba(56,189,248,.08)';ctx.fillRect(sx(-p.na),top,sx(p.na)-sx(-p.na),bottom-top);
   [-p.na,p.na].forEach(u=>line(ctx,[[sx(u),top],[sx(u),bottom]],colors.blue,1,.6,[3,4]));
@@ -129,19 +133,19 @@ function drawPupil(data,p){
   ctx.textAlign='right';ctx.fillStyle=colors.pink;ctx.fillText(`+${f(max,1)}π`,w-2,top+4);ctx.fillText(`−${f(max,1)}π`,w-2,bottom);
 }
 function drawImage(data){
-  const a=axes('image-chart',-1.5,1.5,0,Math.max(1.35,data.maximum_bound*1.07),'Wafer x / P · inverted image','Raw intensity');if(!a)return;
+  const a=axes('image-chart',-1.5,1.5,0,Math.max(1.35,data.maximum_bound*1.07),tr('imageAxis'),tr('intensityAxis'));if(!a)return;
   curve(a.ctx,data.x_over_pitch,data.mask,a.sx,a.sy,'#69788f',1.1,[5,4]);
   curve(a.ctx,data.x_over_pitch,data.intensity,a.sx,a.sy,colors.blue,2.1);
 }
 function drawField(data){
   if(!document.getElementById('field-detail').open)return;
   const max=Math.max(.2,...data.re.map(Math.abs),...data.im.map(Math.abs))*1.1;
-  const a=axes('field-chart',-1.5,1.5,-max,max,'Wafer x / P','Complex field');if(!a)return;
+  const a=axes('field-chart',-1.5,1.5,-max,max,tr('waferAxis'),tr('fieldAxis'));if(!a)return;
   curve(a.ctx,data.x_over_pitch,data.re,a.sx,a.sy,colors.blue);curve(a.ctx,data.x_over_pitch,data.im,a.sx,a.sy,colors.pink);
 }
 function drawFocus(focus){
   if(!focusDetail.open)return;
-  const a=axes('focus-chart',-1.5,1.5,-1,1,'Wafer x / P','Defocus (µm)');if(!a)return;
+  const a=axes('focus-chart',-1.5,1.5,-1,1,tr('waferAxis'),tr('focusAxis'));if(!a)return;
   if(map&&map.key===preparedKey){
     a.ctx.drawImage(map.image,a.left,a.top,a.right-a.left,a.bottom-a.top);
     line(a.ctx,[[a.left,a.sy(focus)],[a.right,a.sy(focus)]],colors.blue,1.8,1,[6,4]);
@@ -155,18 +159,18 @@ function ensureWorker(){
     worker.onmessage=({data})=>{
       workerBusy=false;inFlightKey=null;
       if(data.key===preparedKey){
-        if(data.error){text('map-status',`초점 맵을 계산하지 못했습니다: ${data.error}`);}
+        if(data.error){text('map-status',tr('mapError',{error:data.error}));}
         else{
           const image=document.createElement('canvas');image.width=data.columns;image.height=data.rows;
           image.getContext('2d').putImageData(new ImageData(new Uint8ClampedArray(data.pixels),data.columns,data.rows),0,0);
-          map={key:data.key,image,maximum:data.maximum};text('map-status','같은 회절항의 through-focus 결과 · 행별 정규화 없음');
+          map={key:data.key,image,maximum:data.maximum};text('map-status',tr('mapReady'));
           if(latest)drawFocus(latest.data.focus_um);
         }
       }
       runPendingMap();
     };
-    worker.onerror=()=>{mapFailed=true;workerBusy=false;worker.terminate();worker=null;text('map-status','이 브라우저에서는 초점 맵을 사용할 수 없습니다. 광선과 현재 파동 결과는 계속 조작할 수 있습니다.');};
-  }catch(_error){mapFailed=true;text('map-status','이 브라우저에서는 초점 맵을 사용할 수 없습니다.');}
+    worker.onerror=()=>{mapFailed=true;workerBusy=false;worker.terminate();worker=null;text('map-status',tr('mapUnavailable'));};
+  }catch(_error){mapFailed=true;text('map-status',tr('mapUnavailable'));}
 }
 function runPendingMap(){
   if(!pendingMap||workerBusy||!focusDetail.open)return;
@@ -177,13 +181,13 @@ function runPendingMap(){
 }
 function requestMap(config,key){
   if(!focusDetail.open||mapFailed||key===inFlightKey||(map&&map.key===key))return;
-  pendingMap={config,key};text('map-status','초점 맵을 계산하고 있습니다…');runPendingMap();
+  pendingMap={config,key};text('map-status',tr('mapCalculating'));runPendingMap();
 }
 function renderTable(data){
   if(!document.getElementById('spectrum-detail').open)return;
   const tbody=document.getElementById('spectrum-body');tbody.replaceChildren();
   data.spectrum.forEach(s=>{const row=document.createElement('tr');
-    [s.order,f(s.u,3),f(s.coefficient,5),!s.passed?'차단':s.nonzero?'통과':'계수 0',s.total_phase_pi===null?'—':f(s.total_phase_pi,3)].forEach(value=>{const cell=document.createElement('td');cell.textContent=value;row.append(cell);});tbody.append(row);
+    [s.order,f(s.u,3),f(s.coefficient,5),!s.passed?tr('blocked'):s.nonzero?tr('passed'):tr('zeroCoefficient'),s.total_phase_pi===null?'—':f(s.total_phase_pi,3)].forEach(value=>{const cell=document.createElement('td');cell.textContent=value;row.append(cell);});tbody.append(row);
   });
 }
 function updateOutputs(){
@@ -200,8 +204,8 @@ function draw(){
   frame=0;const start=performance.now();updateOutputs();
   const error=document.getElementById('error-message');
   if(!form.checkValidity()){
-    error.textContent='파장은 100–1000 nm, 피치는 100–3000 nm 범위의 숫자로 입력해 주세요.';error.hidden=false;
-    text('calculation-status','입력 범위를 확인해 주세요.');document.getElementById('results').setAttribute('aria-busy','false');return;
+    error.textContent=tr('inputError');error.hidden=false;
+    text('calculation-status',tr('inputStatus'));document.getElementById('results').setAttribute('aria-busy','false');return;
   }
   error.hidden=true;
   const config=Object.fromEntries(Object.keys(defaults).map(name=>[name,name==='phase_model'?el[name].value:Number(el[name].value)]));
@@ -209,13 +213,14 @@ function draw(){
   if(key!==preparedKey){prepared=prepareGrating(config);preparedKey=key;pendingMap=null;}
   const data=evaluateImage(prepared,focus,true),p={...config,focus_um:focus};latest={data,parameters:p};
   drawRays(data,p);drawPupil(data,p);drawImage(data);drawField(data);drawFocus(focus);renderTable(data);
-  text('active-orders',data.active_orders.length?data.active_orders.map(j=>j>0?`+${j}`:j).join(', '):'없음');text('contrast',`${f(data.contrast*100,1)}%`);
-  text('current-focus',`z = ${f(focus)} µm`);text('source-description',`입사각 ${f(data.source_angle_deg,1)}° · 피치 ${f(config.pitch_nm,1)} nm`);
-  text('defocus-description',Math.abs(focus)<1e-12?'정초점 z = 0.00 µm':`z = ${f(focus)} µm · 초점면 이동은 ×2000 확대 표시`);
+  text('active-orders',data.active_orders.length?data.active_orders.map(j=>j>0?`+${j}`:j).join(', '):tr('none'));text('contrast',`${f(data.contrast*100,1)}%`);
+  text('current-focus',`z = ${f(focus)} µm`);text('source-description',tr('sourceReadout',{angle:f(data.source_angle_deg,1),pitch:f(config.pitch_nm,1)}));
+  text('defocus-description',Math.abs(focus)<1e-12?tr('bestFocus'):tr('focusReadout',{focus:f(focus)}));
   const warning=document.getElementById('truncation-warning');warning.hidden=!data.omitted_orders.length;
-  if(data.omitted_orders.length)warning.textContent=`선택한 N 때문에 pupil 안의 비영 차수 ${data.omitted_orders.join(', ')}가 제외됐습니다. 고차 회절 설정에서 N을 늘릴 수 있습니다.`;
-  text('calculation-status','광선·파동 실시간 연동');const results=document.getElementById('results');results.setAttribute('aria-busy','false');
+  if(data.omitted_orders.length)warning.textContent=tr('truncation',{orders:data.omitted_orders.join(', ')});
+  text('calculation-status',tr('liveStatus'));const results=document.getElementById('results');results.setAttribute('aria-busy','false');
   results.dataset.frameMs=f(performance.now()-start,2);results.dataset.focus=String(focus);results.dataset.model=config.phase_model;
+  languageURL.hash=new URLSearchParams({...config,focus_um:focus}).toString();languageLink.href=languageURL.href;
   requestMap(config,key);
 }
 function schedule(){if(!frame)frame=requestAnimationFrame(draw);}
@@ -237,4 +242,17 @@ document.querySelectorAll('[data-preset]').forEach(button=>button.addEventListen
   const name=button.dataset.preset;
   apply(name==='two'?{pitch_nm:620,source_u:-.2,na:.5}:name==='even'?{pitch_nm:1240,duty_ratio:.3,na:.7,max_order:5}:{},name);
 }));
-syncFrequency();schedule();
+// Language links carry valid physical settings in the fragment, without API calls.
+const restored={};
+for(const [name,value] of new URLSearchParams(location.hash.slice(1))){
+ if(!fields.includes(name))continue;
+ if(name==='phase_model'){
+  if(['paraxial','angular'].includes(value))restored[name]=value;
+ }else{
+  const input=el[name],number=Number(value);
+  if(value.trim()&&Number.isFinite(number)&&number>=Number(input.min)&&number<=Number(input.max)
+      &&(name!=='max_order'||Number.isInteger(number)))restored[name]=number;
+ }
+}
+if(Object.keys(restored).length)apply(restored);
+else{syncFrequency();schedule();}

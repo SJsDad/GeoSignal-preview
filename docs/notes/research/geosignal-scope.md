@@ -13,7 +13,7 @@ lang: ko
 
 ## 코드로 확인한 현재 상태
 
-GeoSignal-preview는 Jekyll 문서와 공개 결과 저장소입니다. 논문을 설명하는 이번 변경은 core simulator에 ML 모델을 추가하지 않습니다. 작업 환경의 GeoSignal-lab source도 읽어 기능의 존재 여부를 확인했습니다. 확인한 코드 파일과 함수는 아래와 같습니다. core source가 공개 Preview 저장소에 포함돼 있다는 뜻은 아닙니다.
+GeoSignal-preview는 Jekyll 문서·공개 결과와 브라우저 기반 학습 시뮬레이터를 제공합니다. 논문을 설명하는 이번 변경은 core simulator에 ML 모델을 추가하지 않습니다. 작업 환경의 GeoSignal-lab source도 읽어 기능의 존재 여부를 확인했습니다. 확인한 코드 파일과 함수는 아래와 같습니다. core source가 공개 Preview 저장소에 포함돼 있다는 뜻은 아닙니다.
 
 | 확인 위치 | 확인 내용 | 해석 범위 |
 | --- | --- | --- |

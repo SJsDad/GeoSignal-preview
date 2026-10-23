@@ -3,9 +3,11 @@
   "export_command": "python scripts/export_static_simulator.py --pages-dir ../GeoSignal-preview",
   "sha256": {
     "docs/assets/simulator/optics-engine.mjs": "ba864cb1ca27cb314bd3dafbc8d213c3241dca8ac565b0b2264fd668d3618c5e",
+    "docs/assets/simulator/simulator-i18n.json": "28c51827ea2c47d515bad21cbaea190a3f33cb5cb25aedf5e03ed35f5843a054",
     "docs/assets/simulator/simulator-worker.js": "96e791ff18a263fbcf86ae013c2b19769ba482dee327fb932b8799923799c720",
     "docs/assets/simulator/simulator.css": "ebc544019129b4cbc37c3eea1388ac72744cfaaa29532cc37644f1ba654004ec",
-    "docs/assets/simulator/simulator.js": "8d6925817c763d95448f201652463e1e6bd150dd4caeb1c0b1e662709086b65e",
-    "docs/simulator.html": "f45768c1aa201fc4d407235275b0831b9d33420e8b9c34e1a31a1ef1f44ce647"
+    "docs/assets/simulator/simulator.js": "b65b38e859b867c925c93f1089c2c9523c55399490305b65684acf971f5f1f6a",
+    "docs/simulator.html": "c489cc99d7d70a73aa5b31f2c968757e48422d268e6eee7fb00db0944337a633",
+    "docs/simulator_en.html": "1626da692f3fcd26fe698579c708d1856ed0a2cf241793406543fe97861cc70c"
   }
 }

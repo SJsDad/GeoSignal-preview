@@ -7,11 +7,9 @@ permalink: /ko/notes/fourier-optics/
 lang: ko
 ---
 
-<p class="language-switch"><a href="{{ '/notes/fourier-optics/' | relative_url }}" lang="en">View in English</a></p>
-
 # Fourier Optics
 
-이 기술 노트는 향후 필요할 때 내용을 추가하기 위해 마련해 둔 페이지입니다.
+Fourier optics는 마스크 형상, 공간주파수 필터링과 영상 형성을 연결합니다. FFT는 샘플링된 격자에서 이 계산을 효율적으로 수행하는 알고리즘입니다.
 
 ---
 

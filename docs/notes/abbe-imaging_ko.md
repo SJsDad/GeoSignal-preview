@@ -7,11 +7,9 @@ permalink: /ko/notes/abbe-imaging/
 lang: ko
 ---
 
-<p class="language-switch"><a href="{{ '/notes/abbe-imaging/' | relative_url }}" lang="en">View in English</a></p>
-
 # Abbe Imaging
 
-이 기술 노트는 향후 필요할 때 내용을 추가하기 위해 마련해 둔 페이지입니다.
+Abbe 이미징은 마스크 회절, pupil 필터링과 조명이 결합해 aerial image를 만드는 과정을 설명합니다.
 
 ---
 

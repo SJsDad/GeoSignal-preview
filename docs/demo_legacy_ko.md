@@ -6,8 +6,6 @@ permalink: /ko/demo-legacy/
 lang: ko
 ---
 
-<p class="language-switch"><a href="{{ '/demo-legacy/' | relative_url }}" lang="en">View in English</a></p>
-
 # Legacy Demo
 
 > **Legacy visualization 전용.** 이 페이지의 고정-threshold 그림, candidate ID 및 수치는 legacy preview convention의 예시입니다. Calibrated relative-dose CD 또는 Process Window 결과가 아닙니다. 현재 모델은 raw intensity에서 고정 T0 및 T_eff = T0/(D0*d)를 사용합니다. Method를 참고하세요.

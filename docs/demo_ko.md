@@ -6,8 +6,6 @@ permalink: /ko/demo/
 lang: ko
 ---
 
-<p class="language-switch"><a href="{{ '/demo/' | relative_url }}" lang="en">View in English</a></p>
-
 # Demo
 
 GDS를 올리고, 좁은 곳을 찾고, 관심 있는 패턴을 크게 살펴봅니다.

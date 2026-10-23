@@ -6,8 +6,6 @@ permalink: /ko/method/
 lang: ko
 ---
 
-<p class="language-switch"><a href="{{ '/method/' | relative_url }}" lang="en">View in English</a></p>
-
 # Method
 
 ## 1. Method Overview

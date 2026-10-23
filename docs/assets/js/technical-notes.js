@@ -23,7 +23,8 @@
         row.hidden = !visible;
         if (visible) count += 1;
       });
-      document.getElementById('review-count').textContent = `${count} / ${rows.length}편 표시`;
+      document.getElementById('review-count').textContent = document.documentElement.lang === 'ko'
+        ? `${count} / ${rows.length}편 표시` : `${count} / ${rows.length} papers shown`;
     };
     document.querySelector('.review-filters').hidden = false;
     filters.forEach(({select}) => select.addEventListener('change', applyFilters));

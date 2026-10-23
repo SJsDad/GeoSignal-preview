@@ -1,0 +1,7 @@
+{% if page.lang == 'ko' %}
+  {% assign translation_url = page.url | remove_first: '/ko' %}
+  <p class="language-switch"><a href="{{ translation_url | relative_url }}" lang="en" hreflang="en">View in English</a></p>
+{% else %}
+  {% assign translation_url = '/ko' | append: page.url %}
+  <p class="language-switch"><a href="{{ translation_url | relative_url }}" lang="ko" hreflang="ko">한국어로 보기</a></p>
+{% endif %}

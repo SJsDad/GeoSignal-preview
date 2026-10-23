@@ -6,8 +6,6 @@ permalink: /ko/release-notes/
 lang: ko
 ---
 
-<p class="language-switch"><a href="{{ '/release-notes/' | relative_url }}" lang="en">View in English</a></p>
-
 # 릴리즈 노트
 
 이 섹션은 **GeoSignal Preview**의 주요 구현 변경, 평가 기록, 기술적 판단을 버전별로 정리합니다.
@@ -18,7 +16,7 @@ v0.1부터 v0.4까지는 저장소 커밋 이력을 바탕으로 복원한 과�
 
 ## 버전
 
-v0.11.0은 Benchmark·분석 릴리즈입니다. 현재 공개 Render 데모는 v0.10의 화면·옵션·기본값을 유지합니다.
+최신 [v0.12]({{ '/ko/release-notes/v0.12/' | relative_url }})는 Pages의 한영 6f 광선·파동 시뮬레이터와 기술 문서 대칭화를 정리합니다. v0.11은 수치 벤치마크이며, Render의 GDS/OAS 레이아웃 분석은 v0.10의 옵션·기본값을 유지합니다.
 
 
 | 버전 | 주요 내용 |
@@ -34,8 +32,8 @@ v0.11.0은 Benchmark·분석 릴리즈입니다. 현재 공개 Render 데모는 
 | [v0.8.1]({{ '/ko/release-notes/v0.8.1/' | relative_url }}) | Backend-neutral imaging contract와 focus/dose 성능 개선 |
 | [v0.9]({{ '/ko/release-notes/v0.9/' | relative_url }}) | 정확한 Hopkins/TCC/SOCS 교차검증과 bounded optical-mode cache |
 | [v0.10]({{ '/ko/release-notes/v0.10/' | relative_url }}) | CD·면적 후보 정렬, 상대 도즈 보정, 조명·픽셀·ambit·DBU 검증과 결과 자료 |
-
 | [v0.11]({{ '/ko/release-notes/v0.11/' | relative_url }}) | KrF Numerical Benchmark, 전수 비교·독립 Grid·TT04 자원 검증; Render 연결 보류 |
+| [v0.12]({{ '/ko/release-notes/v0.12/' | relative_url }}) | 6f 광선·파동 시뮬레이터, Pages 직접 실행, 한영 화면·기술 문서 대칭화 |
 
 v0.8.0, v0.8.1, v0.9.0은 application 저장소에 tag가 생성된 릴리스입니다.
 v0.9.0에서 공개 service의 default는 Abbe로

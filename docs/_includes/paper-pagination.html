@@ -1,16 +1,17 @@
-<nav class="paper-pagination" aria-label="논문 이전 다음">
+{% if page.lang == 'ko' %}{% assign research_prefix = '/ko/notes/research/' %}{% else %}{% assign research_prefix = '/notes/research/' %}{% endif %}
+<nav class="paper-pagination" aria-label="{% if page.lang == 'ko' %}논문 이전 다음{% else %}Previous and next papers{% endif %}">
 {% for paper in site.data.papers %}
   {% if paper.id == page.paper_id %}
     {% assign previous_index = forloop.index0 | minus: 1 %}
     {% assign next_index = forloop.index0 | plus: 1 %}
     {% if previous_index >= 0 %}
       {% assign previous = site.data.papers[previous_index] %}
-      <a rel="prev" href="{{ '/ko/notes/research/' | append: previous.id | append: '/' | relative_url }}">← {{ previous.name }}</a>
+      <a rel="prev" href="{{ research_prefix | append: previous.id | append: '/' | relative_url }}">← {{ previous.name }}</a>
     {% endif %}
-    <a href="{{ '/ko/notes/research/' | relative_url }}">전체 논문 / Overview</a>
+    <a href="{{ research_prefix | relative_url }}">{% if page.lang == 'ko' %}전체 논문{% else %}All papers{% endif %}</a>
     {% if next_index < site.data.papers.size %}
       {% assign next = site.data.papers[next_index] %}
-      <a rel="next" href="{{ '/ko/notes/research/' | append: next.id | append: '/' | relative_url }}">{{ next.name }} →</a>
+      <a rel="next" href="{{ research_prefix | append: next.id | append: '/' | relative_url }}">{{ next.name }} →</a>
     {% endif %}
   {% endif %}
 {% endfor %}

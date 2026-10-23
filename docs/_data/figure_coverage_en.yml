@@ -1,0 +1,504 @@
+optico:
+  inventory_complete: false
+  scope: Full main-paper images and captions remain incompletely verified because of access limits.
+  rights: Original-image redistribution permission was not verified; official or author source links are provided.
+  supplementary: Only references to Appendices B/D/E were checked. The full supplement, figure inventory and hyperparameters
+    remain unverified.
+  figures:
+  - number: 1
+    page: 2
+    caption: Lithography and mask optimization
+    status: Partial indexed caption/text / Visual verification incomplete
+    url: https://openaccess.thecvf.com/content/CVPR2026/papers/Son_Optical_Diffraction-based_Convolution_for_Semiconductor_Lithography_CVPR_2026_paper.pdf#page=2
+    visual: Conceptual mask→wafer and target→mask directions. Original axes, colors and subfigure labels were not
+      visually inspected.
+    reading: Distinguish forward and inverse tasks first; the target itself need not be a good mask.
+    opc: Image fidelity and manufacturing constraints are different evaluation goals.
+  - number: 2
+    page: 4
+    caption: OptiCo architecture and OP block
+    status: Partial indexed caption/text / Visual verification incomplete
+    url: https://openaccess.thecvf.com/content/CVPR2026/papers/Son_Optical_Diffraction-based_Convolution_for_Semiconductor_Lithography_CVPR_2026_paper.pdf#page=4
+    visual: Backbone, OP complex convolution, channel embedding, phase modulation and residual fusion. Exact layout
+      and channel colors remain unseen.
+    reading: Follow Q/learned-W combinations and complex branches in equations (6)–(12) to locate the optical prior.
+    opc: Compare ordinary complex and phase-constrained CNNs. Residual features are not necessarily physical fields.
+  - number: 3
+    page: 7
+    caption: FNO additions versus the OptiCo backbone
+    status: Partial indexed caption/text / Visual verification incomplete
+    url: https://openaccess.thecvf.com/content/CVPR2026/papers/Son_Optical_Diffraction-based_Convolution_for_Semiconductor_Lithography_CVPR_2026_paper.pdf#page=7
+    visual: Comparison of Fourier modules and OptiCo added to a backbone. Exact axes, legends and numbers were not
+      directly verified.
+    reading: Check for a matched-backbone ablation; separate global-frequency benefits from explicit-prior benefits.
+    opc: Consider added parameters/runtime together with representation changes. The figure alone does not validate
+      a process.
+  - number: 4
+    page: 7
+    caption: OP kernels at different wavefront scales
+    status: Partial indexed caption/text / Visual verification incomplete
+    url: https://openaccess.thecvf.com/content/CVPR2026/papers/Son_Optical_Diffraction-based_Convolution_for_Semiconductor_Lithography_CVPR_2026_paper.pdf#page=7
+    visual: Indexed text describes concentric phase patterns in (a)–(c). Original colormap and phase units remain
+      visually unverified.
+    reading: Changing quadratic-phase ring spacing illustrates a propagation-scale prior. Mask-intensity rings differ
+      from kernel-phase rings.
+    opc: Units and calibration are needed before interpreting learned scales as scanner focus or physical distance.
+  - number: 5
+    page: 7
+    caption: Intermediate feature comparisons
+    status: Partial indexed caption/text / Visual verification incomplete
+    url: https://openaccess.thecvf.com/content/CVPR2026/papers/Son_Optical_Diffraction-based_Convolution_for_Semiconductor_Lithography_CVPR_2026_paper.pdf#page=7
+    visual: Features around corners/SRAFs with and without OptiCo. Channel identities and color keys remain unverified.
+    reading: Read the reported corner emphasis, but selected feature visualization does not prove constraint preservation.
+    opc: Check nonprinting SRAFs and worst EPE with a reference simulator.
+  - number: 6
+    page: null
+    caption: Diffraction-inspired optimized masks
+    status: Partial indexed caption/text / Visual verification incomplete
+    url: https://openaccess.thecvf.com/content/CVPR2026/papers/Son_Optical_Diffraction-based_Convolution_for_Semiconductor_Lithography_CVPR_2026_paper.pdf
+    visual: Described mask comparisons for ViaSet and OOD StdContact. Complete subfigures and scales remain unverified.
+    reading: Qualitatively inspect whether outer rings occur under OOD; this is not a complete optical-mechanism
+      proof.
+    opc: Useful assists require dose/focus, MRC and shot evaluation.
+lmlitho:
+  inventory_complete: true
+  scope: Complete main-paper figure inventory checked.
+  rights: Original-image redistribution permission was not verified; official or author source links are provided.
+  supplementary: Separate supplementary availability and total figure count were not verified.
+  figures:
+  - number: 1
+    page: 1
+    caption: Three simulation paradigms
+    status: Text/caption checked / Source link and explanation
+    url: https://www.cse.cuhk.edu.hk/~byu/papers/C286-ICCAD2025-LMLitho.pdf#page=1
+    visual: (a) Commercial optical+resist, (b) ML with small datasets, (c) source-aware LMLitho. Check marks express
+      author assessments, not numerical axes.
+    reading: Track supported source inputs and data scale; distinguish qualitative strengths from benchmark evidence.
+    opc: Account for training costs shifted ahead of inference.
+  - number: 2
+    page: 2
+    caption: Inside a Transformer encoder
+    status: Text/caption checked / Source link and explanation
+    url: https://www.cse.cuhk.edu.hk/~byu/papers/C286-ICCAD2025-LMLitho.pdf#page=2
+    visual: Multihead attention, residual Add & Norm, feedforward and head concatenation. Q/K/V are unitless feature
+      matrices.
+    reading: Follow QK-transpose scores and weighted V sums. Feature normalization is distinct from optical energy
+      conservation.
+    opc: Attention is not an interference equation.
+  - number: 3
+    page: 2
+    caption: Different references for OPC and forward EPE
+    status: Text/caption checked / Source link and explanation
+    url: https://www.cse.cuhk.edu.hk/~byu/papers/C286-ICCAD2025-LMLitho.pdf#page=2
+    visual: (a) Target versus printed resist, (b) predicted versus ground-truth resist. Image-coordinate arrows
+      mark edge distances.
+    reading: Identify the reference contour first; identical units do not make the two errors equivalent.
+    opc: Forward contour accuracy differs from final mask-to-target fidelity.
+  - number: 4
+    page: 3
+    caption: Source families and layout examples
+    status: Text/caption checked / Source link and explanation
+    url: https://www.cse.cuhk.edu.hk/~byu/papers/C286-ICCAD2025-LMLitho.pdf#page=3
+    visual: (a) Circular, annular, bull’s-eye, dipole, quasar and multipole; (b) seven typical layouts and CPU M1.
+      Panel grids are not performance axes.
+    reading: Separate angular illumination from wafer geometry; CPU clips provide more complex context than synthetic
+      patterns.
+    opc: Consider source-family/layout-level holdouts to reduce repeated-pattern leakage.
+  - number: 5
+    page: 4
+    caption: Mask/source encoders and resist decoder
+    status: Text/caption checked / Source link and explanation
+    url: https://www.cse.cuhk.edu.hk/~byu/papers/C286-ICCAD2025-LMLitho.pdf#page=4
+    visual: Mask supplies Q, source supplies K/V, then exposure attention and resist decoding. N1/N2/N3 label block
+      depths.
+    reading: Follow encoder and fusion paths; distinguish feature normalization and sampling from optical transfer.
+    opc: Source-aware representation is useful but does not exactly enforce physical source summation.
+  - number: 6
+    page: 4
+    caption: ViT versus CNN receptive fields
+    status: Text/caption checked / Source link and explanation
+    url: https://www.cse.cuhk.edu.hk/~byu/papers/C286-ICCAD2025-LMLitho.pdf#page=4
+    visual: Global ViT and local CNN context, generated resist and ground truth on one mask. Receptive-field overlays
+      describe network context.
+    reading: Inspect erroneous connections and geometry beyond local context; read alongside Table III ablations.
+    opc: Quantitatively compare optical interaction diameter and effective receptive field.
+  - number: 7
+    page: 5
+    caption: Pretraining and fine-tuning
+    status: Text/caption checked / Source link and explanation
+    url: https://www.cse.cuhk.edu.hk/~byu/papers/C286-ICCAD2025-LMLitho.pdf#page=5
+    visual: Training flow across mask/source/attention/resist modules. The source encoder is frozen during fine-tuning;
+      the snowflake marks fixed parameters.
+    reading: Separate frozen parameters from gradients passing to inputs, and identify modules that update.
+    opc: Recheck source freezing when optical conditions change.
+  - number: 8
+    page: 6
+    caption: Resist prediction across sources
+    status: Text/caption checked / Source link and explanation
+    url: https://www.cse.cuhk.edu.hk/~byu/papers/C286-ICCAD2025-LMLitho.pdf#page=6
+    visual: 'Rows: (a) vias, (b) metal, (c) CPU M1. Columns: mask, annular, multipole, quasar. Gray predicted resist
+      is overlaid with red commercial contours.'
+    reading: Hold the row’s mask fixed and inspect source-dependent shapes. Read contour gaps rather than only gray-region
+      area.
+    opc: This changes illumination on one mask; it does not compare separately source-optimized masks.
+  - number: 9
+    page: 8
+    caption: 20 nm fine-tuning across epochs
+    status: Text/caption checked / Source link and explanation
+    url: https://www.cse.cuhk.edu.hk/~byu/papers/C286-ICCAD2025-LMLitho.pdf#page=8
+    visual: (a) Epoch 1, (b) 9, (c) 17, (d) 25. Gray is commercial resist and red the model contour, unlike Figure
+      8.
+    reading: Inspect shrinking reference gaps as training proceeds. Epochs are training passes, not inference iterations.
+    opc: The 20 nm transfer uses fine-tuning data; it is not zero-shot.
+  - number: 10
+    page: 8
+    caption: Forward mean EPE at two nodes
+    status: Text/caption checked / Source link and explanation
+    url: https://www.cse.cuhk.edu.hk/~byu/papers/C286-ICCAD2025-LMLitho.pdf#page=8
+    visual: Horizontal EPE/nm axis, 28nm/20nm categories and LMLitho/DLS/DOINN legend. Lower mean contour distance
+      is better.
+    reading: Compare baselines within a node, not one combined ranking. The 28 nm 0.42/0.84/0.67 nm values also
+      appear in the text.
+    opc: Subpixel means require interpolation/measurement conventions and are not worst-error bounds.
+  - number: 11
+    page: 8
+    caption: Training a mask generator through a frozen simulator
+    status: Text/caption checked / Source link and explanation
+    url: https://www.cse.cuhk.edu.hk/~byu/papers/C286-ICCAD2025-LMLitho.pdf#page=8
+    visual: Target→generator→mask→frozen engine→resist→loss, with distinct forward/backward arrows.
+    reading: Fixed engine parameters can still transmit mask-input derivatives.
+    opc: Reevaluate surrogate-designed masks with an independent reference.
+  - number: 12
+    page: 8
+    caption: OPC L2, PVB and EPE comparisons
+    status: Text/caption checked / Source link and explanation
+    url: https://www.cse.cuhk.edu.hk/~byu/papers/C286-ICCAD2025-LMLitho.pdf#page=8
+    visual: DLS/DOINN/commercial tool/LMLitho categories; left axis L2/PVB [nm²], right EPE [nm], with different
+      scales.
+    reading: Do not compare heights across units directly. Final masks are evaluated commercially at dose ±3% and
+      focus ±40 nm.
+    opc: Independent evaluation matters; do not invent digitized numbers from uncertain plot details.
+  - number: 13
+    page: 8
+    caption: Commercial and LMLitho mask/resist details
+    status: Text/caption checked / Source link and explanation
+    url: https://www.cse.cuhk.edu.hk/~byu/papers/C286-ICCAD2025-LMLitho.pdf#page=8
+    visual: 'Four columns: commercial mask/resist and LMLitho mask/resist. Insets emphasize straight edges and corners.'
+    reading: Compare mask morphology separately from contours; attractive masks need not improve target fidelity.
+    opc: Selected-corner qualitative gains do not establish full-chip or wafer-CD superiority.
+doinn:
+  inventory_complete: true
+  scope: Complete main-paper figure inventory checked.
+  rights: Original-image redistribution permission was not verified; official or author source links are provided.
+  supplementary: 'Appendix A.1–A.2 in arXiv v1: GP/LP/IR layer tables and configuration checked. A separate supplement
+    is unverified.'
+  figures:
+  - number: 1
+    page: 2
+    caption: Optical and resist forward flow
+    status: Text/caption checked / Source link and explanation
+    url: https://arxiv.org/pdf/2203.08616v1#page=2
+    visual: Mask→aerial→resist images, without performance axes beyond image coordinates.
+    reading: Separate optical field/intensity computation from resist thresholding/classification.
+    opc: Check whether a contour predictor actually models fields or resist chemistry.
+  - number: 2
+    page: 4
+    caption: Approximate optical imaging operations
+    status: Text/caption checked / Source link and explanation
+    url: https://arxiv.org/pdf/2203.08616v1#page=4
+    visual: FFT, spectral kernels, IFFT and nonlinear intensity terms. K and alpha represent optics rather than
+      latent channels.
+    reading: Read how reusing mask FFTs and kernel products reduces SOCS costs.
+    opc: Similar computation does not prove learned weights are physical kernels.
+  - number: 3
+    page: 8
+    caption: Stacked versus reduced FNO
+    status: Text/caption checked / Source link and explanation
+    url: https://arxiv.org/pdf/2203.08616v1#page=8
+    visual: (a) Repeated Fourier units/bypasses; (b) one optimized unit. Compare positions of input lifting P and
+      projection Q.
+    reading: Separate channel expansion before FFT from single-channel FFT followed by lifting.
+    opc: Repeated transforms may dominate high-resolution costs.
+  - number: 4
+    page: 9
+    caption: GP, LP and IR architecture
+    status: Text/caption checked / Source link and explanation
+    url: https://arxiv.org/pdf/2203.08616v1#page=9
+    visual: Global pooling/FFT, local convolutions and concatenation/upsampling reconstruction. /8 means spatial
+      downsampling.
+    reading: Trace LP and bypass recovery of details lost by GP.
+    opc: Evaluate local corner/SRAF errors separately from global context.
+  - number: 5
+    page: 10
+    caption: Global features for large tiles
+    status: Text/caption checked / Source link and explanation
+    url: https://arxiv.org/pdf/2203.08616v1#page=10
+    visual: Small overlapping clips and a large valid core; green core differs from the halo.
+    reading: Connect half-overlap coverage and excluded boundaries to optical interaction diameter.
+    opc: Independent tiles without halos can miss neighbors and introduce FFT wrap-around.
+  - number: 6
+    page: 12
+    caption: Training epochs and throughput
+    status: Text/caption checked / Source link and explanation
+    url: https://arxiv.org/pdf/2203.08616v1#page=12
+    visual: 'X: training epochs; Y: throughput [µm²/s], logarithmic. UNet/DAMO/DOINN and a reference line are compared.'
+    reading: Read throughput, epochs to accuracy and simulator references together. Network ratios differ from reference-simulator
+      ratios.
+    opc: Unmatched hardware, training, clip area and I/O ratios do not give total OPC turnaround.
+  - number: 7
+    page: 13
+    caption: Global and local feature maps
+    status: Text/caption checked / Source link and explanation
+    url: https://arxiv.org/pdf/2203.08616v1#page=13
+    visual: (a) GP, (b) LP channels. GP looks smooth/intensity-like; LP captures edges. No absolute physical units
+      are assigned.
+    reading: Check complementary information without interpreting brightness as calibrated intensity.
+    opc: Visualization suggests design roles but does not prove process-corner preservation.
+  - number: 8
+    page: 14
+    caption: Responses to OPC mask perturbations
+    status: Text/caption checked / Source link and explanation
+    url: https://arxiv.org/pdf/2203.08616v1#page=14
+    visual: 'X: 24 OPC iterations; Y: mIoU [%], comparing DOINN and UNet. Initial masks differ from OPC-corrected
+      training masks.'
+    reading: Inspect stability under small changes to one layout.
+    opc: Intermediate inverse masks can be OOD; validate gradients as well as values.
+  - number: 9
+    page: 15
+    caption: Large-tile predictions and enlargements
+    status: Text/caption checked / Source link and explanation
+    url: https://arxiv.org/pdf/2203.08616v1#page=15
+    visual: (a–c) Mask/default DOINN/large-tile method; (d–f) matching zooms. Figure DOINN-FS differs in naming
+      from Table 4 DOINN-LT.
+    reading: Compare noisy default large-image output with stitched contour details.
+    opc: Arbitrary tensor shapes do not ensure constant physical frequency support.
+nitho:
+  inventory_complete: true
+  scope: Complete main-paper figure inventory checked.
+  rights: Original-image redistribution permission was not verified; official or author source links are provided.
+  supplementary: Separate supplementary availability and total figure count were not verified.
+  figures:
+  - number: 1
+    page: 1
+    caption: Two stages of forward lithography
+    status: Text/caption checked / Source link and explanation
+    url: https://arxiv.org/pdf/2303.08435v4#page=1
+    visual: (a) Source/lens/pupil/resist; (b) mask→kernel imaging→aerial→threshold resist. No quantitative performance
+      axes.
+    reading: Locate the learned stage first.
+    opc: Aerial error and resist-contour error are different losses.
+  - number: 2
+    page: 2
+    caption: Dataset t-SNE and OOD generalization
+    status: Text/caption checked / Source link and explanation
+    url: https://arxiv.org/pdf/2303.08435v4#page=2
+    visual: (a) Dataset t-SNE embedding; (b) comparisons under distribution shifts. t-SNE axes are not physical
+      mask coordinates.
+    reading: Inspect mask distributions and train→test directions before OOD scores.
+    opc: Morphology generalization under one optical system is not new-process transfer.
+  - number: 3
+    page: 4
+    caption: Kernel neural fields versus image models
+    status: Text/caption checked / Source link and explanation
+    url: https://arxiv.org/pdf/2303.08435v4#page=4
+    visual: (a) Coordinates→complex MLP→kernels separated from mask FFT; (b) TEMPO/DOINN image-to-image mapping.
+    reading: Track the distinction between kernel coordinates and mask-pixel learning inputs.
+    opc: Stored kernels avoid network inference per mask and fit naturally with exact SOCS paths.
+  - number: 4
+    page: 5
+    caption: Aerial/resist results by dataset
+    status: Text/caption checked / Source link and explanation
+    url: https://arxiv.org/pdf/2303.08435v4#page=5
+    visual: 'Rows (a) B1, (b) B2m, (c) B2v. Columns: mask, resist ground truth, TEMPO, DOINN, Nitho, Nitho aerial.
+      Intensity colors differ from binary regions.'
+    reading: Inspect how improved aerial fidelity affects threshold contours.
+    opc: Relate examples to Table III aggregates without claiming worst-gauge guarantees.
+  - number: 5
+    page: 5
+    caption: Throughput comparison with prior models
+    status: Text/caption checked / Source link and explanation
+    url: https://arxiv.org/pdf/2303.08435v4#page=5
+    visual: Runtime/throughput comparison in µm²/s, benchmarking stored-kernel synthesis after training.
+    reading: Separate online FFT/kernel synthesis from training-time MLP cost.
+    opc: Include an exact-kernel-cached baseline to identify the source of online gains.
+  - number: 6
+    page: 6
+    caption: Training-ratio and kernel-size ablations
+    status: Text/caption checked / Source link and explanation
+    url: https://arxiv.org/pdf/2303.08435v4#page=6
+    visual: (a) Training-data percentage versus mean PSNR [dB]; (b) kernel width/height versus dataset PSNR.
+    reading: Separate limited-data behavior from saturation with support size. Logarithmic PSNR is not a linear
+      accuracy ratio.
+    opc: Choose support/rank with CD/EPE gates; PSNR saturation alone does not validate process windows.
+tempo:
+  inventory_complete: true
+  scope: Complete main-paper figure inventory checked.
+  rights: Original-image redistribution permission was not verified; official or author source links are provided.
+  supplementary: Separate supplementary availability and total figure count were not verified.
+  figures:
+  - number: 1
+    page: 1
+    caption: Thin- versus thick-mask imaging
+    status: Text/caption checked / Source link and explanation
+    url: https://github.com/ywwwer/ywwwer.github.io/blob/master/files/papers/DFM_ISPD2020_Ye.pdf
+    visual: (a) Thin, (b) thick masks show near-field/aerial differences along source→mask→lens→resist, without
+      quantitative axes.
+    reading: Trace how topography changes field amplitude/phase and subsequent intensity.
+    opc: A binary scalar mask cannot explain all thick-mask scattering.
+  - number: 2
+    page: 2
+    caption: Height slices of a 3D aerial image
+    status: Text/caption checked / Source link and explanation
+    url: https://github.com/ywwwer/ywwwer.github.io/blob/master/files/papers/DFM_ISPD2020_Ye.pdf
+    visual: Stacked 2D intensities at 0 nm, 10 nm and other film heights. Color represents intensity, not dose or
+      focus.
+    reading: Correlated height-dependent images of one mask motivate a shared network.
+    opc: This is not scanner-defocus sensitivity or 3D chemical-resist validation.
+  - number: 3
+    page: 3
+    caption: Rigorous, Scheme 1 and Scheme 2 flows
+    status: Text/caption checked / Source link and explanation
+    url: https://github.com/ywwwer/ywwwer.github.io/blob/master/files/papers/DFM_ISPD2020_Ye.pdf
+    visual: (a) Rigorous thick mask, (b) mask→GAN, (c) mask+thin aerial→GAN. These are process flows, not metric
+      axes.
+    reading: Locate added physical information and thin-simulation cost in Scheme 2.
+    opc: GAN-only times cannot compare end-to-end scheme speedups.
+  - number: 4
+    page: 4
+    caption: Height-conditioned generator/discriminator
+    status: Text/caption checked / Source link and explanation
+    url: https://github.com/ywwwer/ywwwer.github.io/blob/master/files/papers/DFM_ISPD2020_Ye.pdf
+    visual: Shared encoder, height-label bottleneck, decoder/skips and conditional discriminator. Generator one-hot
+      and discriminator ordinal channels differ.
+    reading: Identify shared geometry features and the entry point of height conditioning.
+    opc: Shared latents do not establish interpolation/extrapolation beyond trained heights.
+  - number: 5
+    page: 8
+    caption: X/Y CD-error distributions
+    status: Text/caption checked / Source link and explanation
+    url: https://github.com/ywwwer/ywwwer.github.io/blob/master/files/papers/DFM_ISPD2020_Ye.pdf
+    visual: (a) X, (b) Y; horizontal CD error [nm], vertical counts. Four series combine individual/TEMPO models
+      and two schemes.
+    reading: Inspect high-error tails beyond means; relate Scheme 2 means to Table 4.
+    opc: This is central-contact CD, not wafer-wide variability.
+resgnn-opc:
+  inventory_complete: false
+  scope: Full main-paper images and captions remain incompletely verified because of access limits.
+  rights: Original-image redistribution permission was not verified; official or author source links are provided.
+  supplementary: Separate supplementary availability and total figure count were not verified.
+  figures:
+  - number: 1
+    caption: 'Subscription-limited: caption and subject unverified'
+    status: Source link only / Detailed reading incomplete
+    url: https://opg.optica.org/ao/abstract.cfm?uri=ao-64-15-4227#Figures
+    page: null
+  - number: 2
+    caption: 'Subscription-limited: caption and subject unverified'
+    status: Source link only / Detailed reading incomplete
+    url: https://opg.optica.org/ao/abstract.cfm?uri=ao-64-15-4227#Figures
+    page: null
+  - number: 3
+    caption: 'Subscription-limited: caption and subject unverified'
+    status: Source link only / Detailed reading incomplete
+    url: https://opg.optica.org/ao/abstract.cfm?uri=ao-64-15-4227#Figures
+    page: null
+  - number: 4
+    caption: 'Subscription-limited: caption and subject unverified'
+    status: Source link only / Detailed reading incomplete
+    url: https://opg.optica.org/ao/abstract.cfm?uri=ao-64-15-4227#Figures
+    page: null
+  - number: 5
+    caption: 'Subscription-limited: caption and subject unverified'
+    status: Source link only / Detailed reading incomplete
+    url: https://opg.optica.org/ao/abstract.cfm?uri=ao-64-15-4227#Figures
+    page: null
+  - number: 6
+    caption: 'Subscription-limited: caption and subject unverified'
+    status: Source link only / Detailed reading incomplete
+    url: https://opg.optica.org/ao/abstract.cfm?uri=ao-64-15-4227#Figures
+    page: null
+  - number: 7
+    caption: 'Subscription-limited: caption and subject unverified'
+    status: Source link only / Detailed reading incomplete
+    url: https://opg.optica.org/ao/abstract.cfm?uri=ao-64-15-4227#Figures
+    page: null
+  - number: 8
+    caption: 'Subscription-limited: caption and subject unverified'
+    status: Source link only / Detailed reading incomplete
+    url: https://opg.optica.org/ao/abstract.cfm?uri=ao-64-15-4227#Figures
+    page: null
+  - number: 9
+    caption: 'Subscription-limited: caption and subject unverified'
+    status: Source link only / Detailed reading incomplete
+    url: https://opg.optica.org/ao/abstract.cfm?uri=ao-64-15-4227#Figures
+    page: null
+  - number: 10
+    caption: 'Subscription-limited: caption and subject unverified'
+    status: Source link only / Detailed reading incomplete
+    url: https://opg.optica.org/ao/abstract.cfm?uri=ao-64-15-4227#Figures
+    page: null
+hi-ilt:
+  inventory_complete: false
+  scope: Full PDF unavailable. Main figure count, numbers and captions are unknown; no numbers are guessed.
+  rights: Original-image redistribution permission was not verified; official or author source links are provided.
+  supplementary: Separate supplementary availability and total figure count were not verified.
+  figures: []
+tokman:
+  inventory_complete: false
+  scope: Full main-paper images and captions remain incompletely verified because of access limits.
+  rights: Original-image redistribution permission was not verified; official or author source links are provided.
+  supplementary: Official supplemental ZIP link verified; contents, captions and coverage remain unverified because
+    ZIP parsing was unavailable.
+  figures:
+  - number: 1
+    page: 2
+    caption: Optical distortion and the need for OPC
+    status: Partial indexed caption/text / Visual verification incomplete
+    url: https://proceedings.nips.cc/paper_files/paper/2025/file/4e127d4fb92a3145ecb60f6aa0b16eef-Paper-Conference.pdf#page=2
+    visual: Conceptual targets and mask/wafer results before/after OPC. Original axes and colors were not directly
+      checked.
+    reading: First distinguish target shapes from useful masks.
+    opc: Consider binary/Manhattan constraints together with printed fidelity.
+  - number: 2
+    page: 3
+    caption: Segmentation through lithographic feedback
+    status: Partial indexed caption/text / Visual verification incomplete
+    url: https://proceedings.nips.cc/paper_files/paper/2025/file/4e127d4fb92a3145ecb60f6aa0b16eef-Paper-Conference.pdf#page=3
+    visual: Layout→Manhattan points→denoising corrections→nvdiffrast mask→wafer→loss and postprocessing. Exact subfigures/colors
+      remain unverified.
+    reading: Follow rasterization between token corrections and image evaluation.
+    opc: Reproduction must check gradient flow while preserving geometry constraints.
+  - number: 3
+    page: 5
+    caption: Segmentation and one diffusion step
+    status: Partial indexed caption/text / Visual verification incomplete
+    url: https://proceedings.nips.cc/paper_files/paper/2025/file/4e127d4fb92a3145ecb60f6aa0b16eef-Paper-Conference.pdf#page=5
+    visual: (a) Corners/alignment/partition; (b) point/polygon positions, noise level, Transformer and corrections.
+      These are not metric axes.
+    reading: Distinguish input positions from predicted axis offsets. Noise level is not exposure time.
+    opc: Granularity and influence-zone scope affect both edge accuracy and attention cost.
+  - number: 4
+    page: 8
+    caption: S3/S6 masks, targets and resists
+    status: Partial indexed caption/text / Visual verification incomplete
+    url: https://proceedings.nips.cc/paper_files/paper/2025/file/4e127d4fb92a3145ecb60f6aa0b16eef-Paper-Conference.pdf#page=8
+    visual: Indexed panels compare DevelSet, IL-ILT and TokMan on two cases. Full zooms and color keys remain unseen.
+    reading: Inspect target edges separately from unnecessary mask fragmentation.
+    opc: Selected qualitative cases do not establish benchmark-wide manufacturing approval.
+  - number: 5
+    page: 8
+    caption: Definitions of EPE and mask shots
+    status: Partial indexed caption/text / Visual verification incomplete
+    url: https://proceedings.nips.cc/paper_files/paper/2025/file/4e127d4fb92a3145ecb60f6aa0b16eef-Paper-Conference.pdf#page=8
+    visual: Inner/outer merit-point errors and rectangular shots, shown conceptually rather than as a histogram.
+    reading: EPE is mean contour distance, not violation counts; shots count fractured rectangles.
+    opc: Check tails, missing intersections and full MRC separately.
+  - number: 6
+    page: 8
+    caption: Architecture hyperparameter ablations
+    status: Partial indexed caption/text / Visual verification incomplete
+    url: https://proceedings.nips.cc/paper_files/paper/2025/file/4e127d4fb92a3145ecb60f6aa0b16eef-Paper-Conference.pdf#page=8
+    visual: Indexed axes vary feature dimension, head count and decoder layers. Exact Y units, legends and values
+      remain unverified.
+    reading: Capacity and compute change together; do not extract unverified optimal values.
+    opc: Process-specific validation and parameter/runtime tradeoffs are needed, not universal defaults.

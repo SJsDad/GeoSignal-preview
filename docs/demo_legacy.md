@@ -5,8 +5,6 @@ description: Demo results and interpretation for GeoSignal Preview
 permalink: /demo-legacy/
 ---
 
-<p class="language-switch"><a href="{{ '/ko/demo-legacy/' | relative_url }}" lang="ko">한국어로 보기</a></p>
-
 # Legacy Demo
 
 > **Legacy visualization only.** All fixed-threshold images, candidate IDs and numerical results on this page use the legacy preview convention. They do not represent calibrated relative-dose CD or Process Window results. The current model uses fixed T0 and T_eff = T0/(D0*d) on raw intensity; see Method.

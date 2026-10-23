@@ -9,7 +9,7 @@ layout: default
   {% if page.category == 'foundations' %}
   <a href="{{ prefix | append: '/foundations/' | relative_url }}">Physics &amp; Math Foundations</a>
   {% elsif page.category == 'research' %}
-  <a href="{{ '/ko/notes/research/' | relative_url }}" lang="ko">Research Paper Reviews</a>
+  <a href="{{ prefix | append: '/research/' | relative_url }}">Research Paper Reviews</a>
   {% endif %}
 </nav>
 <div class="technical-content">{{ content }}</div>
@@ -17,8 +17,8 @@ layout: default
 {% include paper-pagination.html %}
 {% endif %}
 <dialog id="figure-dialog" aria-labelledby="figure-title">
-  <form method="dialog"><button class="figure-close" aria-label="닫기 / Close">×</button></form>
+  <form method="dialog"><button class="figure-close" aria-label="{% if page.lang == 'ko' %}닫기{% else %}Close{% endif %}">×</button></form>
   <p id="figure-title"></p>
   <div class="figure-viewport"><img id="figure-full" alt=""></div>
-  <p><a id="figure-original" target="_blank" rel="noopener">이미지 파일 열기 / Open image</a></p>
+  <p><a id="figure-original" target="_blank" rel="noopener">{% if page.lang == 'ko' %}이미지 파일 열기{% else %}Open image file{% endif %}</a></p>
 </dialog>

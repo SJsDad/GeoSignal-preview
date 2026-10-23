@@ -7,8 +7,6 @@ permalink: /ko/notes/diffraction-defocus/
 lang: ko
 ---
 
-<p class="language-switch"><a href="{{ '/notes/diffraction-defocus/' | relative_url }}" lang="en">View in English</a></p>
-
 # 회절 차수와 디포커스: 경사 조명의 이미징 원리
 
 먼저 6f 광학계에서 광원부터 웨이퍼까지 광선을 따라갑니다. 그 경로와 같은 회절항으로 pupil 스펙트럼, 복소 전계와 강도를 합성하면 사각형 마스크의 모서리가 둥글어지는 이유와 경사 조명의 초점 민감도를 함께 설명할 수 있습니다.

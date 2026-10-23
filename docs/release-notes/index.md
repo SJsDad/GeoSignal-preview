@@ -5,8 +5,6 @@ description: Version notes and implementation changes for GeoSignal Preview
 permalink: /release-notes/
 ---
 
-<p class="language-switch"><a href="{{ '/ko/release-notes/' | relative_url }}" lang="ko">한국어로 보기</a></p>
-
 # Release Notes
 
 This section records major implementation changes, evaluation notes, and technical decisions behind **GeoSignal Preview**.
@@ -21,7 +19,7 @@ General visitors can read [Home]({{ '/' | relative_url }}), [Demo]({{ '/demo/' |
 
 ## Versions
 
-v0.11.0 is a benchmark/analysis release. The live Render demo retains the v0.10 screen, options and defaults.
+The latest [v0.12]({{ '/release-notes/v0.12/' | relative_url }}) documents the bilingual Pages 6f simulator and aligned learning notes. v0.11 remains the numerical benchmark; Render GDS/OAS layout analysis retains the v0.10 options and defaults.
 
 
 | Version | Main Focus |
@@ -37,8 +35,8 @@ v0.11.0 is a benchmark/analysis release. The live Render demo retains the v0.10 
 | [v0.8.1]({{ '/release-notes/v0.8.1/' | relative_url }}) | Backend-neutral imaging contract and focus/dose performance refactor |
 | [v0.9]({{ '/release-notes/v0.9/' | relative_url }}) | Exact Hopkins/TCC/SOCS cross-validation and bounded optical-mode caching |
 | [v0.10]({{ '/release-notes/v0.10/' | relative_url }}) | CD/area ranking, relative-dose fitting, source/pixel/ambit/DBU validation and result artifacts |
-
 | [v0.11]({{ '/release-notes/v0.11/' | relative_url }}) | KrF numerical benchmarks, full cross/split grids, TT04 resource audit; Render integration deferred |
+| [v0.12]({{ '/release-notes/v0.12/' | relative_url }}) | 6f ray/wave simulator, direct Pages hosting and bilingual screens/documentation |
 
 v0.8.0, v0.8.1, and v0.9.0 are tagged application releases. v0.9.0 retains Abbe as the public service default.
 

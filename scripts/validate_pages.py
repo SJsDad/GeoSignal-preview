@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import re
 import argparse
+import hashlib
+import json
 from html.parser import HTMLParser
 from urllib.parse import urljoin, urlsplit, unquote
 import sys
@@ -21,10 +23,16 @@ class BuiltPage(HTMLParser):
         super().__init__()
         self.links = []
         self.ids = set()
+        self.language = None
+        self.language_links = []
         self.feed(text)
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        if tag == "html":
+            self.language = attrs.get("lang")
+        if tag == "a" and attrs.get("hreflang"):
+            self.language_links.append((attrs["hreflang"], attrs.get("href")))
         if "id" in attrs:
             self.ids.add(attrs["id"])
         if tag == "a" and "name" in attrs:
@@ -48,6 +56,20 @@ def validate_built(site, permalinks, errors):
         if "{{" in text or "{%" in text:
             errors.append(f"unrendered Liquid in {path.relative_to(site)}")
         pages[path.resolve()] = BuiltPage(text)
+    for route in permalinks:
+        destination = site / route.lstrip("/")
+        if route.endswith("/"):
+            destination /= "index.html"
+        page = pages.get(destination.resolve())
+        if page is None:
+            continue
+        korean = route.startswith("/ko/")
+        counterpart = route.removeprefix("/ko") if korean else "/ko" + route
+        expected = ("en" if korean else "ko", base + counterpart)
+        if page.language != ("ko" if korean else "en"):
+            errors.append(f"incorrect HTML language: {route}")
+        if page.language_links != [expected]:
+            errors.append(f"incorrect language switch: {route}: {page.language_links}")
     for path, page in pages.items():
         origin = base + "/" + path.relative_to(site.resolve()).as_posix()
         for link in page.links:
@@ -66,6 +88,52 @@ def validate_built(site, permalinks, errors):
             elif target.fragment and local.resolve() in pages and unquote(target.fragment) not in pages[local.resolve()].ids:
                 errors.append(f"missing fragment: {path.relative_to(site.resolve())}: {link}")
     print(f"Built HTML files: {len(pages)}")
+
+
+def validate_language_pairs(documents, permalinks, errors):
+    """Catch missing counterparts and dropped teaching material during edits."""
+    signatures = {
+        "headings": r"^#{1,4} ",
+        "display-math delimiters": r"^\$\$\s*$",
+        "images": r"<img\s|!\[",
+    }
+    for route, path in permalinks.items():
+        counterpart = route.removeprefix("/ko") if route.startswith("/ko/") else "/ko" + route
+        if counterpart not in permalinks:
+            errors.append(f"missing language counterpart: {route} -> {counterpart}")
+        elif not route.startswith("/ko/"):
+            for label, pattern in signatures.items():
+                count = len(re.findall(pattern, documents[path], re.MULTILINE))
+                other = len(re.findall(pattern, documents[permalinks[counterpart]], re.MULTILINE))
+                if count != other:
+                    errors.append(f"language pair differs in {label}: {route}: en={count}, ko={other}")
+
+    # Translation can change descriptions, but not the evidence source inventory.
+    original = (DOCS / "_data/figure_coverage.yml").read_text(encoding="utf-8")
+    translated = (DOCS / "_data/figure_coverage_en.yml").read_text(encoding="utf-8")
+    for label, pattern in {
+        "figure sources": r"^\s*url:\s*(\S+)",
+        "figure numbers": r"^\s*- number:\s*(\S+)",
+        "inventory status": r"^\s*inventory_complete:\s*(\S+)",
+    }.items():
+        if re.findall(pattern, original, re.MULTILINE) != re.findall(pattern, translated, re.MULTILINE):
+            errors.append(f"translated {label} differ from Korean evidence")
+
+    manifest_path = DOCS / "assets/simulator/manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    for relative, expected in manifest["sha256"].items():
+        path = ROOT / relative
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+            errors.append(f"stale simulator export: {relative}; regenerate from GeoSignal-lab")
+    strings = json.loads((DOCS / "assets/simulator/simulator-i18n.json").read_text(encoding="utf-8"))
+    if strings["en"].keys() != strings["ko"].keys():
+        errors.append("simulator translation keys differ")
+    else:
+        for key, english in strings["en"].items():
+            korean = strings["ko"][key]
+            if isinstance(english, str) and re.findall(r"\{\w+\}", english) != re.findall(r"\{\w+\}", korean):
+                errors.append(f"simulator placeholders differ: {key}")
+    print(f"Bilingual route pairs: {len(permalinks) // 2}")
 
 
 def main() -> int:
@@ -124,6 +192,8 @@ def main() -> int:
                 errors.append(
                     f"missing route from {path.relative_to(ROOT)}: {route}"
                 )
+
+    validate_language_pairs(documents, permalinks, errors)
 
     # Public presentation must not expose personal development dates/schedules.
     chronology = re.compile(

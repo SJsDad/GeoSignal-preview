@@ -6,8 +6,6 @@ permalink: /ko/
 lang: ko
 ---
 
-<p class="language-switch"><a href="{{ '/' | relative_url }}" lang="en">View in English</a></p>
-
 # GeoSignal Preview
 
 **GDS/OAS에서 폭과 간격이 좁은 후보를 추리고, 빛의 영향을 계산한 윤곽과 함께 살펴보는 공개 데모입니다.** 파일에서 검토할 위치를 찾고 주변 모양을 분석하는 과정을 한 흐름으로 연결합니다.
@@ -23,6 +21,10 @@ lang: ko
 폭·간격 검사로 후보를 찾은 뒤 선택한 위치의 광학 이미지와 윤곽을 계산합니다. 기준 패턴으로 비교의 출발점을 맞추며, 등록 예제 외 파일은 현재 기준 위치·방향·설계 폭 입력이 필요합니다. 처음 사용한다면 데모의 시작 안내를 확인해 주세요.
 
 현재 데모의 모델·운영 설정은 [v0.10 릴리즈 노트]({{ '/ko/release-notes/v0.10/' | relative_url }})에 정리했습니다. 신규 [v0.11 벤치마크]({{ '/ko/release-notes/v0.11/' | relative_url }})는 Source·Pixel·보간 정확도와 실행 비용을 비교한 연구·분석 릴리즈이며, Render 화면·옵션 반영은 별도 검토 중입니다.
+
+## 6f 광선·파동 시뮬레이터
+
+[시뮬레이터 실행]({{ '/ko/simulator/' | relative_url }})에서 광원→웨이퍼의 6f 광선 경로와 같은 회절 차수의 pupil·파동 결과를 함께 조작할 수 있습니다. Pages에서 직접 실행되며 Render 서버 기동을 기다리지 않습니다. [v0.12 릴리즈 노트]({{ '/ko/release-notes/v0.12/' | relative_url }})에 한영 화면과 문서 변경을 정리했습니다.
 
 ## 1. GeoSignal Preview란?
 

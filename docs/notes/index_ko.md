@@ -5,8 +5,6 @@ permalink: /ko/notes/
 lang: ko
 ---
 
-<p class="language-switch"><a href="{{ '/notes/' | relative_url }}">View in English</a></p>
-
 # Technical Notes
 
 이 섹션은 GeoSignal Preview의 Demo와 Method 페이지를 이해하기 위한 보조 설명을 정리합니다.

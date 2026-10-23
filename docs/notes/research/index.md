@@ -137,4 +137,4 @@ Hybrid는 learned initializer/predictor로 시간을 줄이고 model-based verif
 
 ## References와 완성 범위
 
-각 리뷰의 Paper Information에 공식 원문·DOI·확인된 코드/데이터를 연결했습니다. [Source & Figure Coverage]({{ '/ko/notes/research/sources/' | relative_url }})의 기록을 유지해 접근 제한을 full-review 완료로 숨기지 않습니다. 8개 문서·Overview·Foundations·탐색 UI는 구현했지만 미확보 본문·supplement 검증은 남아 있습니다.
+각 리뷰의 Paper Information에 공식 원문·DOI·확인된 코드/데이터를 연결했습니다. [Source & Figure Coverage]({{ '/ko/notes/research/sources/' | relative_url }})의 기록을 유지해 접근 제한을 full-review 완료로 숨기지 않습니다. 8개 리뷰·개요·기초 노트·탐색 UI는 한글·영문으로 제공하지만 미확보 본문·supplement 검증은 남아 있습니다.

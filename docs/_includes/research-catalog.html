@@ -1,15 +1,16 @@
+{% if page.lang == 'ko' %}{% assign research_prefix = '/ko/notes/research/' %}{% else %}{% assign research_prefix = '/notes/research/' %}{% endif %}
 <div class="review-filters" hidden>
-  <label>발표 연도 <select id="review-year"><option value="">전체</option>{% assign years = site.data.papers | map: 'year' | uniq | sort | reverse %}{% for year in years %}<option>{{ year }}</option>{% endfor %}</select></label>
-  <label>연구 분야 <select id="review-field"><option value="">전체</option><option>Forward Simulation</option><option>ILT</option><option>OPC</option><option>Mask Topography</option></select></label>
-  <label>Architecture <select id="review-architecture"><option value="">전체</option>{% for paper in site.data.papers %}<option>{{ paper.architecture }}</option>{% endfor %}</select></label>
-  <button id="review-reset" type="button">필터 초기화</button>
+  <label>{% if page.lang == 'ko' %}발표 연도{% else %}Publication year{% endif %} <select id="review-year"><option value="">{% if page.lang == 'ko' %}전체{% else %}All{% endif %}</option>{% assign years = site.data.papers | map: 'year' | uniq | sort | reverse %}{% for year in years %}<option>{{ year }}</option>{% endfor %}</select></label>
+  <label>{% if page.lang == 'ko' %}연구 분야{% else %}Research field{% endif %} <select id="review-field"><option value="">{% if page.lang == 'ko' %}전체{% else %}All{% endif %}</option><option>Forward Simulation</option><option>ILT</option><option>OPC</option><option>Mask Topography</option></select></label>
+  <label>Architecture <select id="review-architecture"><option value="">{% if page.lang == 'ko' %}전체{% else %}All{% endif %}</option>{% for paper in site.data.papers %}<option>{{ paper.architecture }}</option>{% endfor %}</select></label>
+  <button id="review-reset" type="button">{% if page.lang == 'ko' %}필터 초기화{% else %}Reset filters{% endif %}</button>
 </div>
 <p id="review-count" role="status" aria-live="polite"></p>
 <table id="research-catalog">
-  <thead><tr><th scope="col">논문</th><th scope="col">연도·학회</th><th scope="col">분야</th><th scope="col">Architecture</th><th scope="col">근거 확보 범위</th></tr></thead>
+  <thead><tr><th scope="col">{% if page.lang == 'ko' %}논문{% else %}Paper{% endif %}</th><th scope="col">{% if page.lang == 'ko' %}연도·학회{% else %}Year · Venue{% endif %}</th><th scope="col">{% if page.lang == 'ko' %}분야{% else %}Field{% endif %}</th><th scope="col">Architecture</th><th scope="col">{% if page.lang == 'ko' %}근거 확보 범위{% else %}Evidence reviewed{% endif %}</th></tr></thead>
   <tbody>{% for paper in site.data.papers %}
   <tr data-year="{{ paper.year }}" data-field="{{ paper.field }}" data-architecture="{{ paper.architecture }}">
-    <td><a href="{{ '/ko/notes/research/' | append: paper.id | append: '/' | relative_url }}">{{ paper.name }}</a></td>
-    <td>{{ paper.year }} · {{ paper.venue }}</td><td>{{ paper.field }}</td><td>{{ paper.architecture }}</td><td>{{ paper.evidence }}</td>
+    <td><a href="{{ research_prefix | append: paper.id | append: '/' | relative_url }}">{{ paper.name }}</a></td>
+    <td>{{ paper.year }} · {{ paper.venue }}</td><td>{{ paper.field }}</td><td>{{ paper.architecture }}</td><td>{% if page.lang == 'ko' %}{{ paper.evidence }}{% else %}{{ paper.evidence_en }}{% endif %}</td>
   </tr>{% endfor %}</tbody>
 </table>

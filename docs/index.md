@@ -5,8 +5,6 @@ description: Lithography-aware layout visualization workflow
 permalink: /
 ---
 
-<p class="language-switch"><a href="{{ '/ko/' | relative_url }}" lang="ko">한국어로 보기</a></p>
-
 # GeoSignal Preview
 
 **Upload a GDS/OAS layout, find narrow-width and narrow-gap candidates, and inspect their shapes through a simplified optical model.** GeoSignal connects a layout file to locations worth a closer look in one review workflow.
@@ -22,6 +20,10 @@ permalink: /
 Width and gap checks find candidates before optical images and outlines are calculated at selected locations. A reference pattern sets the comparison baseline. Files outside the registered examples currently require a reference location, direction and design width; see the getting-started guidance on Demo.
 
 The current demo model and operating settings are documented in [v0.10 Release Notes]({{ '/release-notes/v0.10/' | relative_url }}). The new [v0.11 benchmark release]({{ '/release-notes/v0.11/' | relative_url }}) compares source, pixel and interpolation accuracy/cost. Render screen and option integration awaits a separate review.
+
+## 6f ray and wave simulator
+
+[Open the simulator]({{ '/simulator/' | relative_url }}) to follow source-to-wafer 6f rays and interact with the pupil/waves from the same diffraction orders. It runs directly on Pages without a Render cold start. [v0.12 Release Notes]({{ '/release-notes/v0.12/' | relative_url }}) describe the bilingual screens and documentation updates.
 
 ## 1. What is GeoSignal Preview?
 
