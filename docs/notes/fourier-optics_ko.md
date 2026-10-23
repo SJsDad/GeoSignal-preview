@@ -85,6 +85,7 @@ $$
 
 ## 참고자료와 다음 단계
 
+* [회절 차수와 디포커스: 경사 조명의 이미징 원리]({{ '/ko/notes/diffraction-defocus/' | relative_url }}) — 주기적 마스크로 pupil·위상·영상의 관계를 확인합니다.
 * [Abbe Imaging]({{ '/ko/notes/abbe-imaging/' | relative_url }})
 * [Hopkins/TCC/SOCS]({{ '/ko/notes/foundations/hopkins-tcc-socs/' | relative_url }})
 * [DOINN 원문, Section 3](https://arxiv.org/html/2203.08616v1)

@@ -1,0 +1,30 @@
+{
+  "model": "periodic 1D binary amplitude mask, scalar air propagation",
+  "wavelength_um": 0.248,
+  "pitch_um": 0.62,
+  "na": 0.5,
+  "duty": 0.5,
+  "normal_source_u": 0.0,
+  "tilted_source_u": -0.2,
+  "normal_nonzero_orders": [
+    -1,
+    0,
+    1
+  ],
+  "tilted_nonzero_orders": [
+    0,
+    1
+  ],
+  "focus_extent_um": [
+    -1.0,
+    1.0
+  ],
+  "phase_model_in_figures": "paraxial",
+  "intensity_color_limits": [
+    0.0,
+    1.2919045069369328
+  ],
+  "per_row_peak_normalization": false,
+  "two_beam_michelson_contrast": 0.9060367009005804,
+  "two_beam_max_focus_intensity_change": 5.551115123125783e-16
+}

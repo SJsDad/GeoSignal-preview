@@ -74,6 +74,7 @@ LMLitho의 source conditioning은 이러한 광원 의존성을 학습 입력으
 
 ## 추가 참고자료
 
+* [회절 차수와 디포커스: 경사 조명의 이미징 원리]({{ '/ko/notes/diffraction-defocus/' | relative_url }}) — 3-beam과 대칭 2-beam 예제를 비교합니다.
 * [Fourier Optics]({{ '/ko/notes/fourier-optics/' | relative_url }})
 * [Nitho 원문, Section II](https://arxiv.org/html/2303.08435v4)
 * [LMLitho 리뷰]({{ '/ko/notes/research/lmlitho/' | relative_url }})

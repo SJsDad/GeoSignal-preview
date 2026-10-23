@@ -17,9 +17,10 @@ lang: ko
 
 1. [Fourier Optics · FFT]({{ '/ko/notes/fourier-optics/' | relative_url }}) — 공간 주파수·convolution·sampling을 확인합니다.
 2. [Abbe Imaging · Pupil · Partial Coherence]({{ '/ko/notes/abbe-imaging/' | relative_url }}) — source마다 전계를 계산한 뒤 intensity를 더하는 이유를 이해합니다.
-3. [Hopkins · TCC · SOCS]({{ '/ko/notes/foundations/hopkins-tcc-socs/' | relative_url }}) — mask와 광학계를 분리해 kernel을 재사용하는 과정을 유도합니다.
-4. [Inverse Problem · Gradient · Metrics]({{ '/ko/notes/foundations/inverse-and-metrics/' | relative_url }}) — differentiable imaging이 mask update로 연결되는 과정과 지표 단위를 확인합니다.
-5. [Research Paper Reviews]({{ '/ko/notes/research/' | relative_url }}) — 물리 지식을 네트워크의 어느 위치에 넣는지 비교합니다.
+3. [회절 차수와 디포커스: 경사 조명의 이미징 원리]({{ '/ko/notes/diffraction-defocus/' | relative_url }}) — 주기적 마스크의 고차항과 3-beam/2-beam의 초점 민감도를 비교합니다.
+4. [Hopkins · TCC · SOCS]({{ '/ko/notes/foundations/hopkins-tcc-socs/' | relative_url }}) — mask와 광학계를 분리해 kernel을 재사용하는 과정을 유도합니다.
+5. [Inverse Problem · Gradient · Metrics]({{ '/ko/notes/foundations/inverse-and-metrics/' | relative_url }}) — differentiable imaging이 mask update로 연결되는 과정과 지표 단위를 확인합니다.
+6. [Research Paper Reviews]({{ '/ko/notes/research/' | relative_url }}) — 물리 지식을 네트워크의 어느 위치에 넣는지 비교합니다.
 
 ## 기존 노트 설명
 
@@ -27,6 +28,7 @@ lang: ko
 | --- | --- |
 | [Abbe Imaging]({{ '/ko/notes/abbe-imaging/' | relative_url }}) | Preview workflow에서 사용하는 simplified Abbe-style imaging 개념 설명 |
 | [Fourier Optics]({{ '/ko/notes/fourier-optics/' | relative_url }}) | Aerial image 형성과 관련된 Fourier optics 배경 설명 |
+| [회절 차수와 디포커스]({{ '/ko/notes/diffraction-defocus/' | relative_url }}) | 고차 회절항, pupil과 경사 조명의 through-focus 비교 |
 
 ## 기존 문서와 구현 범위
 

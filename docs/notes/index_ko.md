@@ -18,6 +18,7 @@ lang: ko
 * [Foundations Overview]({{ '/ko/notes/foundations/' | relative_url }})
 * [Abbe Imaging]({{ '/ko/notes/abbe-imaging/' | relative_url }}) — Partial coherence · Source sampling · Pupil
 * [Fourier Optics]({{ '/ko/notes/fourier-optics/' | relative_url }}) — FFT · Convolution · Sampling
+* [회절 차수와 디포커스: 경사 조명의 이미징 원리]({{ '/ko/notes/diffraction-defocus/' | relative_url }}) — 고차항 · 3-beam/2-beam · 데모 안내
 * [Hopkins / TCC / SOCS]({{ '/ko/notes/foundations/hopkins-tcc-socs/' | relative_url }}) — 한국어
 * [Inverse Problem / Metrics]({{ '/ko/notes/foundations/inverse-and-metrics/' | relative_url }}) — 한국어
 

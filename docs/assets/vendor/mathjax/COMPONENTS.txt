@@ -1,0 +1,6 @@
+MathJax TeX boldsymbol extension
+Version: 3.2.2 (matches the bundled MathJax runtime)
+Source: https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/input/tex/extensions/boldsymbol.js
+Local file: input/tex/extensions/boldsymbol.js
+SHA-256: d6771fee0772db2657796c8d0e20e1878bb3237f6d3ed1e828e1834a4ff743ca
+License: Apache-2.0; see LICENSE in this directory.
