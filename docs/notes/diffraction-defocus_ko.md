@@ -11,7 +11,7 @@ lang: ko
 
 # 회절 차수와 디포커스: 경사 조명의 이미징 원리
 
-사각형 마스크의 모서리는 왜 영상에서 둥글어질까요? 조명을 기울이면 왜 초점 변화에 덜 민감해질 수 있을까요? 주기적인 1D line-and-space 마스크를 회절 차수의 합으로 표현하면 두 질문을 같은 pupil 그림으로 설명할 수 있습니다.
+먼저 6f 광학계에서 광원부터 웨이퍼까지 광선을 따라갑니다. 그 경로와 같은 회절항으로 pupil 스펙트럼, 복소 전계와 강도를 합성하면 사각형 마스크의 모서리가 둥글어지는 이유와 경사 조명의 초점 민감도를 함께 설명할 수 있습니다.
 
 이 노트는 [Fourier Optics]({{ '/ko/notes/fourier-optics/' | relative_url }})와 [Abbe Imaging]({{ '/ko/notes/abbe-imaging/' | relative_url }})를 잇는 학습 예제입니다. 각 광원점에서는 전계를 합성하고, 서로 비간섭인 광원점 사이에서는 강도를 더합니다. 마스크는 얇은 amplitude mask, 전파는 균일 매질의 스칼라 모델로 한정합니다.
 
@@ -20,7 +20,31 @@ lang: ko
 * 목차
 {:toc}
 
-## 1. 좌표와 단위
+## 1. 6f 광학계에서 광선 경로 읽기
+
+동일한 초점거리 $$F$$의 이상적인 얇은 렌즈를 두면 0f 광원, 1f 콘덴서, 2f 마스크, 3f 대물렌즈, 4f pupil, 5f 결상 렌즈, 6f 웨이퍼 순서가 됩니다. 앞쪽 2f는 Köhler 조명, 뒤쪽 4f는 결상계입니다. 여기서 $$F$$는 렌즈 초점거리이고 공간주파수 $$f_j$$와 구분합니다.
+
+근축 광선의 높이와 기울기를 $$(h,\theta)$$로 쓰면 자유 전파와 얇은 렌즈는 다음 행렬을 따릅니다.
+
+$$
+\begin{bmatrix}h'\\\theta'\end{bmatrix}
+=\begin{bmatrix}1&d\\0&1\end{bmatrix}
+\begin{bmatrix}h\\\theta\end{bmatrix},\qquad
+\begin{bmatrix}h'\\\theta'\end{bmatrix}
+=\begin{bmatrix}1&0\\-1/F&1\end{bmatrix}
+\begin{bmatrix}h\\\theta\end{bmatrix}.
+$$
+
+$$u_s=\lambda_0f_s$$, $$u_j=u_s+j\lambda_0/P$$로 놓고 근축 기울기를 $$u_j$$로 나타냅니다. 광원 높이 $$-Fu_s$$는 콘덴서를 지난 평행광의 기울기 $$u_s$$에 대응합니다. 마스크의 서로 다른 위치에서 출발한 같은 차수는 **pupil의 한 높이 $$Fu_j$$에 모입니다.** 여기서 $$\lvert u_j\rvert\le\mathrm{NA}$$인 차수만 통과하며, 웨이퍼에서는 $$h_i=-h_m$$인 도립상으로 연결됩니다.
+
+<figure class="study-figure">
+  <a class="figure-zoom" href="{{ '/assets/notes/diffraction-defocus/ray-6f.png' | relative_url }}"><img src="{{ '/assets/notes/diffraction-defocus/ray-6f.png' | relative_url }}" alt="Source부터 Condenser, Mask, Objective, Pupil, Imaging lens, Wafer까지 이어지는 6f 광선도. 경사 조명에서 −1차는 pupil에 막혀 이후 진행하지 않는다." loading="lazy"></a>
+  <figcaption>그림 1. 수직 3-beam과 대칭 경사 2-beam의 6f 광선 경로. 금색은 0차, 빨강은 +1차, 초록은 −1차입니다. λ₀=248 nm, P=620 nm, D=0.5, NA=0.50이며 파동 예제와 같은 통과 조건을 사용합니다.</figcaption>
+</figure>
+
+광선도의 세로 높이가 웨이퍼 파동 그래프의 가로 좌표입니다. 정초점에서 벗어나면 근축 광선은 $$h_i(z)=-h_m-zu_j$$로 진행합니다. 데모는 작은 초점면 이동을 보기 위해 이 이동만 2000배로 확대 표시하며, 파동 위상에는 실제 µm 단위를 적용합니다. 광선도는 근축 모델이고 파동의 angular-spectrum 선택은 별도의 스칼라 전파 모델입니다.
+
+## 2. 좌표와 단위
 
 모든 길이는 웨이퍼 기준으로 정의하며 축소 배율은 별도로 포함하지 않습니다.
 
@@ -38,7 +62,7 @@ lang: ko
 
 무차원 예제에는 $$u=\lambda_0 f$$, $$\xi=x/\lambda_0$$, $$\zeta=z/\lambda_0$$를 사용합니다. 이 정의에서 cutoff는 $$\lvert u\rvert\le\mathrm{NA}$$입니다. 길이를 $$\lambda_0/\mathrm{NA}$$로 정규화하는 다른 관례와 섞어 쓰지 않습니다.
 
-## 2. 사각형 마스크를 회절 차수로 분해하기
+## 3. 사각형 마스크를 회절 차수로 분해하기
 
 한 주기의 중앙에서 폭 $$w$$만 투과하는 마스크의 복소 푸리에 급수는 다음과 같습니다.
 
@@ -54,26 +78,26 @@ $$D=0.5$$이면 0차를 제외한 짝수 차수는 사라집니다. 고차항이
 
 <figure class="study-figure">
   <a class="figure-zoom" href="{{ '/assets/notes/diffraction-defocus/fourier-orders.png' | relative_url }}"><img src="{{ '/assets/notes/diffraction-defocus/fourier-orders.png' | relative_url }}" alt="듀티 비 0.5와 0.3의 부호 있는 푸리에 계수 비교. 듀티 비 0.5에서는 0차를 제외한 짝수항이 사라지고 일부 홀수항은 음수이다." loading="lazy"></a>
-  <figcaption>그림 1. 막대의 부호는 복소 진폭의 위상과 연결됩니다. 음수인 계수를 절댓값으로 바꾼 뒤 전계를 합성하면 다른 영상이 됩니다.</figcaption>
+  <figcaption>그림 2. 막대의 부호는 복소 진폭의 위상과 연결됩니다. 음수인 계수를 절댓값으로 바꾼 뒤 전계를 합성하면 다른 영상이 됩니다.</figcaption>
 </figure>
 
 유한한 차수로 불연속 마스크를 복원하면 모서리 주변에 Gibbs 진동이 남을 수 있습니다. 고차항 추가는 정확한 사각형으로 단조롭게 수렴하는 강도 곡선을 보장하지 않습니다.
 
-## 3. 조명 방향과 pupil을 함께 보기
+## 4. 조명 방향과 pupil을 함께 보기
 
 입사 carrier를 포함한 각 차수의 pupil 주파수를 다음 부호 규약으로 정의합니다.
 
 $$
 f_j=f_s+\frac{j}{P},\qquad
 A_j(z)=c_j\,\mathbf 1_{|f_j|\le f_c}\,e^{i\phi(f_j,z)},\qquad
-I(x,z)=\left|\sum_j A_j(z)e^{i2\pi jx/P}\right|^2.
+I(x_i,z)=\left|\sum_j A_j(z)e^{-i2\pi jx_i/P}\right|^2.
 $$
 
-전계에 공통으로 곱해지는 $$e^{i2\pi f_sx}$$는 강도를 바꾸지 않으므로 마지막 식에서 생략했습니다. GeoSignal의 기존 shifted-pupil API는 $$j/P-s_x$$ 규약을 쓰므로 이 노트의 조명과 비교할 때 $$s_x=-f_s$$로 대응합니다. 부호 규약을 바꿀 때는 비대칭 조명과 정초점 밖의 영상도 함께 검증해야 합니다.
+$$x_i$$는 실제 웨이퍼 좌표이며, 동일 초점거리의 4f 결상에서 마스크 대응 좌표 $$x$$와 $$x_i=-x$$ 관계이므로 지수에 음수가 들어갑니다. 공통 carrier $$e^{-i2\pi f_sx_i}$$는 강도를 바꾸지 않아 마지막 식에서 생략했습니다. GeoSignal의 기존 shifted-pupil API는 $$j/P-s_x$$ 규약을 쓰므로 조명은 $$s_x=-f_s$$로 대응하며, API의 object-conjugate 결과와 비교할 때는 도립상 좌표도 맞춥니다. 비대칭 조명과 정초점 밖의 영상이 이 부호 검증에 중요합니다.
 
 <figure class="study-figure">
   <a class="figure-zoom" href="{{ '/assets/notes/diffraction-defocus/pupil-comparison.png' | relative_url }}"><img src="{{ '/assets/notes/diffraction-defocus/pupil-comparison.png' | relative_url }}" alt="동일한 pupil에서 수직 조명은 −1·0·+1차를, 대칭 경사 조명은 0·+1차만 통과시키는 비교. pupil 좌표는 파장 곱하기 공간주파수이다." loading="lazy"></a>
-  <figcaption>그림 2. λ₀=248 nm, P=620 nm, D=0.5, NA=0.50, 공기 매질. 경사 조명의 0·+1차는 u=−0.20,+0.20에 대칭으로 위치합니다. 막대 높이는 |cⱼ|이고 회색은 차단된 차수입니다.</figcaption>
+  <figcaption>그림 3. λ₀=248 nm, P=620 nm, D=0.5, NA=0.50, 공기 매질. 경사 조명의 0·+1차는 u=−0.20,+0.20에 대칭으로 위치합니다. 막대 높이는 |cⱼ|이고 회색은 차단된 차수입니다.</figcaption>
 </figure>
 
 최대 차수를 $$N$$으로 정했다면 합은 $$-N\le j\le N$$으로 제한됩니다. 실제 pupil에 들어오는 정수 구간은 다음과 같으므로, 임의의 ±5차 고정이 모든 설정에 충분하지는 않습니다.
@@ -85,7 +109,7 @@ $$
 
 의도적으로 차수를 잘라 비교할 때는 물리적인 pupil 차단과 사용자가 설정한 차수 절단을 따로 표시해야 합니다.
 
-## 4. 디포커스의 2차 위상은 어디에서 오는가
+## 5. 디포커스의 2차 위상은 어디에서 오는가
 
 시간 의존성을 $$e^{-i\omega t}$$로 두면 균일 매질에서
 
@@ -109,7 +133,7 @@ $$
 
 공기 모델 $$n_m=1$$에서 익숙한 $$-\pi\lambda_0zf^2$$가 됩니다. 무차원 좌표로는 $$\phi=-\pi\zeta u^2/n_m$$입니다. 높은 NA에서는 근축 근사와 angular-spectrum 위상을 구분해야 합니다. angular-spectrum도 여기서는 스칼라 전파식이며 벡터·편광·mask-3D·실제 렌즈 수차까지 정확히 푼다는 의미는 아닙니다.
 
-## 5. 3-beam과 2-beam의 초점 민감도
+## 6. 3-beam과 2-beam의 초점 민감도
 
 ### 수직 조명: DC와 ±1차의 위상이 달라진다
 
@@ -145,10 +169,10 @@ $$
 
 <figure class="study-figure">
   <a class="figure-zoom" href="{{ '/assets/notes/diffraction-defocus/through-focus.png' | relative_url }}"><img src="{{ '/assets/notes/diffraction-defocus/through-focus.png' | relative_url }}" alt="수직 3-beam과 대칭 경사 2-beam의 근축 through-focus 강도 비교. 수직 조명은 초점에 따라 프로파일이 변하고 이상적인 2-beam은 같은 프로파일을 유지한다." loading="lazy"></a>
-  <figcaption>그림 3. 그림 2와 같은 조건의 근축 계산. 위치는 x/P, 디포커스는 실제 µm입니다. 두 맵은 동일한 raw-intensity 색 범위를 사용하고 행별 peak normalization을 하지 않았습니다. 이 그림은 CD/Bossung 곡선이나 측정된 공정 DOF가 아닙니다.</figcaption>
+  <figcaption>그림 4. 그림 3과 같은 조건의 근축 계산. 위치는 x/P, 디포커스는 실제 µm입니다. 두 맵은 동일한 raw-intensity 색 범위를 사용하고 행별 peak normalization을 하지 않았습니다. 이 그림은 CD/Bossung 곡선이나 측정된 공정 DOF가 아닙니다.</figcaption>
 </figure>
 
-## 6. 데모에서 비교할 실험 조건
+## 7. 데모에서 비교할 실험 조건
 
 아래 $$u_s=\lambda_0f_s$$, $$u_0=\lambda_0/P$$는 무차원 값입니다. 파장이 248 nm일 때 $$u_0=0.40$$은 피치 620 nm에 해당합니다.
 
@@ -160,12 +184,12 @@ $$
 
 주의할 반례는 $$u_s=-0.22$$, $$u_0=0.45$$, $$\mathrm{NA}=0.70$$, $$D=0.50$$인 설정입니다. −1차가 $$u=-0.67$$에 있어 통과하므로 2-beam 예제가 아닙니다. 입사 좌표만 −0.225로 맞춰도 −1차는 여전히 통과합니다. $$u_0=0.45$$를 유지하려면 예를 들어 $$u_s=-0.225$$, $$\mathrm{NA}=0.60$$으로 pupil도 조정해야 합니다.
 
-## 7. 부분결맞음, DOF와 Bossung의 구분
+## 8. 부분결맞음, DOF와 Bossung의 구분
 
 서로 비간섭인 광원점 $$s$$의 가중치 $$w_s$$를 사용하면
 
 $$
-I(x,z)=\frac{\sum_s w_s\left|\sum_j A_{s,j}(z)e^{i2\pi jx/P}\right|^2}{\sum_s w_s}.
+I(x_i,z)=\frac{\sum_s w_s\left|\sum_j A_{s,j}(z)e^{-i2\pi jx_i/P}\right|^2}{\sum_s w_s}.
 $$
 
 한 광원점의 회절항은 **전계**로 더하고, 다른 광원점의 기여는 **강도**로 더합니다. 단일 $$f_s$$ 슬라이더만으로는 유한한 source 분포의 부분결맞음이 구현되지 않습니다.
@@ -174,13 +198,13 @@ Through-focus intensity map은 $$I(z,x)$$를 보여줍니다. 실제로 DOF를 �
 
 전체 한 주기를 샘플링해 contrast를 계산하고, raw intensity를 유지해야 합니다. 각 초점 행을 따로 정규화하면 밝기·dose·threshold 관계를 바꿀 수 있습니다. threshold 기반 contour도 resist 반응이나 웨이퍼 계측을 대체하지 않습니다.
 
-## 8. 계산 구조와 검증 포인트
+## 9. 계산 구조와 검증 포인트
 
 푸리에 계수, 차수 주파수, aperture와 공간 위상 행렬은 동일한 마스크·광학 조건에서 재사용할 수 있습니다. 현재 초점만 바뀌면 1D 영상과 맵 위의 현재 위치만 갱신하면 되고, 전체 focus sweep을 다시 계산할 이유는 없습니다. pupil에 실제로 들어오는 차수가 빠졌는지, 강도 샘플링이 차수 간 차 주파수까지 표현하는지도 확인합니다.
 
 검증 기준으로는 D=0.5의 짝수항 소멸, 0차만 남을 때 $$I=D^2$$, 대칭 2-beam의 초점 불변성, 단일 초점과 sweep의 같은 행 일치, 비대칭 조명의 source 부호를 사용할 수 있습니다. 계산 시간과 웹 응답 시간은 구분해야 하며, 고정된 1 ms나 60 fps를 모델의 성질로 보장할 수는 없습니다.
 
-현재 페이지의 그림은 재현 가능한 NumPy 계산으로 생성한 정적 예제입니다. 인터랙티브 화면은 [페이지 위쪽의 실행 버튼](#interactive-demo)에서 열 수 있습니다. 데모 기본값은 스칼라 angular-spectrum 위상이며, 이 노트의 정적 그림과 비교하려면 **근축 근사 · 2차 위상**을 선택하세요. 파장·피치는 nm, 디포커스는 µm로 입력하고 조명 위치는 무차원 $$u_s=\lambda_0f_s$$로 조절합니다.
+현재 페이지의 그림은 재현 가능한 NumPy 계산으로 생성한 정적 예제입니다. 인터랙티브 화면은 [페이지 위쪽의 실행 버튼](#interactive-demo)에서 열 수 있습니다. 기본 화면은 0·±1차의 6f 광선도와 근축 파동 결과이며, 고차항과 angular-spectrum 위상은 확장 설정에서 선택합니다. 슬라이더는 서버 왕복 없이 브라우저에서 계산·그리기를 수행하고, 펼친 through-focus 맵은 별도 Worker에서 계산합니다. 파장·피치는 nm, 디포커스는 µm이며 조명 위치는 무차원 입사 공간주파수로 조절합니다.
 
 ## 관련 노트와 참고자료
 

@@ -1,8 +1,8 @@
 <section class="live-demo-callout" id="interactive-demo" aria-label="{% if page.lang == 'ko' %}회절·디포커스 데모{% else %}Diffraction and defocus demo{% endif %}">
-  <h2>{% if page.lang == 'ko' %}회절·디포커스 데모{% else %}Diffraction and defocus demo{% endif %}</h2>
+  <h2>{% if page.lang == 'ko' %}6f 광선·파동 데모{% else %}6f ray and wave demo{% endif %}</h2>
   {% if site.diffraction_demo_url and site.diffraction_demo_url != '' %}
-  <p>{% if page.lang == 'ko' %}회절 차수, 조명 방향과 디포커스를 바꾸며 pupil과 aerial image를 비교해 보세요.{% else %}Compare the pupil and aerial image while changing diffraction orders, illumination and defocus.{% endif %}</p>
-  <a class="live-demo-button" href="{{ site.diffraction_demo_url | escape }}" target="_blank" rel="noopener noreferrer">{% if page.lang == 'ko' %}회절·디포커스 데모 실행{% else %}Open diffraction and defocus demo{% endif %}</a>
+  <p>{% if page.lang == 'ko' %}광원에서 웨이퍼까지 6f 광선을 따라가며, 같은 회절 차수의 pupil과 파동 결과를 함께 비교해 보세요.{% else %}Follow the 6f rays from source to wafer and compare the pupil and wave results of the same diffraction orders.{% endif %}</p>
+  <a class="live-demo-button" href="{{ site.diffraction_demo_url | escape }}" target="_blank" rel="noopener noreferrer">{% if page.lang == 'ko' %}6f 광선·파동 데모 실행{% else %}Open 6f ray and wave demo{% endif %}</a>
   <p class="live-demo-note">{% if page.lang == 'ko' %}주기적 1D 마스크를 다루는 학습용 모델입니다. 자유로운 형상의 GDS 분석이나 실제 공정 DOF 측정과는 적용 범위가 다릅니다.{% else %}An educational model of periodic 1D masks. Its scope differs from arbitrary-layout analysis and measured process DOF.{% endif %}</p>
   {% else %}
   <p>{% if page.lang == 'ko' %}전용 인터랙티브 데모는 준비 중입니다. 아래 비교 그림과 실험 조건으로 회절 차수와 디포커스의 관계를 먼저 살펴볼 수 있습니다.{% else %}The dedicated interactive demo is in preparation. The comparison figures and conditions below explain the diffraction and defocus behavior.{% endif %}</p>

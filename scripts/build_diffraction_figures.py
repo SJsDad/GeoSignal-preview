@@ -48,10 +48,49 @@ def save(fig, name):
     plt.close(fig)
 
 
+def six_f_figure():
+    """Equal-focal-length thin-lens rays; each blocked order ends at the pupil."""
+    fig, axes = plt.subplots(2, 1, figsize=(12, 6), layout="constrained")
+    names = ["Source\n0f", "Condenser\n1f", "Mask\n2f", "Objective\n3f",
+             "Pupil\n4f", "Imaging lens\n5f", "Wafer\n6f"]
+    palette = {0: "#b78600", 1: "#d65f75", -1: "#138457"}
+    for ax, source in zip(axes, (0., -.2)):
+        ax.set(xlim=(-.3, 6.35), ylim=(-1.5, 1.65))
+        ax.axhline(0, color="#cbd5e1", linestyle="--", linewidth=.8)
+        for z, name in enumerate(names):
+            ax.axvline(z, color="#cbd5e1", linewidth=1)
+            ax.text(z, 1.27, name, ha="center", va="bottom", fontsize=9)
+            if z in (1, 3, 5):
+                ax.plot([z, z], [-1.2, 1.2], color=BLUE, linewidth=3, alpha=.6)
+        ax.plot([4, 4], [.5, 1.2], color="#d65f75", linewidth=5)
+        ax.plot([4, 4], [-1.2, -.5], color="#d65f75", linewidth=5)
+        for height in (-.28, 0., .28):
+            ax.plot([0, 1, 2], [-source, height-source, height], color=palette[0], linewidth=1, alpha=.45)
+            for order in (0, 1, -1):
+                u = source + order * WAVELENGTH/PITCH
+                passed = abs(u) <= NA
+                values = [height, height+u, u, u-height, -height]
+                ax.plot([2, 3, 4], values[:3], color=palette[order],
+                        alpha=.65 if passed else .2, linestyle="-" if passed else "--", linewidth=1.2)
+                if passed:
+                    ax.plot([4, 5, 6], values[2:], color=palette[order], alpha=.65, linewidth=1.2)
+        ax.plot(0, -source, "o", color=palette[0], markersize=5)
+        for order in (0, 1, -1):
+            u = source + order * WAVELENGTH/PITCH
+            passed = abs(u) <= NA
+            ax.plot(4, u, "o", color=palette[order] if passed else GRAY, markersize=5)
+        ax.set_title("Normal: three transmitted orders" if source == 0 else "Tilted: two transmitted orders; -1 stops at pupil", loc="left", fontsize=11)
+        ax.set_ylabel("Transverse height / f")
+        ax.set_xticks([])
+    save(fig, "ray-6f.png")
+
+
 def main():
     OUTPUT.mkdir(parents=True, exist_ok=True)
     plt.rcParams.update({"font.size": 11, "axes.spines.top": False,
                          "axes.spines.right": False, "font.family": "DejaVu Sans"})
+
+    six_f_figure()
 
     fig, axes = plt.subplots(1, 2, figsize=(10.5, 3.6), layout="constrained")
     for ax, duty in zip(axes, (0.5, 0.3)):

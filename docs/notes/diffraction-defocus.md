@@ -20,6 +20,13 @@ Why do square mask edges become rounded in the aerial image? Why can tilted illu
 
 ## Diffraction orders and the pupil
 
+The demo starts with the 6f ray layout: source at 0f, condenser at 1f, mask at 2f, objective at 3f, pupil at 4f, imaging lens at 5f and wafer at 6f. Equal-focal-length thin lenses collimate the illumination, focus each order to one pupil height, stop blocked rays at that plane, and form an inverted image. The wave graphs use the same transmitted orders and the actual inverted wafer coordinate. Defocus displacement in the ray sketch is magnified for visibility; its wave phase uses the physical focus in µm.
+
+<figure class="study-figure">
+  <a class="figure-zoom" href="{{ '/assets/notes/diffraction-defocus/ray-6f.png' | relative_url }}"><img src="{{ '/assets/notes/diffraction-defocus/ray-6f.png' | relative_url }}" alt="6f thin-lens ray paths for normal three-beam and tilted two-beam illumination. The blocked minus-first order ends at the pupil." loading="lazy"></a>
+  <figcaption>Follow the rays first, then compare their pupil spectrum and wave intensity. Heights are normalized by focal length.</figcaption>
+</figure>
+
 A centered opening with pitch $$P$$, width $$w$$ and duty ratio $$D=w/P$$ has coefficients
 
 $$
@@ -49,4 +56,4 @@ For $$\lambda_0=0.248$$ µm, $$P=0.620$$ µm, $$D=0.5$$ and NA=0.50, normal illu
 
 A three-beam field containing DC and a cosine produces intensity harmonics at both $$1/P$$ and $$2/P$$. A through-focus intensity map is not a Bossung plot: the latter measures CD versus focus under specified dose and threshold conditions. In partial coherence, add fields within each source point, then average intensities across mutually incoherent source points.
 
-The [Korean note]({{ '/ko/notes/diffraction-defocus/' | relative_url }}) includes signed coefficients, pupil diagrams, corrected two-beam presets, physical units, implementation checks and the scope of the interactive demo. Open it using the button above. Its default phase is scalar angular spectrum; select the paraxial model to reproduce this note's static figures.
+The [Korean note]({{ '/ko/notes/diffraction-defocus/' | relative_url }}) includes signed coefficients, pupil diagrams, corrected two-beam presets, physical units and implementation checks. The demo starts with 0/±1 rays and paraxial wave phase. Higher orders and scalar angular-spectrum wave phase are available in the expanded settings. Slider interactions run locally in the browser; the optional through-focus map runs in a separate Worker.
