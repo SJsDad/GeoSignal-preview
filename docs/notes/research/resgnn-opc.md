@@ -111,9 +111,10 @@ Residual architecture를 썼다고 convergence·monotonic EPE improvement가 보
 
 ## Practical Applications to GeoSignal / OPC
 
-* **당장 적용 가능한 아이디어:** geometry candidates와 contour gauges를 edge identity에 연결하는 데이터 설계를 검토합니다. 현재 GeoSignal은 자동 edge correction을 지원하지 않습니다.
-* **추가 연구 / Hypothesis:** 공개 synthetic layout에서 MBOPC label을 생성할 solver를 먼저 구성하고, initial prediction 및 refinement 후 EPE·total runtime을 별도로 비교합니다.
-* **장기 / Hypothesis:** graph update에 optical sensitivities와 process-window constraints를 포함합니다. exact gradient가 없는 correction predictor와 differentiable imaging을 조합할 때 stability를 재검증합니다.
+* 그래프 표현은 형상 의존 보정 연구와 관련이 있습니다.
+* 보정량 예측 오차와 인쇄 윤곽 오차는 다른 결과를 평가합니다.
+
+현재 공개 기능은 [GeoSignal 적용 범위]({{ '/ko/notes/research/geosignal-scope/' | relative_url }})에 정리했습니다. 이 항목들은 연구 맥락이며 구현 완료를 뜻하지 않습니다.
 
 ## Key Takeaways & References
 

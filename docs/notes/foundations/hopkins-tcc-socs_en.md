@@ -48,7 +48,7 @@ $$
 
 The orthonormal modes $$q_j$$ have weights $$\lambda_j\ge0$$. Absorbing the eigenvalue into $$K_j=\sqrt{\lambda_j}q_j$$ gives $$I=\sum_j|\mathcal F^{-1}[K_j\widehat m]|^2$$. In Nitho, the absence of an explicit eigenvalue does not mean intensity weights are absent. SOCS coherent eigenmodes need not correspond one-to-one to physical illumination points.
 
-For $$F$$ frequency pixels, dense TCC storage requires an $$F\times F$$ complex matrix. At large ROI sizes it can be preferable to apply SVD to a source-pupil factor. GeoSignal's exact path also uses this factor; full-rank cross-validation and truncated-mode experiments are separate.
+For $$F$$ frequency pixels, dense TCC storage requires an $$F\times F$$ complex matrix. At large ROI sizes it can be preferable to apply SVD to a source-pupil factor. Full-rank numerical agreement and truncated-mode approximation require separate evaluation.
 
 ## What truncation error tells us
 

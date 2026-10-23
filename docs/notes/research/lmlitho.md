@@ -120,9 +120,10 @@ Source Encoder를 freeze하는 정책은 새 공정의 optics 변화가 작다�
 
 ## Practical Applications to GeoSignal / OPC
 
-* **당장 적용 가능한 아이디어:** source map과 mask ROI를 별도 sample field로 보존합니다. [현재 코드 범위]({{ '/ko/notes/research/geosignal-scope/' | relative_url }})에는 scalar optical calculation만 있습니다.
-* **추가 연구 / Hypothesis:** fixed-condition aerial surrogate에서 source-conditioned model로 확장하고, source family별 held-out split을 설계합니다. source encoder cache와 end-to-end runtime을 비교합니다.
-* **장기 / Hypothesis:** calibrated resist data가 확보됐을 때 contour·CD·process-window prediction으로 확장합니다. 현재 threshold contour를 학습했다고 chemical resist physics를 학습했다고 부르지 않습니다.
+* 조명 조건화 예측은 고정 광원 예시를 넘어서는 연구 방향입니다.
+* 조명 보간·공정 전이·정합된 레지스트 예측은 서로 다른 목표입니다.
+
+현재 공개 기능은 [GeoSignal 적용 범위]({{ '/ko/notes/research/geosignal-scope/' | relative_url }})에 정리했습니다. 이 항목들은 연구 맥락이며 구현 완료를 뜻하지 않습니다.
 
 ## Key Takeaways & References
 

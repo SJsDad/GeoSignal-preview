@@ -91,7 +91,7 @@ A_j(z)=c_j\,\mathbf 1_{|f_j|\le f_c}\,e^{i\phi(f_j,z)},\qquad
 I(x_i,z)=\left|\sum_j A_j(z)e^{-i2\pi jx_i/P}\right|^2.
 $$
 
-$$x_i$$ is the actual wafer coordinate. Equal-focal-length 4f imaging gives $$x_i=-x$$ relative to the corresponding mask coordinate, hence the negative exponent. The omitted common carrier $$e^{-i2\pi f_sx_i}$$ does not affect intensity. GeoSignal's shifted-pupil API uses $$j/P-s_x$$, so illumination maps to $$s_x=-f_s$$; also align image inversion when comparing its object-conjugate output. Asymmetric illumination away from best focus is useful for checking these signs.
+$$x_i$$ is the actual wafer coordinate. Equal-focal-length 4f imaging gives $$x_i=-x$$ relative to the corresponding mask coordinate, hence the negative exponent. The omitted common carrier $$e^{-i2\pi f_sx_i}$$ does not affect intensity. When comparing independent formulations, align the source-sign convention and image inversion. Asymmetric illumination away from best focus is useful for checking these signs.
 
 <figure class="study-figure">
   <a class="figure-zoom" href="{{ '/assets/notes/diffraction-defocus/pupil-comparison.png' | relative_url }}"><img src="{{ '/assets/notes/diffraction-defocus/pupil-comparison.png' | relative_url }}" alt="One pupil passing orders minus one, zero and plus one under normal illumination, versus only zero and plus one under symmetric tilted illumination. The pupil coordinate is wavelength times spatial frequency." loading="lazy"></a>

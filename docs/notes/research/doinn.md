@@ -114,9 +114,10 @@ Large tile 처리에서 halo가 충분하지 않으면 tile boundary response가
 
 ## Practical Applications to GeoSignal / OPC
 
-* **당장 적용 가능한 아이디어:** ROI halo·valid core·frequency grid를 dataset metadata에 남깁니다. 기존 cache 기반 optical pipeline에도 유용한 검증 관점입니다.
-* **추가 연구 / Hypothesis:** ROI surrogate를 GP/LP로 나누고 Abbe/SOCS reference에 대한 raw intensity·CD·boundary error를 평가합니다. generalized forward surrogate의 gradient도 별도 확인합니다.
-* **장기 / Hypothesis:** source/focus/dose conditioning을 추가해 process response를 학습합니다. 원논문이 이미 이 입력들을 모두 지원한다고 서술하지 않습니다.
+* Global/local 표현은 넓은 맥락과 모서리 세부를 함께 연구하는 관점을 제공합니다.
+* 선택 예시와 처리량만으로 공정 정합성을 확정할 수는 없습니다.
+
+현재 공개 기능은 [GeoSignal 적용 범위]({{ '/ko/notes/research/geosignal-scope/' | relative_url }})에 정리했습니다. 이 항목들은 연구 맥락이며 구현 완료를 뜻하지 않습니다.
 
 ## Key Takeaways & References
 

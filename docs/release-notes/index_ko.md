@@ -1,65 +1,35 @@
 ---
 layout: default
 title: 릴리즈 노트
-description: GeoSignal Preview 버전별 변경 및 구현 기록
+description: 주요 기능 변경과 검토 범위
 permalink: /ko/release-notes/
 lang: ko
 ---
 
 # 릴리즈 노트
 
-이 섹션은 **GeoSignal Preview**의 주요 구현 변경, 평가 기록, 기술적 판단을 버전별로 정리합니다.
-
-v0.1부터 v0.4까지는 저장소 커밋 이력을 바탕으로 복원한 과거 마일스톤입니다. 초기 버전마다 상세 benchmark artifact가 보존된 것은 아니므로, 소스 이력으로 확인할 수 있는 변경만 기록했습니다. v0.5 이후에는 개발 과정에서 작성한 보다 상세한 평가 기록을 포함합니다.
-
-일반 방문자는 먼저 [홈]({{ '/ko/' | relative_url }}), [데모]({{ '/ko/demo/' | relative_url }}), [방법론]({{ '/ko/method/' | relative_url }})을 읽으면 됩니다. 이 노트는 preview가 버전별로 어떻게 발전했는지 확인하려는 독자를 위한 기술 기록입니다.
+사용자에게 달라진 기능과 검토 범위를 버전별로 요약합니다. 상세 구현·보정·튜닝·벤치마크 기록은 비공개 기술 문서로 관리합니다.
 
 ## 버전
 
-최신 [v0.12]({{ '/ko/release-notes/v0.12/' | relative_url }})는 Pages의 한영 6f 광선·파동 시뮬레이터와 기술 문서 대칭화를 정리합니다. v0.11은 수치 벤치마크이며, Render의 GDS/OAS 레이아웃 분석은 v0.10의 옵션·기본값을 유지합니다.
-
+최신 v0.12는 한영 6f 교육용 데모와 학습 노트를 제공합니다. v0.11은 수치 연구이며 현재 레이아웃 데모에 새 옵션을 추가한 것은 아닙니다.
 
 | 버전 | 주요 내용 |
 | --- | --- |
-| [v0.1]({{ '/ko/release-notes/v0.1/' | relative_url }}) | 초기 CLI와 SVRF-like geometry rule 실험 |
-| [v0.2]({{ '/ko/release-notes/v0.2/' | relative_url }}) | Flask web prototype과 layout preview |
-| [v0.3]({{ '/ko/release-notes/v0.3/' | relative_url }}) | 모듈형 geometry engine, width/space 분석, density |
-| [v0.4]({{ '/ko/release-notes/v0.4/' | relative_url }}) | Raster, Abbe imaging, contour, hotspot 평가 |
-| [v0.5]({{ '/ko/release-notes/v0.5/' | relative_url }}) | 기존 gdstk 경로와 선택 가능한 pya backend 비교 |
-| [v0.6]({{ '/ko/release-notes/v0.6/' | relative_url }}) | pya-native geometry 경로, candidate overview, printed metric 개선 |
-| [v0.7]({{ '/ko/release-notes/v0.7/' | relative_url }}) | 통합 review GDS, candidate별 contour, bounded-memory imaging |
-| [v0.8]({{ '/ko/release-notes/v0.8/' | relative_url }}) | Focus/dose process-window 분석, calibration, PW artifact |
-| [v0.8.1]({{ '/ko/release-notes/v0.8.1/' | relative_url }}) | Backend-neutral imaging contract와 focus/dose 성능 개선 |
-| [v0.9]({{ '/ko/release-notes/v0.9/' | relative_url }}) | 정확한 Hopkins/TCC/SOCS 교차검증과 bounded optical-mode cache |
-| [v0.10]({{ '/ko/release-notes/v0.10/' | relative_url }}) | CD·면적 후보 정렬, 상대 도즈 보정, 조명·픽셀·ambit·DBU 검증과 결과 자료 |
-| [v0.11]({{ '/ko/release-notes/v0.11/' | relative_url }}) | KrF Numerical Benchmark, 전수 비교·독립 Grid·TT04 자원 검증; Render 연결 보류 |
-| [v0.12]({{ '/ko/release-notes/v0.12/' | relative_url }}) | 6f 광선·파동 시뮬레이터, Pages 직접 실행, 한영 화면·기술 문서 대칭화 |
-
-v0.8.0, v0.8.1, v0.9.0은 application 저장소에 tag가 생성된 릴리스입니다.
-v0.9.0에서 공개 service의 default는 Abbe로
-유지됩니다.
+| [v0.1]({{ '/ko/release-notes/v0.1/' | relative_url }}) | 초기 형상 검토 도구 |
+| [v0.2]({{ '/ko/release-notes/v0.2/' | relative_url }}) | 웹 프리뷰 |
+| [v0.3]({{ '/ko/release-notes/v0.3/' | relative_url }}) | 형상 검토 화면 |
+| [v0.4]({{ '/ko/release-notes/v0.4/' | relative_url }}) | 광학 반응 시각화 |
+| [v0.5]({{ '/ko/release-notes/v0.5/' | relative_url }}) | 형상 처리 검토 |
+| [v0.6]({{ '/ko/release-notes/v0.6/' | relative_url }}) | 후보 분포와 패턴 검토 |
+| [v0.7]({{ '/ko/release-notes/v0.7/' | relative_url }}) | 검토 결과 연결 |
+| [v0.8]({{ '/ko/release-notes/v0.8/' | relative_url }}) | 초점·상대 도즈 비교 |
+| [v0.8.1]({{ '/ko/release-notes/v0.8.1/' | relative_url }}) | 반복 비교 개선 |
+| [v0.9]({{ '/ko/release-notes/v0.9/' | relative_url }}) | 광학 계산 일관성 검토 |
+| [v0.10]({{ '/ko/release-notes/v0.10/' | relative_url }}) | 레이아웃 검토 화면 개선 |
+| [v0.11]({{ '/ko/release-notes/v0.11/' | relative_url }}) | 수치 정확도 연구 요약 |
+| [v0.12]({{ '/ko/release-notes/v0.12/' | relative_url }}) | 한영 6f 교육용 데모와 학습 노트 |
 
 ## 읽는 순서
 
-홈·데모·방법론은 충분한 소개와 해석을 제공하며, 버전별 세부 평가는 릴리즈 노트에 모읍니다.
-
-```text
-Home / Demo / Method
-    -> preview가 무엇인지
-    -> 이미지가 무엇을 보여주는지
-    -> 결과를 어떻게 해석하는지
-
-Release Notes
-    -> 구현 판단이 왜 바뀌었는지
-    -> 무엇을 비교했는지
-    -> 어떤 한계가 남아 있는지
-```
-
-아래 노트는 기술 기록이며 live demo를 이해하기 위한 필수 읽을거리는 아닙니다.
-
-## 관련 페이지
-
-* [홈]({{ '/ko/' | relative_url }})
-* [데모]({{ '/ko/demo/' | relative_url }})
-* [방법론]({{ '/ko/method/' | relative_url }})
-* [기술 노트]({{ '/ko/notes/' | relative_url }})
+[홈]({{ '/ko/' | relative_url }}) → [데모]({{ '/ko/demo/' | relative_url }}) → [방법론]({{ '/ko/method/' | relative_url }})에서 현재 사용 흐름을 먼저 살펴보세요. 초기 버전은 보존된 개발 기록을 바탕으로 요약했으며, 과거 결과가 현재 서비스 성능이나 실제 공정 정확도를 보증하지는 않습니다.

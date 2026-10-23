@@ -115,9 +115,10 @@ Diffusion이 단일 deterministic regressor보다 필요한 이유는 multi-moda
 
 ## Practical Applications to GeoSignal / OPC
 
-* **당장 적용 가능한 아이디어:** GDS polygon을 rasterize하기 전 edge/point correspondence와 gauge 위치를 보존하는 sample schema를 설계합니다.
-* **추가 연구 / Hypothesis:** axis-constrained edge optimizer와 differentiable rasterizer를 실험하고 reference Abbe/SOCS로 최종 mask를 평가합니다. 현재 core에는 이 optimizer가 없습니다.
-* **장기 / Hypothesis:** multi-condition feedback·SRAF topology·full MRC를 token 표현에 포함합니다. [GeoSignal 적용 범위]({{ '/ko/notes/research/geosignal-scope/' | relative_url }}) 참조.
+* 형상을 유지하는 출력은 학습 예측과 모서리 기반 업무를 연결할 수 있습니다.
+* Manhattan 정렬만으로 전체 마스크 규칙을 보장하지는 않습니다.
+
+현재 공개 기능은 [GeoSignal 적용 범위]({{ '/ko/notes/research/geosignal-scope/' | relative_url }})에 정리했습니다. 이 항목들은 연구 맥락이며 구현 완료를 뜻하지 않습니다.
 
 ## Key Takeaways & References
 

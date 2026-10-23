@@ -32,6 +32,6 @@ These notes establish a shared language for the research reviews. The scope is s
 
 ## Existing validation
 
-[v0.10 validation]({{ '/notes/v0.10-validation/' | relative_url }}) remains available. [Method]({{ '/method/' | relative_url }}) and [Demo]({{ '/demo/' | relative_url }}) explain the current workflow. Research proposals do not imply that GeoSignal implements the reviewed models.
+[v0.10 review summary]({{ '/notes/v0.10-validation/' | relative_url }}) provides an overview. [Method]({{ '/method/' | relative_url }}) and [Demo]({{ '/demo/' | relative_url }}) explain the current workflow. Research proposals do not imply that GeoSignal implements the reviewed models.
 
-Checked code scope and possible research connections are documented in [GeoSignal scope]({{ '/notes/research/geosignal-scope/' | relative_url }}).
+Public capabilities and research context are documented in [GeoSignal scope]({{ '/notes/research/geosignal-scope/' | relative_url }}).

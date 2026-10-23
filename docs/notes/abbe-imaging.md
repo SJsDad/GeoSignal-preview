@@ -34,7 +34,7 @@ E_k(\mathbf{x};z)=\mathcal{F}^{-1}\{\widehat m(\mathbf f)P_z(\mathbf f-\mathbf s
 I(\mathbf{x};z)=\frac{\sum_k w_k|E_k(\mathbf{x};z)|^2}{\sum_k w_k}.
 $$
 
-Factoring the illumination carrier out of the field gives the shifted-pupil form. Its sign depends on the Fourier-transform and source-direction conventions and must match the code. GeoSignal's `abbe.py` reuses one mask FFT, applies a shifted pupil for each source, then accumulates weighted squared IFFT magnitudes. Avoid ROI peak normalization when preserving clear-field-relative intensity.
+Factoring the illumination carrier out of the field gives the shifted-pupil form. Its sign depends on the Fourier-transform and source-direction conventions. Keep normalization consistent when comparing fields and intensities.
 
 The ideal circular pupil is
 

@@ -109,9 +109,10 @@ Evaluate coarse-mask quantization separately from high-resolution recovery. If a
 
 ## Practical Applications to GeoSignal / OPC
 
-* **Available idea:** retain reference optical calculations as a final verification gate in a research flow. GeoSignal currently has no learned initializer or ILT solver.
-* **Further research / Hypothesis:** measure SRAF survival, EPE before/after binary projection and equal-budget refinement in coarse-to-fine optimization. Hold process and stopping criteria fixed.
-* **Long term / Hypothesis:** combine hierarchical latents with geometry constraints and process inputs. [GeoSignal scope]({{ '/notes/research/geosignal-scope/' | relative_url }}) distinguishes these proposals from current features.
+* Learned proposals followed by physical refinement are a useful research pattern.
+* Initializer quality and final optimized-mask quality require separate evaluation.
+
+See [GeoSignal scope]({{ '/notes/research/geosignal-scope/' | relative_url }}) for public capabilities. These are research connections, not claims of implemented features.
 
 ## Key Takeaways & References
 

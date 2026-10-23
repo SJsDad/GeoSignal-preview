@@ -111,9 +111,10 @@ coarse mask가 만드는 quantization error와 high-resolution refinement의 복
 
 ## Practical Applications to GeoSignal / OPC
 
-* **당장 적용 가능한 아이디어:** 기존 reference optical calculation을 final verification gate로 유지하는 연구 flow를 설계합니다. 현재는 학습 초기화·ILT solver가 구현돼 있지 않습니다.
-* **추가 연구 / Hypothesis:** coarse-to-fine mask optimization에서 SRAF 생존율·binary projection 전후 EPE·동일 iteration budget을 측정합니다. learned initializer 유무를 같은 공정·같은 stopping 조건으로 비교합니다.
-* **장기 / Hypothesis:** hierarchical latent representation을 geometry constraints 및 process-condition inputs와 결합합니다. [GeoSignal 적용 범위]({{ '/ko/notes/research/geosignal-scope/' | relative_url }})에 현재 기능과 차이를 정리했습니다.
+* 학습 초기해 뒤에 물리 정제를 두는 구성은 연구 관점에서 유용합니다.
+* 초기해와 최종 마스크의 품질은 구분해 평가해야 합니다.
+
+현재 공개 기능은 [GeoSignal 적용 범위]({{ '/ko/notes/research/geosignal-scope/' | relative_url }})에 정리했습니다. 이 항목들은 연구 맥락이며 구현 완료를 뜻하지 않습니다.
 
 ## Key Takeaways & References
 

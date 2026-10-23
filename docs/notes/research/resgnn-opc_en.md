@@ -107,9 +107,10 @@ Graphs may depend strongly on polygon segmentation, segment length and control-p
 
 ## Practical Applications to GeoSignal / OPC
 
-* **Available idea:** link geometry candidates and contour gauges to persistent edge identities. GeoSignal currently has no automatic edge correction.
-* **Further research / Hypothesis:** first build a solver producing MBOPC labels for public synthetic layouts; compare initial predictions and post-refinement EPE/runtime separately.
-* **Long term / Hypothesis:** add optical sensitivities and process-window constraints to graph updates, rechecking stability when combining a correction predictor with differentiable imaging.
+* Graph representations are relevant to geometry-dependent correction research.
+* Correction-label error and printed-contour error measure different outcomes.
+
+See [GeoSignal scope]({{ '/notes/research/geosignal-scope/' | relative_url }}) for public capabilities. These are research connections, not claims of implemented features.
 
 ## Key Takeaways & References
 

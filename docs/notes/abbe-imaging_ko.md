@@ -36,7 +36,7 @@ E_k(\mathbf{x};z)=\mathcal{F}^{-1}\{\widehat m(\mathbf f)P_z(\mathbf f-\mathbf s
 I(\mathbf{x};z)=\frac{\sum_k w_k|E_k(\mathbf{x};z)|^2}{\sum_k w_k}.
 $$
 
-입사 기울기에 따른 carrier를 전계에서 분리하면 shifted pupil 형태로 쓸 수 있습니다. 부호는 Fourier transform과 source 방향 정의에 따라 달라질 수 있으므로 실제 코드와 맞춰야 합니다. GeoSignal `abbe.py`는 한 번 계산한 mask FFT에 source별 shifted pupil을 곱하고 IFFT·절댓값 제곱·weight 누적을 수행합니다. clear-field-relative intensity를 유지하려면 ROI별 peak normalization을 추가하지 않습니다.
+입사 기울기에 따른 carrier를 전계에서 분리하면 shifted pupil 형태로 쓸 수 있습니다. 부호는 Fourier transform과 source 방향 정의에 따라 달라질 수 있습니다. 전계와 강도를 비교할 때는 정규화 기준을 일관되게 유지합니다.
 
 이상적인 circular pupil은 다음과 같습니다.
 

@@ -91,7 +91,7 @@ A_j(z)=c_j\,\mathbf 1_{|f_j|\le f_c}\,e^{i\phi(f_j,z)},\qquad
 I(x_i,z)=\left|\sum_j A_j(z)e^{-i2\pi jx_i/P}\right|^2.
 $$
 
-$$x_i$$는 실제 웨이퍼 좌표이며, 동일 초점거리의 4f 결상에서 마스크 대응 좌표 $$x$$와 $$x_i=-x$$ 관계이므로 지수에 음수가 들어갑니다. 공통 carrier $$e^{-i2\pi f_sx_i}$$는 강도를 바꾸지 않아 마지막 식에서 생략했습니다. GeoSignal의 기존 shifted-pupil API는 $$j/P-s_x$$ 규약을 쓰므로 조명은 $$s_x=-f_s$$로 대응하며, API의 object-conjugate 결과와 비교할 때는 도립상 좌표도 맞춥니다. 비대칭 조명과 정초점 밖의 영상이 이 부호 검증에 중요합니다.
+$$x_i$$는 실제 웨이퍼 좌표이며, 동일 초점거리의 4f 결상에서 마스크 대응 좌표 $$x$$와 $$x_i=-x$$ 관계이므로 지수에 음수가 들어갑니다. 공통 carrier $$e^{-i2\pi f_sx_i}$$는 강도를 바꾸지 않아 마지막 식에서 생략했습니다. 서로 다른 수식이나 모델을 비교할 때는 조명 부호 규약과 도립상 좌표를 함께 맞춥니다. 비대칭 조명과 정초점 밖의 영상이 이 부호 검증에 중요합니다.
 
 <figure class="study-figure">
   <a class="figure-zoom" href="{{ '/assets/notes/diffraction-defocus/pupil-comparison.png' | relative_url }}"><img src="{{ '/assets/notes/diffraction-defocus/pupil-comparison.png' | relative_url }}" alt="동일한 pupil에서 수직 조명은 −1·0·+1차를, 대칭 경사 조명은 0·+1차만 통과시키는 비교. pupil 좌표는 파장 곱하기 공간주파수이다." loading="lazy"></a>

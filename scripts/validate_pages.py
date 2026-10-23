@@ -16,6 +16,43 @@ PERMALINK_PATTERN = re.compile(r"^permalink:\s*(\S+)\s*$", re.MULTILINE)
 RELATIVE_URL_PATTERN = re.compile(
     r"{{\s*'(/[^']+)'\s*\|\s*relative_url\s*}}"
 )
+PUBLIC_DEMO_IMAGES = {
+    "assets/demo/public/overview.png",
+    "assets/demo/public/narrow-line.png",
+    "assets/demo/public/narrow-gap.png",
+}
+
+
+def validate_public_assets(root, errors):
+    """Check files themselves, including assets with no visible download link."""
+    restricted = (".csv", ".csv.gz", ".gds", ".gds.gz", ".oas", ".oas.gz",
+                  ".npy", ".npz", ".parquet", ".zip", ".tar", ".tar.gz")
+    for path in (root / "assets").rglob("*"):
+        if not path.is_file():
+            continue
+        relative = path.relative_to(root).as_posix()
+        if path.name.lower().endswith(restricted):
+            errors.append(f"engineering data outside public scope: {relative}")
+        if path.suffix == ".json" and not relative.startswith(
+                ("assets/simulator/", "assets/notes/diffraction-defocus/")):
+            errors.append(f"unreviewed data/configuration asset: {relative}")
+        if relative.startswith("assets/demo/") and relative not in PUBLIC_DEMO_IMAGES:
+            errors.append(f"unreviewed layout-demo asset: {relative}")
+        if relative.startswith(("assets/release-notes/", "assets/method/")):
+            errors.append(f"detailed engineering artifact outside public scope: {relative}")
+
+
+def validate_implementation_references(documents, errors):
+    # The public optical tutorials and paper citations stay available. References
+    # to private source trees or reproduction commands belong in private records.
+    implementation = re.compile(
+        r"\bsrc[/\\][\w./\\-]+\.py\b|"
+        r"\bpython(?:3)?\s+(?:-m\s+)?(?:src\.|experiments[/\\])"
+    )
+    for path, text in documents.items():
+        without_urls = re.sub(r"https?://[^\s)<>]+", "", text)
+        if implementation.search(without_urls):
+            errors.append(f"private implementation reference outside public scope: {path.name}")
 
 
 class BuiltPage(HTMLParser):
@@ -43,6 +80,7 @@ class BuiltPage(HTMLParser):
 
 
 def validate_built(site, permalinks, errors):
+    validate_public_assets(site, errors)
     base = "/GeoSignal-preview"
     pages = {}
     for route in permalinks:
@@ -194,6 +232,10 @@ def main() -> int:
                 )
 
     validate_language_pairs(documents, permalinks, errors)
+    validate_public_assets(DOCS, errors)
+    validate_implementation_references(
+        {**documents, ROOT / "README.md": (ROOT / "README.md").read_text(encoding="utf-8")}, errors
+    )
 
     # Public presentation must not expose personal development dates/schedules.
     chronology = re.compile(

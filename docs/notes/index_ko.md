@@ -32,5 +32,5 @@ lang: ko
 * [Home]({{ '/ko/' | relative_url }})
 * [Demo]({{ '/ko/demo/' | relative_url }})
 * [Method]({{ '/ko/method/' | relative_url }})
-* [v0.10 validation]({{ '/ko/notes/v0.10-validation/' | relative_url }}) — 기존 검증 기록
-* [v0.11 sampling benchmark]({{ '/ko/release-notes/v0.11/' | relative_url }}) — Source·Raster·AI 보간 및 자원 비교
+* [v0.10 검토 요약]({{ '/ko/notes/v0.10-validation/' | relative_url }}) — 검토 범위
+* [v0.11 수치 검토]({{ '/ko/release-notes/v0.11/' | relative_url }}) — 수치 연구의 요약과 한계

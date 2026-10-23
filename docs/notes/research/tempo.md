@@ -125,9 +125,10 @@ GAN이 평활하고 그럴듯한 image를 내더라도 rare high-error contact�
 
 ## Practical Applications to GeoSignal / OPC
 
-* **당장 적용 가능한 아이디어:** cheap physical output을 surrogate input으로 보존하고 학습·추론 비용을 분리하는 비교 설계를 사용합니다.
-* **추가 연구 / Hypothesis:** Abbe reference와 별도 thick-mask reference의 차이를 학습하는 correction model을 탐색할 수 있습니다. 현재 GeoSignal에는 mask topography reference·film 내부 propagation이 없습니다.
-* **장기 / Hypothesis:** mask-stack·source·film height 조건 모델을 확장하고 vector/3D physics에 맞는 dataset을 구축합니다. focus sweep과 height slice를 구분합니다.
+* Topography를 고려한 학습에는 적절한 물리 기준과 데이터가 필요합니다.
+* 막 내부 높이와 scanner 초점 비교는 구분해야 합니다.
+
+현재 공개 기능은 [GeoSignal 적용 범위]({{ '/ko/notes/research/geosignal-scope/' | relative_url }})에 정리했습니다. 이 항목들은 연구 맥락이며 구현 완료를 뜻하지 않습니다.
 
 ## Key Takeaways & References
 

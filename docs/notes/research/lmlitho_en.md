@@ -112,9 +112,10 @@ Freezing the source encoder may depend on limited optical changes. Similar sourc
 
 ## Practical Applications to GeoSignal / OPC
 
-* **Available idea:** store source maps and mask ROIs as separate sample fields. [Current scope]({{ '/notes/research/geosignal-scope/' | relative_url }}) contains scalar optical calculations.
-* **Further research / Hypothesis:** expand a fixed-condition aerial surrogate to source conditioning with source-family-held-out splits; compare source-cache and end-to-end runtime.
-* **Long term / Hypothesis:** use calibrated resist data for contour/CD/process-window prediction. Learning current threshold contours is not learning chemical resist physics.
+* Source-conditioned prediction is a research direction beyond fixed-illumination examples.
+* Source interpolation, process transfer and calibrated resist prediction are distinct goals.
+
+See [GeoSignal scope]({{ '/notes/research/geosignal-scope/' | relative_url }}) for public capabilities. These are research connections, not claims of implemented features.
 
 ## Key Takeaways & References
 

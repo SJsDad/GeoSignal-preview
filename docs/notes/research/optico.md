@@ -124,9 +124,10 @@ Fresnel의 paraxial 조건, finite-support kernel, feature-space scale, mask bin
 
 ## Practical Applications to GeoSignal / OPC
 
-* **당장 적용 가능한 아이디어:** 기존 Abbe output으로 corner/SRAF 주변의 error map을 함께 보는 평가 schema를 설계합니다. 구현 범위는 [GeoSignal 코드 확인]({{ '/ko/notes/research/geosignal-scope/' | relative_url }})을 따릅니다.
-* **추가 연구 / Hypothesis:** 동일 backbone에서 real·complex·OP-constrained branch를 비교하고 aerial error와 contour error를 나눠 측정합니다. 고 NA 또는 source variation을 실제 input으로 조건화할지 별도 검토합니다.
-* **장기 / Hypothesis:** 제조 rule을 포함한 geometry parameterization과 process-conditioned optical prior를 결합합니다. 현재 GeoSignal의 자동 OPC·SRAF 기능으로 소개하지 않습니다.
+* 위상을 고려한 표현은 광학 학습의 연구 방향입니다.
+* 윤곽 정확도와 제조 제약은 별도로 평가해야 합니다.
+
+현재 공개 기능은 [GeoSignal 적용 범위]({{ '/ko/notes/research/geosignal-scope/' | relative_url }})에 정리했습니다. 이 항목들은 연구 맥락이며 구현 완료를 뜻하지 않습니다.
 
 ## Key Takeaways & References
 

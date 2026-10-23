@@ -111,9 +111,10 @@ Shared height conditioning is useful, but 966 contact clips and a fixed optical 
 
 ## Practical Applications to GeoSignal / OPC
 
-* **Available idea:** preserve inexpensive physical outputs as surrogate inputs and compare training/inference scopes separately.
-* **Further research / Hypothesis:** learn corrections between Abbe and separate thick-mask references. GeoSignal currently lacks topography references and in-film propagation.
-* **Long term / Hypothesis:** condition on stack, source and film height with vector/3D datasets, keeping focus sweeps distinct from height slices.
+* Topography-aware learning requires suitable physical references and data.
+* Film-height slices and scanner-focus comparisons must remain distinct.
+
+See [GeoSignal scope]({{ '/notes/research/geosignal-scope/' | relative_url }}) for public capabilities. These are research connections, not claims of implemented features.
 
 ## Key Takeaways & References
 

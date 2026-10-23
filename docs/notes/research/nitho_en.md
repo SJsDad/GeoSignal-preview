@@ -113,9 +113,10 @@ Constant-threshold resist is not chemistry. Without condition-dependent fields o
 
 ## Practical Applications to GeoSignal / OPC
 
-* **Available idea:** document kernel support, normalization and exported cache size against existing Abbe/SOCS references. This connects to the exact cross-validation in [current scope]({{ '/notes/research/geosignal-scope/' | relative_url }}).
-* **Further research / Hypothesis:** identify fixed-condition learned kernels and evaluate aerial/CD, directional-gradient and rank errors. If exact kernels already exist, explain why learning is needed through a baseline.
-* **Long term / Hypothesis:** condition neural fields on source/focus/aberrations, select rank with uncertainty and couple calibrated resist. These are proposals, not implemented features.
+* Fixed-condition kernel identification is a research direction distinct from mask generation.
+* Shape generalization and transfer to new optical conditions need separate evidence.
+
+See [GeoSignal scope]({{ '/notes/research/geosignal-scope/' | relative_url }}) for public capabilities. These are research connections, not claims of implemented features.
 
 ## Key Takeaways & References
 

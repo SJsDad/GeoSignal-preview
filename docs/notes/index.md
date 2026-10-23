@@ -33,5 +33,5 @@ Study the optical and mathematical foundations, then examine research architectu
 * [Home]({{ '/' | relative_url }})
 * [Demo]({{ '/demo/' | relative_url }})
 * [Method]({{ '/method/' | relative_url }})
-* [v0.10 validation]({{ '/notes/v0.10-validation/' | relative_url }}) — Existing validation record
-* [v0.11 sampling benchmark]({{ '/release-notes/v0.11/' | relative_url }}) — Source/raster/intensity interpolation and resource comparisons
+* [v0.10 review summary]({{ '/notes/v0.10-validation/' | relative_url }}) — Review scope
+* [v0.11 numerical review]({{ '/release-notes/v0.11/' | relative_url }}) — Numerical-study summary and limits

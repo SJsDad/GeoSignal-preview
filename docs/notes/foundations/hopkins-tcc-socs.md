@@ -48,7 +48,7 @@ $$
 
 $$\lambda_j\ge0$$, $$q_j$$는 orthonormal mode입니다. $$K_j=\sqrt{\lambda_j}q_j$$로 eigenvalue를 kernel에 흡수하면 $$I=\sum_j|\mathcal F^{-1}[K_j\widehat m]|^2$$입니다. Nitho를 읽을 때 eigenvalue가 수식에서 사라졌다고 intensity weight가 없다고 해석하면 안 됩니다. SOCS mode는 source의 coherent eigenmode이며 실제 illumination source point와 일대일 대응하지 않을 수 있습니다.
 
-소규모 grid의 dense TCC는 frequency pixel 수를 $$F$$라 하면 $$F\times F$$ 복소 matrix입니다. 큰 ROI에서 이를 직접 저장하기보다 source-pupil factor에 SVD를 적용하는 경로가 유리할 수 있습니다. GeoSignal의 exact 경로도 source factor를 활용하며 full-rank cross-validation과 truncation 실험을 구분합니다.
+소규모 grid의 dense TCC는 frequency pixel 수를 $$F$$라 하면 $$F\times F$$ 복소 matrix입니다. 큰 ROI에서 이를 직접 저장하기보다 source-pupil factor에 SVD를 적용하는 경로가 유리할 수 있습니다. Full-rank의 수치 일치와 truncation에 의한 근사 오차는 별도로 평가해야 합니다.
 
 ## Truncation error가 말해주는 것
 

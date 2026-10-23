@@ -121,9 +121,10 @@ Constant threshold resist는 chemistry가 아닙니다. source/focus/dose를 입
 
 ## Practical Applications to GeoSignal / OPC
 
-* **당장 적용 가능한 아이디어:** existing SOCS/Abbe reference에 대해 kernel support·normalization·exported cache size를 명확히 기록합니다. [현재 scope]({{ '/ko/notes/research/geosignal-scope/' | relative_url }})의 exact cross-validation 경로와 연결되는 연구 설계입니다.
-* **추가 연구 / Hypothesis:** fixed optical condition의 learned kernels를 식별한 뒤 aerial/CD·directional gradient·mode-rank error를 평가합니다. exact kernels가 있는 경우 학습이 필요한 이유도 baseline으로 검토합니다.
-* **장기 / Hypothesis:** source·focus·aberration 조건의 kernel neural field, uncertainty-aware rank selection, calibrated resist coupling을 연구합니다. 현재 지원 기능으로 표시하지 않습니다.
+* 고정 조건의 kernel 식별은 마스크 생성과 구분되는 연구 방향입니다.
+* 형상 일반화와 새 광학 조건으로의 전이에는 별도의 근거가 필요합니다.
+
+현재 공개 기능은 [GeoSignal 적용 범위]({{ '/ko/notes/research/geosignal-scope/' | relative_url }})에 정리했습니다. 이 항목들은 연구 맥락이며 구현 완료를 뜻하지 않습니다.
 
 ## Key Takeaways & References
 

@@ -106,9 +106,10 @@ Insufficient halo can corrupt large-tile boundaries. Training mainly on OPC-corr
 
 ## Practical Applications to GeoSignal / OPC
 
-* **Available idea:** record ROI halo, valid core and frequency grids in dataset metadata; this also helps validate cached optical pipelines.
-* **Further research / Hypothesis:** compare a GP/LP ROI surrogate against Abbe/SOCS for raw intensity, CD, boundary error and mask gradients.
-* **Long term / Hypothesis:** add source/focus/dose conditioning; do not claim that the original paper already supports all those inputs.
+* Global/local representations offer a way to study context and edge details together.
+* Selected examples and throughput do not alone establish process fidelity.
+
+See [GeoSignal scope]({{ '/notes/research/geosignal-scope/' | relative_url }}) for public capabilities. These are research connections, not claims of implemented features.
 
 ## Key Takeaways & References
 

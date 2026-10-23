@@ -112,9 +112,10 @@ Paraxial assumptions, finite support, feature-space scale, binarization and sour
 
 ## Practical Applications to GeoSignal / OPC
 
-* **Available idea:** evaluate corner/SRAF error maps alongside Abbe outputs, following [verified scope]({{ '/notes/research/geosignal-scope/' | relative_url }}).
-* **Further research / Hypothesis:** compare real, complex and OP-constrained branches on one backbone; separate aerial and contour errors and investigate conditioning on high NA/source variation.
-* **Long term / Hypothesis:** combine geometry rules and process-conditioned optical priors. This is not a currently implemented automatic OPC/SRAF feature.
+* Phase-aware representations are a research direction for optical learning.
+* Evaluate contour fidelity and manufacturing constraints separately.
+
+See [GeoSignal scope]({{ '/notes/research/geosignal-scope/' | relative_url }}) for public capabilities. These are research connections, not claims of implemented features.
 
 ## Key Takeaways & References
 

@@ -31,7 +31,9 @@ jobs:
           python-version: "3.12"
 
       - name: Validate source links and front matter
-        run: python scripts/validate_pages.py
+        run: |
+          python scripts/test_public_scope.py
+          python scripts/validate_pages.py
 
       - name: Check JavaScript and Python syntax
         run: |

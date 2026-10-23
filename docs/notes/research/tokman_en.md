@@ -105,9 +105,10 @@ More points grow attention cost; uniform segmentation can waste work, while coar
 
 ## Practical Applications to GeoSignal / OPC
 
-* **Available idea:** preserve edge/point correspondence and gauges before GDS rasterization.
-* **Further research / Hypothesis:** test axis-constrained optimization and differentiable rasterization, with final masks checked by Abbe/SOCS. This optimizer is not in the current core.
-* **Long term / Hypothesis:** include multiple conditions, SRAF topology and full MRC in token representations. See [current scope]({{ '/notes/research/geosignal-scope/' | relative_url }}).
+* Geometry-aware outputs can connect learned prediction with edge-oriented tasks.
+* Manhattan alignment alone does not guarantee complete mask-rule compliance.
+
+See [GeoSignal scope]({{ '/notes/research/geosignal-scope/' | relative_url }}) for public capabilities. These are research connections, not claims of implemented features.
 
 ## Key Takeaways & References
 
