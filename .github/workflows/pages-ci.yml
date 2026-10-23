@@ -36,6 +36,9 @@ jobs:
       - name: Check JavaScript and Python syntax
         run: |
           node --check docs/assets/js/technical-notes.js
+          node --check docs/assets/simulator/optics-engine.mjs
+          node --input-type=module --check < docs/assets/simulator/simulator.js
+          node --input-type=module --check < docs/assets/simulator/simulator-worker.js
           python -m py_compile scripts/validate_pages.py scripts/test_technical_notes.py
 
       - name: Build Jekyll site

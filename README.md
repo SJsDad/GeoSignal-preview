@@ -13,7 +13,18 @@ It connects geometry-based candidate selection with rasterized mask generation, 
 * [Demo](https://sjsdad.github.io/GeoSignal-preview/demo/)
 * [Method](https://sjsdad.github.io/GeoSignal-preview/method/)
 * [Technical Notes](https://sjsdad.github.io/GeoSignal-preview/notes/)
+* [6f Ray and Wave Simulator](https://sjsdad.github.io/GeoSignal-preview/ko/simulator/) — browser-only, no Render wake-up
 * [Share Feedback](https://docs.google.com/forms/d/e/1FAIpQLSerlp3xN8b82NyXBjl5tSNPCoS9N5MUqnE8r3c93cfR5n1U7w/viewform)
+
+The 6f simulator is a standalone JavaScript/Canvas application served by Pages,
+including its optional through-focus Worker. It makes no calls to the Render
+API. The separate GDS/OAS layout-analysis demo still uses Render.
+
+`docs/simulator.html` and `docs/assets/simulator/` are exported from the shared
+template, defaults and browser assets in GeoSignal-lab. Regenerate them there
+with `python scripts/export_static_simulator.py --pages-dir ../GeoSignal-preview`
+and use `--check` to verify that both copies match. The public manifest records
+the exported file hashes; the private layout-analysis core is excluded.
 
 ---
 

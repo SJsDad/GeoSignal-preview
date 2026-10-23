@@ -20,6 +20,7 @@ Study the optical and mathematical foundations, then examine research architectu
 * [Abbe Imaging]({{ '/notes/abbe-imaging/' | relative_url }}) — Partial coherence · Source sampling · Pupil
 * [Fourier Optics]({{ '/notes/fourier-optics/' | relative_url }}) — FFT · Convolution · Sampling
 * [Diffraction Orders and Defocus]({{ '/notes/diffraction-defocus/' | relative_url }}) — Higher orders · 3-beam/2-beam · Demo guide
+* [Open the 6f ray and wave simulator]({{ '/ko/simulator/' | relative_url }}) — Runs directly in your browser · 한국어 UI
 * [Hopkins / TCC / SOCS]({{ '/ko/notes/foundations/hopkins-tcc-socs/' | relative_url }}) — 한국어
 * [Inverse Problem / Metrics]({{ '/ko/notes/foundations/inverse-and-metrics/' | relative_url }}) — 한국어
 

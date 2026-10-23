@@ -76,7 +76,14 @@ def main() -> int:
     documents: dict[Path, str] = {}
     permalinks: dict[str, Path] = {}
 
-    for path in sorted(DOCS.rglob("*.md")):
+    # Standalone interactive HTML pages also have Jekyll front matter/routes.
+    sources = [*DOCS.rglob("*.md"), *DOCS.rglob("*.html")]
+    for path in sorted(sources):
+        if path.suffix == ".html":
+            if path.relative_to(DOCS).parts[0] in {"_includes", "_layouts"}:
+                continue
+            if not path.read_bytes().removeprefix(b"\xef\xbb\xbf").startswith(b"---\n"):
+                continue  # Copied static HTML without front matter is not a Jekyll page.
         try:
             if path.read_bytes().startswith(b"\xef\xbb\xbf"):
                 errors.append(f"UTF-8 BOM hides Jekyll front matter: {path.relative_to(ROOT)}")
@@ -135,7 +142,7 @@ def main() -> int:
     if args.site is not None:
         validate_built(args.site.resolve(), permalinks, errors)
 
-    print(f"Markdown files: {len(documents)}")
+    print(f"Jekyll source pages: {len(documents)}")
     print(f"Unique permalinks: {len(permalinks)}")
     print(f"Validation errors: {len(errors)}")
     for error in errors:

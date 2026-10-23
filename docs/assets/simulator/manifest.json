@@ -1,0 +1,11 @@
+{
+  "source_repository": "SJsDad/GeoSignal-lab",
+  "export_command": "python scripts/export_static_simulator.py --pages-dir ../GeoSignal-preview",
+  "sha256": {
+    "docs/assets/simulator/optics-engine.mjs": "ba864cb1ca27cb314bd3dafbc8d213c3241dca8ac565b0b2264fd668d3618c5e",
+    "docs/assets/simulator/simulator-worker.js": "96e791ff18a263fbcf86ae013c2b19769ba482dee327fb932b8799923799c720",
+    "docs/assets/simulator/simulator.css": "ebc544019129b4cbc37c3eea1388ac72744cfaaa29532cc37644f1ba654004ec",
+    "docs/assets/simulator/simulator.js": "8d6925817c763d95448f201652463e1e6bd150dd4caeb1c0b1e662709086b65e",
+    "docs/simulator.html": "f45768c1aa201fc4d407235275b0831b9d33420e8b9c34e1a31a1ef1f44ce647"
+  }
+}
