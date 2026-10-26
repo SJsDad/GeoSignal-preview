@@ -93,7 +93,8 @@ class PublicScopeTests(unittest.TestCase):
         with TemporaryDirectory() as directory:
             root = Path(directory)
             shutil.copytree(DOCS / ORIGINAL_DEMO, root / ORIGINAL_DEMO)
-            for filename in ("demo_legacy.html", "demo_legacy_ko.html"):
+            manifest = json.loads((DOCS / ORIGINAL_DEMO / "manifest.json").read_text())
+            for filename in manifest["pages"]:
                 shutil.copyfile(DOCS / filename, root / filename)
             change(root / ORIGINAL_DEMO)
             errors = []

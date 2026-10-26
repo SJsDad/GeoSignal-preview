@@ -17,11 +17,11 @@ relative-dose contours. Representative figures use public or synthetic layouts;
 conditions and interpretation limits are stated on the Demo page. GDS/OAS
 analysis is served separately; use only non-confidential input in the public demo.
 
-The bilingual Demo also provides an interactive saved-results viewer: candidate
-selection, enlarged images, sampled focus/dose comparisons and modeled-dimension
-curves. Its reviewed display data contains only the conditions and rounded results
-shown to visitors. Private calibration, tuning records and the layout engine are
-not included. New input files are analyzed through the separate live service.
+The bilingual Home, Demo and Method pages use the original v0.11 content and
+presentation. The Demo includes its original scrollable iframe, candidate
+selection, enlarged images and saved focus/dose comparisons. Home adds only a
+link and short introduction to the v0.12 6f simulator. New input files are
+analyzed through the separate live service.
 
 The 6f simulator runs directly in the browser on Pages. Its inspectable
 JavaScript implementation and optical explanations remain public educational
@@ -36,12 +36,12 @@ benchmark artifacts and reproduction procedures are maintained privately.
 Public summaries do not establish calibrated wafer accuracy, universal numerical
 settings or guaranteed service performance.
 
-The separate original v0.11 Demo is an explicit historical exception for visual
-comparison. It preserves the previously published page, iframe application,
-example values and downloads from commit `7bb4ea4`; it is not a new reconstruction.
-Only asset URLs, Demo routing and the language-link attribute change. Its 17
-original assets and two rendered pages are checked against a pinned SHA-256
-manifest. This exception does not publish any additional private engine files.
+The restored pages preserve their previously published diagrams, example values
+and downloads from commit `7bb4ea4`. This is an explicit exception to the reduced
+public scope, not a reconstruction. Apart from Home's requested 6f notice, only
+asset URLs and language-link attributes change. The 22 original assets and eight
+rendered pages (six primary pages and two earlier Demo links) are checked against
+a pinned SHA-256 manifest. No additional private engine files are published.
 
 English and Korean pages share navigation and corresponding routes. Paper
 reviews identify source-access limits; original explanatory diagrams are
@@ -57,12 +57,11 @@ python scripts/validate_pages.py
 python scripts/validate_pages.py --site _site
 ```
 
-Optional browser checks in `scripts/test_saved_demo.py`,
-`scripts/test_bilingual_simulator.py` and `scripts/test_technical_notes.py`
+Optional browser checks in `scripts/test_bilingual_simulator.py` and `scripts/test_technical_notes.py`
 use Playwright against a served build.
-`scripts/test_original_demo.py` compares the archived page's complete DOM against
-a separately served build of its original Git revision, allowing only routing
-and language-link changes. `scripts/restore_original_demo.py --check` verifies
+`scripts/test_original_demo.py` compares the restored pages' complete DOM against
+a separately served build of their original Git revision, allowing only routing,
+language-link changes and the requested 6f Home notice. `scripts/restore_original_demo.py --check` verifies
 the export against that historical build.
 The simulator files share a maintained educational implementation; its public
 manifest records exported hashes.

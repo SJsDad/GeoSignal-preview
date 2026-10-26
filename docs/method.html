@@ -1,0 +1,464 @@
+---
+layout: null
+title: Original v0.11 method
+permalink: /method/
+lang: en
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <title>Method | GeoSignal Preview</title><meta name="description" content="Method and workflow explanation for GeoSignal Preview"><link rel="stylesheet" href="/GeoSignal-preview/assets/demo/original-v0.11/assets/css/style.css">
+
+</head>
+
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <div class="site-shell">
+    
+
+
+<aside class="site-sidebar" aria-label="Site navigation">
+  <div class="sidebar-inner">
+    <a class="site-title" href="/GeoSignal-preview/">
+      GeoSignal Preview
+    </a>
+
+    <p class="site-subtitle">
+      Lithography-aware layout visualization
+    </p>
+
+    <nav class="site-nav" aria-label="Main navigation">
+      <div class="nav-section">
+        <a
+          class="nav-link "
+          href="/GeoSignal-preview/"
+          
+        >
+          Home
+        </a>
+
+        <a
+          class="nav-link "
+          href="/GeoSignal-preview/demo/"
+          
+        >
+          Demo
+        </a>
+
+        <a
+          class="nav-link active"
+          href="/GeoSignal-preview/method/"
+          
+            aria-current="page"
+          
+        >
+          Method
+        </a>
+
+        <a
+          class="nav-link "
+          href="/GeoSignal-preview/notes/"
+          
+        >
+          Technical Notes
+        </a>
+
+        <a
+          class="nav-link "
+          href="/GeoSignal-preview/release-notes/"
+          
+        >
+          Release Notes
+        </a>
+      </div>
+      
+<details class="notes-navigation" >
+  <summary>Technical Notes</summary>
+  <a href="/GeoSignal-preview/notes/foundations/" >Physics &amp; Math Foundations</a>
+  <div class="note-nav-children">
+    <a href="/GeoSignal-preview/notes/abbe-imaging/">Abbe Imaging</a>
+    <a href="/GeoSignal-preview/notes/fourier-optics/">Fourier Optics · FFT</a>
+    <a href="/GeoSignal-preview/ko/notes/foundations/hopkins-tcc-socs/" lang="ko">Hopkins · TCC · SOCS</a>
+    <a href="/GeoSignal-preview/ko/notes/foundations/inverse-and-metrics/" lang="ko">Inverse Problem · Metrics</a>
+  </div>
+  <a href="/GeoSignal-preview/ko/notes/research/" lang="ko" >Research Paper Reviews <small>한국어</small></a>
+  <div class="note-nav-children">
+    <a href="/GeoSignal-preview/ko/notes/research/optico/" >OptiCo <small>2026</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/hi-ilt/" >Hi-ILT <small>2026</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/lmlitho/" >LMLitho <small>2025</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/tokman/" >TokMan <small>2025</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/resgnn-opc/" >ResGNN-OPC <small>2025</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/tempo/" >TEMPO <small>2020</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/doinn/" >DOINN <small>2022</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/nitho/" >Nitho <small>2023</small></a>
+  </div>
+</details>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      <span>Public preview</span>
+
+      
+      <a
+        href="https://geosignal-lab.onrender.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Try Live Demo
+      </a>
+      
+
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSerlp3xN8b82NyXBjl5tSNPCoS9N5MUqnE8r3c93cfR5n1U7w/viewform"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Share Feedback
+      </a>
+
+      <a
+        href="https://github.com/SJsDad/GeoSignal-preview"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub Repository
+      </a>
+    </div>
+  </div>
+</aside>
+
+
+    <main id="content" class="site-main">
+      <article class="page-content">
+        <p class="language-switch"><a href="/GeoSignal-preview/ko/method/" lang="ko" hreflang="ko">한국어로 보기</a></p>
+
+<h1 id="method">Method</h1>
+
+<h2 id="1-method-overview">1. Method Overview</h2>
+
+<p>This page explains the calculation concept and interpretation flow used in <strong>GeoSignal Preview</strong>.</p>
+
+<p>GeoSignal Preview is not intended to be a production-level lithography simulator or a calibrated wafer prediction model. Instead, it is a preview workflow that first identifies candidate regions from layout geometry, then reviews selected ROIs using a simplified optical model and relative-dose contour visualization.</p>
+
+<p>The basic method flow is:</p>
+
+<p><img src="/GeoSignal-preview/assets/demo/original-v0.11/assets/demo/tt04-comparison/method_flow_67_roi.png" alt="Six steps from TT04 PWM 67/20 layout to pattern review" /></p>
+
+<p>The same 67/20 width candidate is followed from layout selection to mask, light distribution and relative-dose outlines. The marked region is a candidate for review, not a confirmed defect. Focus / Dose comparison is an optional next step; see the <a href="/GeoSignal-preview/demo/">Demo examples</a>.</p>
+
+<p>The dashed box marks the 2.56 × 2.56 µm inner review ROI. Panels 2–6 show a 3.20 × 3.20 µm field, including a 0.32 µm optical margin on each side. The layout in panel 1 shows the full layer. Contours compare relative doses 0.90, 1.00 and 1.10.</p>
+
+<p><a href="/GeoSignal-preview/assets/demo/original-v0.11/assets/demo/tt04-comparison/method_flow_67_roi.png">Open full-size diagram</a></p>
+
+<p>This method does not run optical simulation on every layout location. It narrows down potentially useful review regions first, then calculates optical-response visualizations only for selected ROIs.</p>
+
+<p>Version-specific implementation details are separated into <a href="/GeoSignal-preview/release-notes/">Release Notes</a> so this page can stay focused on the method concept.</p>
+
+<p>The current calculation uses the Abbe optical model. Version-specific cross-validation and backend details are in <a href="/GeoSignal-preview/release-notes/v0.10/">v0.10 Release Notes</a>.</p>
+
+<hr />
+
+<h2 id="2-candidate-roi-selection">2. Candidate ROI Selection</h2>
+
+<p>ROI means a small review area around a selected location. Width is the line thickness; space is the gap between shapes.</p>
+
+<p>The first step is to select candidate ROIs from layout geometry.</p>
+
+<p>In the current demo, candidate regions are first identified from a minimum width / space viewpoint. A limited number of ROIs are then selected for optical contour review.</p>
+
+<p>This step should be understood as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Final hotspot decision
+    X
+
+First-stage geometry-based filtering for optical contour review
+    O
+</code></pre></div></div>
+
+<p>The important point is not that the current candidate-selection rule is optimal. The important point is the structure:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Find potentially weak locations from layout geometry
+    -&gt; Calculate optical response at those locations
+    -&gt; Review shape behavior through threshold contours
+</code></pre></div></div>
+
+<p>Candidates are ordered by smaller measured width/gap, then larger merged candidate area when measurements are equal. Rule settings and evaluation results are in <a href="/GeoSignal-preview/release-notes/v0.10/">v0.10 Release Notes</a>.</p>
+
+<hr />
+
+<h2 id="3-roi-rasterization">3. ROI Rasterization</h2>
+
+<p>After a candidate ROI is selected, layout polygons inside the ROI are converted into a rasterized mask image.</p>
+
+<p>In the rasterized mask:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>inside polygon  -&gt; 1
+outside polygon -&gt; 0
+</code></pre></div></div>
+
+<p>This means that layout geometry is represented as a binary mask on a regular pixel grid.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Layout polygons in ROI
+    -&gt; Pixel grid
+    -&gt; Binary mask image
+</code></pre></div></div>
+
+<p>The rasterized mask becomes the input for the optical imaging calculation.</p>
+
+<p>In the current preview, the mask is treated as a binary mask rather than a PSM-aware mask model. Phase-shift mask effects, attenuated mask transmission, and detailed mask-stack effects are not included in the current public preview workflow.</p>
+
+<p>Pixel size controls the trade-off between resolution and computation. A smaller pixel size can represent layout details more accurately, but it increases image-array size and FFT-based calculation cost. A larger pixel size reduces runtime but may lose small geometry details.</p>
+
+<p>The ROI may include a margin around the candidate location because optical response is influenced not only by the candidate polygon itself, but also by neighboring layout structures.</p>
+
+<hr />
+
+<h2 id="4-abbe-based-aerial-image-calculation">4. Abbe-based Aerial Image Calculation</h2>
+
+<p>GeoSignal Preview currently uses a simplified Abbe-based imaging approach.</p>
+
+<p>The aerial image is an optical intensity map calculated by applying a simplified optical imaging model to the rasterized mask.</p>
+
+<p>It should be interpreted as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>optical response image
+</code></pre></div></div>
+
+<p>not as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>final wafer contour
+calibrated resist contour
+production CD prediction
+</code></pre></div></div>
+
+<p>The conceptual calculation flow is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Rasterized mask
+    -&gt; Mask spectrum
+    -&gt; Source point sampling
+    -&gt; Shifted pupil filtering
+    -&gt; Coherent image per source point
+    -&gt; Partially coherent aerial image
+</code></pre></div></div>
+
+<p>More specifically:</p>
+
+<ol>
+  <li>Transform the rasterized mask into the frequency domain.</li>
+  <li>Shift the pupil position according to each source point.</li>
+  <li>Filter the mask spectrum using the shifted pupil.</li>
+  <li>Transform the filtered spectrum back to the image domain.</li>
+  <li>Calculate a coherent intensity image for each source point.</li>
+  <li>Accumulate the coherent intensity images to form the final aerial image.</li>
+</ol>
+
+<p>The following image shows a debug example of the Abbe-style aerial-image calculation flow using a 9-point source condition.</p>
+
+<p><img src="/GeoSignal-preview/assets/demo/original-v0.11/assets/method/abbe_debug_9.png" alt="Abbe debug example with 9-point source" /></p>
+
+<p>The following image shows the same calculation flow under a denser source-sampling condition.</p>
+
+<p><img src="/GeoSignal-preview/assets/demo/original-v0.11/assets/method/abbe_debug_dense.png" alt="Abbe debug example with dense source" /></p>
+
+<p>These images are kept as visual references for understanding the method. They are not intended as calibrated scanner-model validation.</p>
+
+<p>The aerial image can qualitatively show effects such as:</p>
+
+<ul>
+  <li>edge blur</li>
+  <li>corner-rounding-like response</li>
+  <li>line-end-pullback-like response</li>
+  <li>intensity degradation around narrow regions</li>
+  <li>optical interaction between neighboring patterns</li>
+  <li>response differences between dense and isolated structures</li>
+</ul>
+
+<hr />
+
+<h2 id="5-source-sampling-and-pupil-filtering">5. Source Sampling and Pupil Filtering</h2>
+
+<p>The illumination source is approximated by sampling multiple source points.</p>
+
+<p>Each source point represents one illumination direction. For each source point, the pupil is shifted in the frequency domain, and only spatial-frequency components passing through the shifted pupil are used to reconstruct the image contribution.</p>
+
+<p>Conceptually:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Source point
+    -&gt; Shifted pupil
+    -&gt; Filtered mask spectrum
+    -&gt; Coherent image contribution
+</code></pre></div></div>
+
+<p>The final aerial image is obtained by accumulating image contributions from all sampled source points.</p>
+
+<p>Using more source points can make the illumination approximation smoother, but it also increases calculation time. Using fewer source points reduces runtime, but the result may depend more strongly on the sampling condition.</p>
+
+<p>The following image compares source-sampling conditions.</p>
+
+<p><img src="/GeoSignal-preview/assets/demo/original-v0.11/assets/method/source_sampling_comparison.png" alt="Source sampling comparison" /></p>
+
+<p>In the current preview, the source-sampling condition is selected by considering both visual stability and computational cost. The detailed rationale for recent default choices is recorded in the release notes.</p>
+
+<p>The current result should be interpreted as qualitative optical-response visualization, not as a scanner-calibrated lithography model.</p>
+
+<hr />
+
+<h2 id="6-relative-dose-contour-extraction">6. Relative-dose Contour Extraction</h2>
+
+<p>The aerial image is the calculated light distribution. A contour outlines the region above a selected level. Overlaying it on the original drawing makes shape changes easier to see.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Calculated light distribution
+    -&gt; Set a baseline with a reference pattern
+    -&gt; Compare outlines as the amount of light changes
+</code></pre></div></div>
+
+<p>The model is fitted to the design width of a reference pattern, then compared at 10% less light, baseline and 10% more light. Changing the light amount does not change the model’s material threshold itself. This is not a process model fitted to measured wafers.</p>
+
+<p>Look for:</p>
+
+<ul>
+  <li>line widening or narrowing</li>
+  <li>changes in gaps</li>
+  <li>line ends that appear shorter</li>
+  <li>rounded corners</li>
+  <li>boundaries that move substantially across conditions</li>
+</ul>
+
+<p>Large movement can identify a location worth inspecting. Small movement alone does not establish manufacturing safety. The dose–threshold relationship, fitting procedure and validation results are documented in detail in <a href="/GeoSignal-preview/release-notes/v0.10/">v0.10 Release Notes</a>.</p>
+
+<hr />
+
+<h2 id="7-hotspot-like-shape-review">7. Hotspot-like Shape Review</h2>
+
+<p>The final step is hotspot-like shape review.</p>
+
+<p>This step combines geometry-based candidate selection with contour-based optical-response review.</p>
+
+<p>The reviewed signals include:</p>
+
+<ul>
+  <li>narrow width or narrow space detected by geometry screening</li>
+  <li>visible mismatch between mask and contour</li>
+  <li>large contour movement across relative-dose conditions</li>
+  <li>bridge-like response around narrow gaps</li>
+  <li>necking- or pinch-like response around narrow lines</li>
+  <li>line-end-pullback-like response</li>
+  <li>corner-rounding-like response</li>
+</ul>
+
+<p>The output of this step is not a final pass/fail result. It is a visual guide for quickly identifying locations that may deserve additional review.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Geometry candidate
+    + Aerial image behavior
+    + Threshold contour behavior
+    -&gt; Lithography-aware review point
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="8-current-scope-and-limitations">8. Current Scope and Limitations</h2>
+
+<p>GeoSignal Preview is currently a qualitative visualization workflow for public preview.</p>
+
+<p>It has the following assumptions and limitations.</p>
+
+<ul>
+  <li>The public preview repository does not include the core implementation code.</li>
+  <li>The candidate-selection logic is not an optimized hotspot-ranking method.</li>
+  <li>The mask is treated as a binary mask; PSM-aware mask modeling is not included.</li>
+  <li>The imaging model is a simplified Abbe-based model.</li>
+  <li>Wafer-data-based calibration is not included.</li>
+  <li>Resist and etch models are not included.</li>
+  <li>Threshold contours are qualitative visual indicators.</li>
+  <li>The current result should not be used for production CD prediction.</li>
+  <li>Optical parameters are simplified for preview and learning purposes.</li>
+  <li>Public or synthetic layout examples are used.</li>
+  <li>Optical analysis is mainly performed at the ROI level.</li>
+</ul>
+
+<p>Therefore, the current method should be understood as:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>layout-to-optical-response visualization
+</code></pre></div></div>
+
+<p>rather than:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>production lithography verification
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="9-relation-to-demo-page">9. Relation to Demo Page</h2>
+
+<p>The <a href="/GeoSignal-preview/demo/">Demo</a> page shows visual outputs generated through this method.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Demo Output</th>
+      <th>Method Step</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Geometry-based candidate</td>
+      <td>Candidate ROI Selection</td>
+    </tr>
+    <tr>
+      <td>Rasterized mask</td>
+      <td>ROI Rasterization</td>
+    </tr>
+    <tr>
+      <td>Aerial image</td>
+      <td>Abbe-based Aerial Image Calculation</td>
+    </tr>
+    <tr>
+      <td>Relative-dose contour</td>
+      <td>Relative-dose Contour Extraction</td>
+    </tr>
+    <tr>
+      <td>Hotspot-like annotation</td>
+      <td>Hotspot-like Shape Review</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Recommended reading order:</p>
+
+<ol>
+  <li>Review the <a href="/GeoSignal-preview/demo/">Demo</a> page to understand the visual flow.</li>
+  <li>Read the Method page to understand the calculation flow.</li>
+  <li>Check <a href="/GeoSignal-preview/notes/">Technical Notes</a> if additional optical background is needed.</li>
+  <li>Check <a href="/GeoSignal-preview/release-notes/">Release Notes</a> if implementation history is needed.</li>
+</ol>
+
+<hr />
+
+<h2 id="10-related-pages">10. Related Pages</h2>
+
+<ul>
+  <li><a href="/GeoSignal-preview/">Home</a></li>
+  <li><a href="/GeoSignal-preview/demo/">Demo</a></li>
+  <li><a href="/GeoSignal-preview/notes/">Technical Notes</a></li>
+  <li><a href="/GeoSignal-preview/release-notes/">Release Notes</a></li>
+</ul>
+
+      </article>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,326 @@
+---
+layout: null
+title: Original v0.11 demo
+permalink: /demo/
+lang: en
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <title>Demo | GeoSignal Preview</title><meta name="description" content="Demo results and interpretation for GeoSignal Preview"><link rel="stylesheet" href="/GeoSignal-preview/assets/demo/original-v0.11/assets/css/style.css">
+
+</head>
+
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <div class="site-shell">
+    
+
+
+<aside class="site-sidebar" aria-label="Site navigation">
+  <div class="sidebar-inner">
+    <a class="site-title" href="/GeoSignal-preview/">
+      GeoSignal Preview
+    </a>
+
+    <p class="site-subtitle">
+      Lithography-aware layout visualization
+    </p>
+
+    <nav class="site-nav" aria-label="Main navigation">
+      <div class="nav-section">
+        <a
+          class="nav-link "
+          href="/GeoSignal-preview/"
+          
+        >
+          Home
+        </a>
+
+        <a
+          class="nav-link active"
+          href="/GeoSignal-preview/demo/"
+          
+            aria-current="page"
+          
+        >
+          Demo
+        </a>
+
+        <a
+          class="nav-link "
+          href="/GeoSignal-preview/method/"
+          
+        >
+          Method
+        </a>
+
+        <a
+          class="nav-link "
+          href="/GeoSignal-preview/notes/"
+          
+        >
+          Technical Notes
+        </a>
+
+        <a
+          class="nav-link "
+          href="/GeoSignal-preview/release-notes/"
+          
+        >
+          Release Notes
+        </a>
+      </div>
+      
+<details class="notes-navigation" >
+  <summary>Technical Notes</summary>
+  <a href="/GeoSignal-preview/notes/foundations/" >Physics &amp; Math Foundations</a>
+  <div class="note-nav-children">
+    <a href="/GeoSignal-preview/notes/abbe-imaging/">Abbe Imaging</a>
+    <a href="/GeoSignal-preview/notes/fourier-optics/">Fourier Optics · FFT</a>
+    <a href="/GeoSignal-preview/ko/notes/foundations/hopkins-tcc-socs/" lang="ko">Hopkins · TCC · SOCS</a>
+    <a href="/GeoSignal-preview/ko/notes/foundations/inverse-and-metrics/" lang="ko">Inverse Problem · Metrics</a>
+  </div>
+  <a href="/GeoSignal-preview/ko/notes/research/" lang="ko" >Research Paper Reviews <small>한국어</small></a>
+  <div class="note-nav-children">
+    <a href="/GeoSignal-preview/ko/notes/research/optico/" >OptiCo <small>2026</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/hi-ilt/" >Hi-ILT <small>2026</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/lmlitho/" >LMLitho <small>2025</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/tokman/" >TokMan <small>2025</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/resgnn-opc/" >ResGNN-OPC <small>2025</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/tempo/" >TEMPO <small>2020</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/doinn/" >DOINN <small>2022</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/nitho/" >Nitho <small>2023</small></a>
+  </div>
+</details>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      <span>Public preview</span>
+
+      
+      <a
+        href="https://geosignal-lab.onrender.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Try Live Demo
+      </a>
+      
+
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSerlp3xN8b82NyXBjl5tSNPCoS9N5MUqnE8r3c93cfR5n1U7w/viewform"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Share Feedback
+      </a>
+
+      <a
+        href="https://github.com/SJsDad/GeoSignal-preview"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub Repository
+      </a>
+    </div>
+  </div>
+</aside>
+
+
+    <main id="content" class="site-main">
+      <article class="page-content">
+        <p class="language-switch"><a href="/GeoSignal-preview/ko/demo/" lang="ko" hreflang="ko">한국어로 보기</a></p>
+
+<h1 id="demo">Demo</h1>
+
+<p>Upload a layout, find narrow features, and inspect the patterns that deserve a closer look.</p>
+
+<section class="live-demo-callout" aria-label="GeoSignal live demo">
+  <h2>Explore a public layout</h2>
+  <p>
+    Find candidate locations and inspect their local shapes in the live demo.
+  </p>
+  <a class="live-demo-button" href="https://geosignal-lab.onrender.com/" target="_blank" rel="noopener noreferrer">
+    Try Live Demo
+  </a>
+  <p class="live-demo-note">
+    Use non-confidential files only. The free server may take time to wake up and process an analysis.
+  </p>
+</section>
+
+<p><strong>Start with locations and patterns.</strong> GeoSignal screens the selected GDS layer for narrow widths and gaps, then calculates optical images for a limited set of candidates. Focus / Dose comparison is an optional next step.</p>
+
+<h2 id="1-screen-guide">1. Screen guide</h2>
+
+<p>The proposed screen below starts with a layout overview and <strong>six candidates per type by default</strong>. Choose 4, 6 or 8, switch between Width and Space, and click a pattern to see it at full width below. Candidate count controls detailed review; it does not limit geometry detection.</p>
+
+<p>This is an interactive, saved-data preview, not a live analysis session. Six examples per type are available. Actual PW data is available for Width #1 and Space #1; the other cards show an uncalculated state. Choosing 8 does not invent additional examples. The deployed app may still show the previous interface.</p>
+
+<iframe src="/GeoSignal-preview/assets/demo/original-v0.11/assets/demo/ui-guide/reference-draft.html" title="Candidate review UI draft" width="100%" height="850" loading="lazy" style="border:1px solid #dce3ec;border-radius:10px" sandbox="allow-scripts allow-downloads allow-popups"></iframe>
+
+<p><a href="/GeoSignal-preview/assets/demo/original-v0.11/assets/demo/ui-guide/reference-draft.html">Open the interactive screen ↗</a></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>Item</th>
+      <th>How to use it</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>①</td>
+      <td>File</td>
+      <td>Choose a public, non-confidential GDS/OAS file.</td>
+    </tr>
+    <tr>
+      <td>②</td>
+      <td>Layer / Datatype</td>
+      <td>Select the target layer. TT04 PWM 68/20 can also be reviewed.</td>
+    </tr>
+    <tr>
+      <td>③</td>
+      <td>Width / Space limit</td>
+      <td>Geometry screening limits, not printed-CD tolerances.</td>
+    </tr>
+    <tr>
+      <td>④</td>
+      <td>ROI / Pixel size</td>
+      <td>Review area and pixel spacing. Illumination stays at dense7.</td>
+    </tr>
+    <tr>
+      <td>⑤</td>
+      <td>Focus / Dose</td>
+      <td>Enter symmetric ranges. Compare shapes and CD changes at nine combinations.</td>
+    </tr>
+    <tr>
+      <td>⑥</td>
+      <td>Override reference</td>
+      <td>Usually leave blank. To fit another design reference, enter its center X/Y, design width and measurement direction.</td>
+    </tr>
+    <tr>
+      <td>⑦</td>
+      <td>Candidate locations</td>
+      <td>Locate candidate regions across the GDS.</td>
+    </tr>
+    <tr>
+      <td>⑧</td>
+      <td>Main candidates</td>
+      <td>Default: 6 per type; choose 4 / 6 / 8. Click a card for a full-width detail image.</td>
+    </tr>
+    <tr>
+      <td>⑨</td>
+      <td>Optional comparison</td>
+      <td>Expand the selected candidate’s 3×3 images and Bossung curve. No pass/fail grading.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="getting-started">Using the live demo</h3>
+
+<p>The screen above previews the updated workflow. In the currently deployed app, files outside the registered examples may still require an explicit reference location, direction and design width. Follow the reference fields shown in that app.</p>
+
+<p>Usually, leave <strong>Override reference</strong> blank. These examples share the TT04 PWM 67/20 anchor at <strong>(147.770, 108.460) µm</strong>, fitted to its <strong>170 nm design width</strong>. This is a common comparison baseline, not calibration to measured wafers. Other patterns are not individually fitted.</p>
+
+<h2 id="2-find-the-main-candidates">2. Find the main candidates</h2>
+
+<p>The overview locates candidates across TT04 PWM 67/20. Markers identify places to inspect, not confirmed manufacturing defects.</p>
+
+<p><img src="/GeoSignal-preview/assets/demo/original-v0.11/assets/demo/v0.10/speed/geometry_candidate_overview.png" alt="TT04 67/20 candidate locations" /></p>
+
+<p>Narrower geometry comes first; ties prefer larger candidate regions. The galleries below show six Width and six Space examples. Warm colors show light intensity; cyan, white and lime contours represent dose −10%, nominal and +10%.</p>
+
+<p><strong>Image scale:</strong> Candidate close-ups (including nominal and 3×3 images) show a <strong>1.28 × 1.28 µm zoom</strong> inside a <strong>2.56 × 2.56 µm calculation ROI</strong>. The calculation also includes a <strong>0.32 µm optical margin on each side</strong>. Zooming changes only the displayed area, not the calculation conditions. The layout overview shows the full layer.</p>
+
+<h3 id="width--top-6">Width · top 6</h3>
+
+<p><img src="/GeoSignal-preview/assets/demo/original-v0.11/assets/release-notes/v0.10/width_area_desc_review/top6.png" alt="Six Width candidates" /></p>
+
+<h3 id="space--top-6">Space · top 6</h3>
+
+<p><img src="/GeoSignal-preview/assets/demo/original-v0.11/assets/release-notes/v0.10/width_area_desc_review/space_top6.png" alt="Six Space candidates" /></p>
+
+<h2 id="3-actual-examples-6720-and-6820">3. Actual examples: 67/20 and 68/20</h2>
+
+<p>These are actual local calculations on the public TT04 PWM GDS, using the same 67/20 reference. Each example keeps its candidate and measurement location fixed. They are not Render runtime tests or a ranking of entire layers.</p>
+
+<p>Start with the nominal pattern pair. Open the optional comparison to see nine conditions and the corresponding Bossung curves.</p>
+
+<p>The examples below use the same 1.28 µm zoom and 2.56 µm calculation ROI.</p>
+
+<h3 id="tt04-pwm-6720">TT04 PWM 67/20</h3>
+
+<p><img src="/GeoSignal-preview/assets/demo/original-v0.11/assets/demo/tt04-comparison/layer67_nominal.png" alt="TT04 67/20 nominal Width and Space" /></p>
+
+<p>The geometry and model measurements differ because the common reference is not fitted separately to these candidates.</p>
+
+<details>
+  <summary>Optional: Focus / Dose images and Bossung curves</summary>
+
+  <p><img src="/GeoSignal-preview/assets/demo/original-v0.11/assets/demo/tt04-comparison/layer67_width.png" alt="TT04 67/20 width comparison" /></p>
+
+  <p><img src="/GeoSignal-preview/assets/demo/original-v0.11/assets/demo/tt04-comparison/layer67_space.png" alt="TT04 67/20 space comparison" /></p>
+
+  <p><img src="/GeoSignal-preview/assets/demo/original-v0.11/assets/demo/tt04-comparison/layer67_bossung.png" alt="TT04 67/20 bossung comparison" /></p>
+
+  <p>Focus: −0.20 / 0 / +0.20 µm. Relative dose: 0.90 / 1.00 / 1.10. Bossung plots show measured size against focus, one line per dose. Missing measurements are not connected; three sampled points show a trend, not a precise DoF estimate. No CD pass/fail specification is applied.</p>
+
+</details>
+
+<h3 id="tt04-pwm-6820">TT04 PWM 68/20</h3>
+
+<p><img src="/GeoSignal-preview/assets/demo/original-v0.11/assets/demo/tt04-comparison/layer68_nominal.png" alt="TT04 68/20 nominal Width and Space" /></p>
+
+<p>The selected width candidate has a narrow neck. Its nominal model width is about 88 nm versus 140 nm in the geometry. At dose 0.90 and focus ±0.20 µm, the fixed-gauge measurement reports a missing feature. This is a local model response, not a wafer-defect claim.</p>
+
+<details>
+  <summary>Optional: Focus / Dose images and Bossung curves</summary>
+
+  <p><img src="/GeoSignal-preview/assets/demo/original-v0.11/assets/demo/tt04-comparison/layer68_width.png" alt="TT04 68/20 width comparison" /></p>
+
+  <p><img src="/GeoSignal-preview/assets/demo/original-v0.11/assets/demo/tt04-comparison/layer68_space.png" alt="TT04 68/20 space comparison" /></p>
+
+  <p><img src="/GeoSignal-preview/assets/demo/original-v0.11/assets/demo/tt04-comparison/layer68_bossung.png" alt="TT04 68/20 bossung comparison" /></p>
+
+  <p>Focus: −0.20 / 0 / +0.20 µm. Relative dose: 0.90 / 1.00 / 1.10. Bossung plots show measured size against focus, one line per dose. Missing measurements are not connected; three sampled points show a trend, not a precise DoF estimate. No CD pass/fail specification is applied.</p>
+
+</details>
+
+<h2 id="4-read-the-results">4. Read the results</h2>
+
+<p>Look for a narrowing neck, a closing gap, rounded corners or a line end pulling back. The orange cross marks the measurement location. In the 3×3 images, cyan marks the calculated contour and Δ shows the change from that candidate’s nominal result. Brightness is held consistent within each comparison.</p>
+
+<p>The model treats polygons as illuminated regions. These contours do not determine which material remains after resist development or etch. They are relative model results for study, not calibrated process predictions.</p>
+
+<h2 id="5-data-and-details">5. Data and details</h2>
+
+<ul>
+  <li><a href="/GeoSignal-preview/assets/demo/original-v0.11/assets/demo/tt04-comparison/measurements.csv">Measurements CSV</a></li>
+  <li><a href="/GeoSignal-preview/assets/demo/original-v0.11/assets/demo/tt04-comparison/conditions.json">Reference and conditions</a></li>
+  <li><a href="/GeoSignal-preview/assets/demo/original-v0.11/assets/demo/v0.10/speed/pya_native_combined_review.gds">67/20 review GDS</a></li>
+  <li><a href="/GeoSignal-preview/release-notes/v0.10/">v0.10 evaluation and technical details</a></li>
+</ul>
+
+<p>The review GDS is the saved 67/20 example; it does not include the 68/20 comparison. Upload only public, non-confidential layouts.</p>
+
+      </article>
+    </main>
+  </div>
+</body>
+</html>

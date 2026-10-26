@@ -26,7 +26,7 @@ PUBLIC_DEMO_IMAGES = {
 }
 VIEWER_DATA = "assets/demo/public/viewer-data.json"
 ORIGINAL_DEMO = "assets/demo/original-v0.11"
-ORIGINAL_MANIFEST_SHA256 = "45436d973b30c6c76d82189eaa5ac075a0a6bc080f0c922a1c4ef0fbb9fb7701"
+ORIGINAL_MANIFEST_SHA256 = "a5aed7cffeafccf6c5889dcbe7713c9794f2a92714d21dd1063445dedd37dd32"
 for _layer in (67, 68):
     for _kind in ("width", "space"):
         for _number in range(1, 7 if _layer == 67 else 2):
@@ -95,7 +95,7 @@ def validate_viewer_data(path, root, errors):
 
 
 def validate_original_demo(root, errors):
-    """The user requested the real former public page, including its old data.
+    """The user restored the former Home, Demo and Method with their old data.
 
     Permit only this fixed historical snapshot, not arbitrary new raw records.
     """
@@ -118,11 +118,13 @@ def validate_original_demo(root, errors):
     for source, record in manifest["pages"].items():
         path = root / source
         if path.is_file():
-            parts = path.read_text().split("---\n", 2)
-            if len(parts) != 3:
-                errors.append(f"invalid original Demo page front matter: {source}")
-                continue
-            html = parts[2]
+            html = path.read_text()
+            if html.startswith("---\n"):
+                parts = html.split("---\n", 2)
+                if len(parts) != 3:
+                    errors.append(f"invalid original page front matter: {source}")
+                    continue
+                html = parts[2]
         else:
             path = root / record["route"].lstrip("/") / "index.html"
             if not path.is_file():

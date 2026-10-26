@@ -1,6 +1,6 @@
 {
   "source_commit": "7bb4ea485bd30fb5337e8f6c141d11d871eba234",
-  "routing_only": true,
+  "home_addition": "6f simulator notice only",
   "assets": {
     "assets/css/style.css": "c592e50cda30eb58d3b5846a85fb164507ef039b4cc933eb8e1de8eeff987d71",
     "assets/demo/ui-guide/reference-draft.html": "7e58f3acbb4361070eba5308d1de8c6d116c1a4a2ed55ac65f9be9437eed28f8",
@@ -11,6 +11,11 @@
     "assets/release-notes/v0.10/width_area_desc_review/space_top6.png": "d20961f3dacb0a9033b54761ffcddbe3a05f539cc1b03aede4e18ab136811535",
     "assets/demo/tt04-comparison/conditions.json": "8074f268674d9be2e83957f1d58cda20651078006c5d4ab9fae2c7d84a8adadb",
     "assets/demo/tt04-comparison/measurements.csv": "5f554f792e35c2ce276d3b1cfe0fda370cdfc64dc1c9f21d85b7c729d3905c47",
+    "assets/demo/v0.10/speed/home_aerial_overlay.png": "1ee49b0d7d8febc0e47d99e3577524c1cf2c1f6c6fde7acfb4cc43026e81f133",
+    "assets/demo/tt04-comparison/method_flow_67_roi.png": "ab9849306b12eda427e55064d14070c9dce914269108aacd142f782be417d10f",
+    "assets/method/abbe_debug_9.png": "40f359fece770248fa4ac408a08d8bd276ed5cf8af4466bbe3cce4a3adb16b89",
+    "assets/method/abbe_debug_dense.png": "c562bbdf591bbb2e614f023e8a05798d0b142f87d638b363a3bf88bd446c4914",
+    "assets/method/source_sampling_comparison.png": "027429f9d836f26b76d87a989edc0594cc3b23fa65c0470a8d2644cf658cd100",
     "assets/demo/tt04-comparison/layer67_nominal.png": "bf7bac7ad99669ae6a07451ee01d5fc0b8503ca26cd8c227571330b41b7f6714",
     "assets/demo/tt04-comparison/layer67_width.png": "27fe640e78c923d8555b365e866e0fbffd0c22ead94731855e259af1f53285cc",
     "assets/demo/tt04-comparison/layer67_space.png": "0431e8c13ce3c1acd144eff04223a6111290d8795accc4e6c17a0331f2e29654",
@@ -28,12 +33,54 @@
       "original_html_sha256": "0da656749be8be119a078586b02b8f39f195714c242ddafb27f4c92d86ca7fc3",
       "published_html_sha256": "db838dbc820e16c522f2de2cef6b5ce3406dbc0be2261c9f9dd68de6c8bae9e9"
     },
+    "index.html": {
+      "route": "/",
+      "source_path": "index.md",
+      "source_sha256": "ce48057a884b09f8c2da0fa6325614f4cd334076ac93c44848a05f16b530a13c",
+      "original_html_sha256": "bea0c16d2b1e738117f5077dce972cb2dc1800d0d329ba582b3787a863cdebcd",
+      "published_html_sha256": "f6d5def0ddb87e228675e7c01218d94eaf849c03228486e74b3264bd155e84e6"
+    },
+    "demo.html": {
+      "route": "/demo/",
+      "source_path": "demo.md",
+      "source_sha256": "b4c202d92b6ffee3063c03fdb4e47c636a3cad1b1831eb33d71d54cf7d38fd83",
+      "original_html_sha256": "0da656749be8be119a078586b02b8f39f195714c242ddafb27f4c92d86ca7fc3",
+      "published_html_sha256": "76a9206cfbd36a9c410fefe0b367b2790e5e77015b9a1fa0fcd6abe794e9803e"
+    },
+    "method.html": {
+      "route": "/method/",
+      "source_path": "method.md",
+      "source_sha256": "64723d014103749f55273514d6596f17afd842e8836732b43fb31ca2a3f1a001",
+      "original_html_sha256": "a7b581b812ca361d824fcc40fbb5f7da0dde441b480e2368ed21d060f1975a7f",
+      "published_html_sha256": "24fcd960fdd91f0115e48282c216b6b1158db1d8aef4ae93c6546680fe7a836b"
+    },
     "demo_legacy_ko.html": {
       "route": "/ko/demo-legacy/",
       "source_path": "demo_ko.md",
       "source_sha256": "fcd5f0b0464c1e2a12d3b3be4ae5077f43f373e4b342ca429b00fc262d8f3be8",
       "original_html_sha256": "6910dfb59360167da20a46deaa5ea684ee1111f00686f63cf64820ade45dc7d6",
       "published_html_sha256": "8e30d9888d3c838580ea1446b4a78e97966415a79be71b45c63cf66e6e257778"
+    },
+    "index_ko.html": {
+      "route": "/ko/",
+      "source_path": "index_ko.md",
+      "source_sha256": "2b2bb9463c17aaeae0f68c47c336e325bc57fa999effb8e0e734f5d43ca69232",
+      "original_html_sha256": "e8c37536071f2a94865aa438e9e4537eb015bde97ce0f34d1dc543221d0a4165",
+      "published_html_sha256": "7452bef5f1c72a0ee5647a44df52baa5bba96af7c8017ba6c6ae771f03ed43f6"
+    },
+    "demo_ko.html": {
+      "route": "/ko/demo/",
+      "source_path": "demo_ko.md",
+      "source_sha256": "fcd5f0b0464c1e2a12d3b3be4ae5077f43f373e4b342ca429b00fc262d8f3be8",
+      "original_html_sha256": "6910dfb59360167da20a46deaa5ea684ee1111f00686f63cf64820ade45dc7d6",
+      "published_html_sha256": "4569b18974f4c5d5bec9f16fd6d4f25ae988a45246283b8eccc459c9a7a10bc9"
+    },
+    "method_ko.html": {
+      "route": "/ko/method/",
+      "source_path": "method_ko.md",
+      "source_sha256": "cb6201e9bf2424bcdec77531e654dcfc32ae4c6bf2583998adff37330c58d2cc",
+      "original_html_sha256": "0169b267e83327aafebaf218dcf0a54ef27419590508119d844b566de75e6a54",
+      "published_html_sha256": "55b05800caa323db9b71b41adc7adc1f6fd0377cfd6abd9e8615421b782e235f"
     }
   }
 }

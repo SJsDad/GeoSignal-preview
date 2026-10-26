@@ -1,4 +1,4 @@
-"""Compare the archived Demo with a separately built original Git revision."""
+"""Compare restored Home, Demo and Method with the separately built Git original."""
 from __future__ import annotations
 
 import argparse
@@ -27,7 +27,7 @@ def main():
         args.artifacts.mkdir(parents=True, exist_ok=True)
     url, reference = args.url.rstrip("/"), args.reference_url.rstrip("/")
     origins = {urlsplit(url).netloc, urlsplit(reference).netloc}
-    errors, failures, requests, results = [], [], [], []
+    errors, failures, requests, results, matched = [], [], [], [], []
     with sync_playwright() as playwright:
         launch = {"headless": True}
         if args.chromium:
@@ -41,11 +41,35 @@ def main():
         page.on("response", lambda response: failures.append(response.url) if response.status >= 400 else None)
         page.on("request", lambda request: requests.append((request.method, request.url)))
         for language, prefix in (("en", ""), ("ko", "/ko")):
-            page.goto(f"{reference}{prefix}/demo/", wait_until="networkidle")
-            expected = canonical(page.locator("html").evaluate("e=>e.outerHTML"))
-            page.goto(f"{url}{prefix}/demo-legacy/", wait_until="networkidle")
-            actual = canonical(page.locator("html").evaluate("e=>e.outerHTML"))
-            assert actual == expected, f"The {language} original Demo DOM was changed"
+            for route in ("/", "/demo/", "/method/", "/demo-legacy/"):
+                reference_route = route.replace("demo-legacy", "demo")
+                page.goto(f"{reference}{prefix}{reference_route}", wait_until="networkidle")
+                expected = canonical(page.locator("html").evaluate("e=>e.outerHTML"))
+                page.goto(f"{url}{prefix}{route}", wait_until="networkidle")
+                notice = page.locator("#home-6f-simulator")
+                assert notice.count() == (1 if route == "/" else 0)
+                if route == "/":
+                    assert notice.locator("a").get_attribute("href") == f"/GeoSignal-preview{prefix}/simulator/"
+                    if language == "ko":
+                        assert notice.locator("h2").inner_text() == "6f 광선·파동 시뮬레이터"
+                        assert notice.locator("p").inner_text() == (
+                            "시뮬레이터 실행에서 광원→웨이퍼의 6f 광선 경로와 같은 회절 차수의 pupil·파동 결과를 함께 조작할 수 있습니다. "
+                            "Pages에서 직접 실행되며 Render 서버 기동을 기다리지 않습니다. (v0.12 추가)")
+                    else:
+                        assert "Added in v0.12" in notice.inner_text()
+                actual = canonical(page.locator("html").evaluate("""e=>{
+                    const copy=e.cloneNode(true);copy.querySelector('#home-6f-simulator')?.remove();
+                    return copy.outerHTML;
+                }"""))
+                assert actual == expected, f"Original page DOM was changed beyond the Home notice: {prefix}{route}"
+                matched.append(prefix + route)
+                page.locator(".page-content img").evaluate_all(
+                    "images=>Promise.all(images.map(i=>{i.loading='eager';return i.decode();}))")
+                if args.artifacts and route in ("/", "/method/"):
+                    if route == "/":
+                        notice.scroll_into_view_if_needed()
+                    page.screenshot(path=str(args.artifacts / f"{language}-{'home' if route=='/' else 'method'}.png"))
+            page.goto(f"{url}{prefix}/demo/", wait_until="networkidle")
             assert page.locator("html").get_attribute("lang") == language
             assert page.locator(".page-content h2").count() >= 5
             assert page.locator(".page-content img").count() == 11
@@ -94,10 +118,10 @@ def main():
     if args.artifacts:
         (args.artifacts / "original-demo-results.json").write_text(json.dumps({
             "views": results, "errors": errors, "failures": failures,
-            "original_dom_matches": ["en", "ko"]
+            "original_dom_matches": matched
         }, indent=2))
-    print("PASS: complete EN/KO DOM equals the original Git build after URL normalization; "
-          "original iframe controls, scrolling, images, nine-condition results and no API requests")
+    print("PASS: restored EN/KO Home, Demo and Method match the original Git build with only the "
+          "requested Home notice; original iframe controls, scrolling, images and no API requests")
 
 
 if __name__ == "__main__":

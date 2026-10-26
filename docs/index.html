@@ -1,0 +1,334 @@
+---
+layout: null
+title: Original v0.11 index
+permalink: /
+lang: en
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+
+  <title>GeoSignal Preview</title><meta name="description" content="Lithography-aware layout visualization workflow"><link rel="stylesheet" href="/GeoSignal-preview/assets/demo/original-v0.11/assets/css/style.css">
+
+</head>
+
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <div class="site-shell">
+    
+
+
+<aside class="site-sidebar" aria-label="Site navigation">
+  <div class="sidebar-inner">
+    <a class="site-title" href="/GeoSignal-preview/">
+      GeoSignal Preview
+    </a>
+
+    <p class="site-subtitle">
+      Lithography-aware layout visualization
+    </p>
+
+    <nav class="site-nav" aria-label="Main navigation">
+      <div class="nav-section">
+        <a
+          class="nav-link active"
+          href="/GeoSignal-preview/"
+          
+            aria-current="page"
+          
+        >
+          Home
+        </a>
+
+        <a
+          class="nav-link "
+          href="/GeoSignal-preview/demo/"
+          
+        >
+          Demo
+        </a>
+
+        <a
+          class="nav-link "
+          href="/GeoSignal-preview/method/"
+          
+        >
+          Method
+        </a>
+
+        <a
+          class="nav-link "
+          href="/GeoSignal-preview/notes/"
+          
+        >
+          Technical Notes
+        </a>
+
+        <a
+          class="nav-link "
+          href="/GeoSignal-preview/release-notes/"
+          
+        >
+          Release Notes
+        </a>
+      </div>
+      
+<details class="notes-navigation" >
+  <summary>Technical Notes</summary>
+  <a href="/GeoSignal-preview/notes/foundations/" >Physics &amp; Math Foundations</a>
+  <div class="note-nav-children">
+    <a href="/GeoSignal-preview/notes/abbe-imaging/">Abbe Imaging</a>
+    <a href="/GeoSignal-preview/notes/fourier-optics/">Fourier Optics · FFT</a>
+    <a href="/GeoSignal-preview/ko/notes/foundations/hopkins-tcc-socs/" lang="ko">Hopkins · TCC · SOCS</a>
+    <a href="/GeoSignal-preview/ko/notes/foundations/inverse-and-metrics/" lang="ko">Inverse Problem · Metrics</a>
+  </div>
+  <a href="/GeoSignal-preview/ko/notes/research/" lang="ko" >Research Paper Reviews <small>한국어</small></a>
+  <div class="note-nav-children">
+    <a href="/GeoSignal-preview/ko/notes/research/optico/" >OptiCo <small>2026</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/hi-ilt/" >Hi-ILT <small>2026</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/lmlitho/" >LMLitho <small>2025</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/tokman/" >TokMan <small>2025</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/resgnn-opc/" >ResGNN-OPC <small>2025</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/tempo/" >TEMPO <small>2020</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/doinn/" >DOINN <small>2022</small></a>
+  
+    <a href="/GeoSignal-preview/ko/notes/research/nitho/" >Nitho <small>2023</small></a>
+  </div>
+</details>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      <span>Public preview</span>
+
+      
+      <a
+        href="https://geosignal-lab.onrender.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Try Live Demo
+      </a>
+      
+
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSerlp3xN8b82NyXBjl5tSNPCoS9N5MUqnE8r3c93cfR5n1U7w/viewform"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Share Feedback
+      </a>
+
+      <a
+        href="https://github.com/SJsDad/GeoSignal-preview"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub Repository
+      </a>
+    </div>
+  </div>
+</aside>
+
+
+    <main id="content" class="site-main">
+      <article class="page-content">
+        <p class="language-switch"><a href="/GeoSignal-preview/ko/" lang="ko" hreflang="ko">한국어로 보기</a></p>
+
+<h1 id="geosignal-preview">GeoSignal Preview</h1>
+
+<p><strong>Upload a GDS/OAS layout, find narrow-width and narrow-gap candidates, and inspect their shapes through a simplified optical model.</strong> GeoSignal connects a layout file to locations worth a closer look in one review workflow.</p>
+
+<p><img src="/GeoSignal-preview/assets/demo/original-v0.11/assets/demo/v0.10/speed/home_aerial_overlay.png" alt="Automatically selected width candidate and relative-dose outlines" /></p>
+
+<p class="demo-caption">The mask is overlaid with a warm-colored aerial image and outlines. The cross marks the review location; the green dashed box marks the 2.56 × 2.56 µm review ROI. A 0.32 µm optical margin on each side makes the full displayed area 3.20 × 3.20 µm. The three outlines compare 10% less light, the baseline amount and 10% more light. <a href="/GeoSignal-preview/demo/">Explore the results on Demo →</a></p>
+
+<section class="live-demo-callout" aria-label="GeoSignal live demo">
+  <h2>Explore a public layout</h2>
+  <p>
+    Find candidate locations and inspect their local shapes in the live demo.
+  </p>
+  <a class="live-demo-button" href="https://geosignal-lab.onrender.com/" target="_blank" rel="noopener noreferrer">
+    Try Live Demo
+  </a>
+  <p class="live-demo-note">
+    Use non-confidential files only. The free server may take time to wake up and process an analysis.
+  </p>
+</section><section id="home-6f-simulator"><h2>6f Ray and Wave Simulator</h2><p>In <a href="/GeoSignal-preview/simulator/">Run simulator</a>, interactively explore the 6f ray paths from source → wafer alongside the pupil and wave results for the same diffraction orders. Runs directly on Pages without waiting for the Render server to start. (Added in v0.12)</p></section>
+
+<h2 id="current-public-preview">Current public preview</h2>
+
+<p>Width and gap checks find candidates before optical images and outlines are calculated at selected locations. A reference pattern sets the comparison baseline. Files outside the registered examples currently require a reference location, direction and design width; see the getting-started guidance on Demo.</p>
+
+<p>The current demo model and operating settings are documented in <a href="/GeoSignal-preview/release-notes/v0.10/">v0.10 Release Notes</a>. The new <a href="/GeoSignal-preview/release-notes/v0.11/">v0.11 benchmark release</a> compares source, pixel and interpolation accuracy/cost. Render screen and option integration awaits a separate review.</p>
+
+<h2 id="1-what-is-geosignal-preview">1. What is GeoSignal Preview?</h2>
+
+<p><strong>GeoSignal Preview</strong> is a lightweight public demo for reviewing how layout geometry may appear from an optical-response viewpoint. It uses public GDS or synthetic layout examples to connect geometry, rasterized mask images, simplified aerial-image intensity, and threshold-contour visualization.</p>
+
+<p>The basic workflow is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>layout geometry
+    -&gt; rasterized mask
+    -&gt; simplified aerial image
+    -&gt; threshold contour
+    -&gt; hotspot-like review
+</code></pre></div></div>
+
+<p>The goal is not precise process prediction. GeoSignal Preview focuses on one central question:</p>
+
+<blockquote>
+  <p>How does a pattern that looks simple from a geometry viewpoint appear from an optical-response viewpoint?</p>
+</blockquote>
+
+<p>The preview is intended as a visual analysis aid, not a calibrated lithography verification tool.</p>
+
+<hr />
+
+<h2 id="2-motivation">2. Motivation</h2>
+
+<p>Geometry-based analysis, such as minimum width, minimum space, and density review, is useful for understanding layout patterns. However, geometry checks alone do not always make it easy to intuit how a pattern may behave after optical imaging.</p>
+
+<p>GeoSignal Preview explores this gap by turning layout polygons into a binary mask image, generating a simplified aerial image, extracting threshold contours, and comparing geometry-based review points with optical-response behavior at the ROI level.</p>
+
+<hr />
+
+<h2 id="3-preview-structure">3. Preview Structure</h2>
+
+<p>GeoSignal Preview is organized around the following pages.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Page</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="/GeoSignal-preview/demo/">Demo</a></td>
+      <td>Representative images and result interpretation</td>
+    </tr>
+    <tr>
+      <td><a href="/GeoSignal-preview/method/">Method</a></td>
+      <td>Simplified calculation flow and interpretation logic</td>
+    </tr>
+    <tr>
+      <td><a href="/GeoSignal-preview/notes/">Technical Notes</a></td>
+      <td>Background notes for aerial image, contour, and optical interpretation</td>
+    </tr>
+    <tr>
+      <td><a href="/GeoSignal-preview/release-notes/">Release Notes</a></td>
+      <td>Version-level implementation changes and evaluation notes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="demo">Demo</h3>
+
+<p>The Demo page presents example conditions, result summaries, width/gap candidate views and the candidate overview, with guidance on what to inspect in each image.</p>
+
+<h3 id="method">Method</h3>
+
+<p>The Method page explains the calculation concept behind the preview: candidate ROI selection, rasterized mask generation, simplified Abbe-style aerial imaging, source sampling, threshold contour extraction, and visual review.</p>
+
+<h3 id="technical-notes">Technical Notes</h3>
+
+<p>Technical Notes provide supporting background for readers who want more context on aerial images, threshold contours, source sampling, Fourier optics, and Abbe imaging.</p>
+
+<h3 id="release-notes">Release Notes</h3>
+
+<p>Release Notes collect version-specific implementation details, benchmark notes, backend changes, and metric updates. These notes are useful for readers who want to understand how the preview evolved, but they are not required for a first reading of the demo.</p>
+
+<hr />
+
+<h2 id="4-what-you-can-review-in-the-demo">4. What You Can Review in the Demo</h2>
+
+<p>The demo helps review questions such as:</p>
+
+<ul>
+  <li>Does a simple-looking geometry pattern become more sensitive in optical response?</li>
+  <li>Can edge rounding, necking, bridge-like behavior, or line-end pullback-like behavior be observed in threshold contours?</li>
+  <li>Do geometry-based candidates and optical-response behavior point to the same locations?</li>
+  <li>Does relative-dose comparison help reveal contour sensitivity?</li>
+</ul>
+
+<p>The demo should be understood as a qualitative review workflow rather than a calibrated lithography prediction result.</p>
+
+<hr />
+
+<h2 id="5-interpretation-and-limitations">5. Interpretation and Limitations</h2>
+
+<p>The results of GeoSignal Preview are intended for qualitative visualization and relative comparison.</p>
+
+<p>Current assumptions and limitations are:</p>
+
+<ul>
+  <li>public or synthetic layout examples are used</li>
+  <li>only public, non-confidential layout files should be used with the live demo</li>
+  <li>a simplified optical model is used</li>
+  <li>wafer-data-based calibration is not included</li>
+  <li>resist and etch models are not included</li>
+  <li>relative-dose contours support model-based comparison</li>
+  <li>results should be interpreted as qualitative indicators, not quantitative CD prediction</li>
+  <li>core implementation code is not included in this public preview repository</li>
+</ul>
+
+<hr />
+
+<h2 id="6-intended-use">6. Intended Use</h2>
+
+<p>GeoSignal Preview may be useful for university labs, student projects, educational researchers, or small technical teams that want to perform early learning, research, or qualitative comparison without directly relying on high-cost commercial simulation environments.</p>
+
+<p>Main intended uses include:</p>
+
+<ul>
+  <li>computational lithography study</li>
+  <li>understanding the relationship between layout geometry and optical response</li>
+  <li>reviewing public or synthetic pattern-based demos</li>
+  <li>reviewing aerial-image and threshold-contour visualization</li>
+  <li>connecting geometry checks with optical-model intuition</li>
+</ul>
+
+<hr />
+
+<h2 id="7-feedback">7. Feedback</h2>
+
+<p>GeoSignal Preview is currently an early public preview.</p>
+
+<p>If you have feedback, questions, or suggestions, please feel free to leave a comment through the feedback form.</p>
+
+<p><a href="https://docs.google.com/forms/d/e/1FAIpQLSerlp3xN8b82NyXBjl5tSNPCoS9N5MUqnE8r3c93cfR5n1U7w/viewform" target="_blank" rel="noopener noreferrer">Share feedback through the GeoSignal Preview form</a></p>
+
+<p>Useful feedback includes whether the demo is easy to understand, whether the contour comparison is useful, and what additional pattern examples would make the preview clearer.</p>
+
+<hr />
+
+<h2 id="8-data-and-example-policy">8. Data and Example Policy</h2>
+
+<p>GeoSignal Preview is based on public datasets, synthetic patterns, and open-source layout examples.</p>
+
+<p>The analysis workflow is organized around publicly shareable examples and result interpretation. Core implementation code is not included in this public preview repository.</p>
+
+<hr />
+
+<h2 id="keywords">Keywords</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Lithography</code> · <code class="language-plaintext highlighter-rouge">Layout Analysis</code> · <code class="language-plaintext highlighter-rouge">GDS/OAS</code> · <code class="language-plaintext highlighter-rouge">Aerial Image</code> · <code class="language-plaintext highlighter-rouge">Threshold Contour</code> · <code class="language-plaintext highlighter-rouge">Hotspot Candidate</code> · <code class="language-plaintext highlighter-rouge">Python</code> · <code class="language-plaintext highlighter-rouge">Computational Lithography</code></p>
+
+      </article>
+    </main>
+  </div>
+</body>
+</html>
