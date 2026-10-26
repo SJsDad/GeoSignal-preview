@@ -4,6 +4,7 @@ import re
 import argparse
 import hashlib
 import json
+import math
 from html.parser import HTMLParser
 from urllib.parse import urljoin, urlsplit, unquote
 import sys
@@ -20,7 +21,75 @@ PUBLIC_DEMO_IMAGES = {
     "assets/demo/public/overview.png",
     "assets/demo/public/narrow-line.png",
     "assets/demo/public/narrow-gap.png",
+    "assets/demo/public/hero-review.png",
+    "assets/demo/public/candidate-locations.png",
 }
+VIEWER_DATA = "assets/demo/public/viewer-data.json"
+for _layer in (67, 68):
+    for _kind in ("width", "space"):
+        for _number in range(1, 7 if _layer == 67 else 2):
+            PUBLIC_DEMO_IMAGES.add(f"assets/demo/public/viewer/{_layer}-{_kind}-{_number}.png")
+        for _focus in range(3):
+            for _dose in range(3):
+                PUBLIC_DEMO_IMAGES.add(f"assets/demo/public/viewer/{_layer}-{_kind}-1-f{_focus}-d{_dose}.png")
+
+
+def validate_viewer_data(path, root, errors):
+    """Allow reviewed display results without accepting arbitrary engine records."""
+    def require(condition, message):
+        if not condition:
+            raise ValueError(message)
+
+    def keys(value, expected):
+        require(isinstance(value, dict) and set(value) == set(expected), "unexpected or missing fields")
+
+    def number(value, maximum=10000):
+        return type(value) in (int, float) and math.isfinite(value) and 0 < value <= maximum
+
+    def image(value, expected):
+        require(value == expected, "unexpected presentation image")
+        require((root / "assets/demo/public" / value).is_file(), "missing presentation image")
+
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        keys(data, ("version", "dataset", "conditions", "layers"))
+        require(data["version"] == 1 and data["dataset"] == "TT04 PWM", "unsupported example set")
+        conditions = data["conditions"]
+        keys(conditions, ("wavelength_nm", "na", "sigma", "focus_um", "relative_dose", "display_width_um"))
+        require(number(conditions["wavelength_nm"], 1000) and number(conditions["na"], 1)
+                and number(conditions["sigma"], 1) and number(conditions["display_width_um"], 20), "invalid display conditions")
+        require(conditions["focus_um"] == [-.2, 0, .2] and conditions["relative_dose"] == [.9, 1, 1.1], "unexpected comparison grid")
+        require(isinstance(data["layers"], list) and [layer.get("layer") for layer in data["layers"]] == [67, 68], "unexpected layers")
+        for layer in data["layers"]:
+            keys(layer, ("layer", "datatype", "candidates"))
+            require(layer["datatype"] == 20 and isinstance(layer["candidates"], list), "invalid layer display")
+            expected_ids = {f"{kind}-{index}" for kind in ("width", "space")
+                            for index in range(1, 7 if layer["layer"] == 67 else 2)}
+            require(len(layer["candidates"]) == len(expected_ids)
+                    and {c.get("id") for c in layer["candidates"]} == expected_ids, "unexpected gallery")
+            for candidate in layer["candidates"]:
+                keys(candidate, ("id", "kind", "number", "geometry_nm", "image", "samples"))
+                require(candidate["kind"] in ("width", "space") and type(candidate["number"]) is int
+                        and candidate["id"] == f'{candidate["kind"]}-{candidate["number"]}', "invalid candidate label")
+                require(number(candidate["geometry_nm"]), "invalid geometry dimension")
+                stem = f'{layer["layer"]}-{candidate["id"]}'
+                image(candidate["image"], f"viewer/{stem}.png")
+                samples = candidate["samples"]
+                require(isinstance(samples, list) and len(samples) == (9 if candidate["number"] == 1 else 0), "unexpected sample count")
+                seen = set()
+                for sample in samples:
+                    keys(sample, ("focus_um", "relative_dose", "cd_nm", "status", "image"))
+                    focus, dose = sample["focus_um"], sample["relative_dose"]
+                    require(focus in conditions["focus_um"] and dose in conditions["relative_dose"], "invalid comparison condition")
+                    require((focus, dose) not in seen, "duplicate comparison condition")
+                    seen.add((focus, dose))
+                    value = sample["cd_nm"]
+                    require((value is None and sample["status"] == "not_measured")
+                            or (number(value) and value == round(value, 2) and sample["status"] == "measured"), "invalid displayed measurement")
+                    fi, di = conditions["focus_um"].index(focus), conditions["relative_dose"].index(dose)
+                    image(sample["image"], f"viewer/{stem}-f{fi}-d{di}.png")
+    except (ValueError, KeyError, TypeError, AttributeError) as error:
+        errors.append(f"invalid saved-demo display data: {error}")
 
 
 def validate_public_assets(root, errors):
@@ -33,11 +102,13 @@ def validate_public_assets(root, errors):
         relative = path.relative_to(root).as_posix()
         if path.name.lower().endswith(restricted):
             errors.append(f"engineering data outside public scope: {relative}")
-        if path.suffix == ".json" and not relative.startswith(
+        if path.suffix == ".json" and relative != VIEWER_DATA and not relative.startswith(
                 ("assets/simulator/", "assets/notes/diffraction-defocus/")):
             errors.append(f"unreviewed data/configuration asset: {relative}")
-        if relative.startswith("assets/demo/") and relative not in PUBLIC_DEMO_IMAGES:
+        if relative.startswith("assets/demo/") and relative not in PUBLIC_DEMO_IMAGES and relative != VIEWER_DATA:
             errors.append(f"unreviewed layout-demo asset: {relative}")
+        if relative == VIEWER_DATA:
+            validate_viewer_data(path, root, errors)
         if relative.startswith(("assets/release-notes/", "assets/method/")):
             errors.append(f"detailed engineering artifact outside public scope: {relative}")
 
@@ -220,6 +291,7 @@ def main() -> int:
 
     for path, text in documents.items():
         for route in RELATIVE_URL_PATTERN.findall(text):
+            route = route.split("#", 1)[0]
             if route.startswith("/assets/"):
                 asset = DOCS / route.lstrip("/")
                 if not asset.is_file():

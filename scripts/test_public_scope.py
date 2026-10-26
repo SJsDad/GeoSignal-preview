@@ -1,9 +1,11 @@
 """Regression checks for public asset boundaries; uses only Python's standard library."""
 from pathlib import Path
+import json
+from copy import deepcopy
 from tempfile import TemporaryDirectory
 import unittest
 
-from validate_pages import validate_implementation_references, validate_public_assets
+from validate_pages import DOCS, VIEWER_DATA, validate_implementation_references, validate_public_assets
 
 
 class PublicScopeTests(unittest.TestCase):
@@ -52,6 +54,39 @@ class PublicScopeTests(unittest.TestCase):
             "I = |E|². [Official source](https://example.org/src/paper.py). "
             "python scripts/validate_pages.py"}, errors)
         self.assertFalse(errors)
+
+    def check_display_data(self, transform):
+        data = deepcopy(json.loads((DOCS / VIEWER_DATA).read_text()))
+        transform(data)
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            for layer in data["layers"]:
+                for candidate in layer["candidates"]:
+                    for item in (candidate, *candidate["samples"]):
+                        path = root / "assets/demo/public" / item["image"]
+                        path.parent.mkdir(parents=True, exist_ok=True)
+                        path.write_bytes(b"presentation-image-fixture")
+            path = root / VIEWER_DATA
+            path.write_text(json.dumps(data))
+            errors = []
+            validate_public_assets(root, errors)
+            return errors
+
+    def test_reviewed_display_only_results_are_allowed(self):
+        self.assertFalse(self.check_display_data(lambda _: None))
+
+    def test_extra_engine_metadata_is_rejected_at_each_level(self):
+        for locate in (lambda d: d, lambda d: d["conditions"], lambda d: d["layers"][0],
+                       lambda d: d["layers"][0]["candidates"][0],
+                       lambda d: d["layers"][0]["candidates"][0]["samples"][0]):
+            with self.subTest(locate=locate):
+                self.assertTrue(self.check_display_data(lambda d: locate(d).update(internal_parameters={})))
+
+    def test_missing_measurements_cannot_be_replaced_with_zero(self):
+        def change(data):
+            sample = data["layers"][0]["candidates"][0]["samples"][0]
+            sample.update(cd_nm=0, status="measured")
+        self.assertTrue(self.check_display_data(change))
 
 
 if __name__ == "__main__":

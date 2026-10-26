@@ -16,6 +16,12 @@ relative-dose contours. Representative figures use public or synthetic layouts;
 conditions and interpretation limits are stated on the Demo page. GDS/OAS
 analysis is served separately; use only non-confidential input in the public demo.
 
+The bilingual Demo also provides an interactive saved-results viewer: candidate
+selection, enlarged images, sampled focus/dose comparisons and modeled-dimension
+curves. Its reviewed display data contains only the conditions and rounded results
+shown to visitors. Private calibration, tuning records and the layout engine are
+not included. New input files are analyzed through the separate live service.
+
 The 6f simulator runs directly in the browser on Pages. Its inspectable
 JavaScript implementation and optical explanations remain public educational
 material. It is separate from the private layout-analysis engine.
@@ -43,8 +49,9 @@ python scripts/validate_pages.py
 python scripts/validate_pages.py --site _site
 ```
 
-Optional browser checks in `scripts/test_bilingual_simulator.py` and
-`scripts/test_technical_notes.py` use Playwright against a served build.
+Optional browser checks in `scripts/test_saved_demo.py`,
+`scripts/test_bilingual_simulator.py` and `scripts/test_technical_notes.py`
+use Playwright against a served build.
 The simulator files share a maintained educational implementation; its public
 manifest records exported hashes.
 

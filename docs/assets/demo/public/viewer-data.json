@@ -1,0 +1,402 @@
+{
+  "version": 1,
+  "dataset": "TT04 PWM",
+  "conditions": {
+    "wavelength_nm": 248,
+    "na": 0.68,
+    "sigma": 0.6,
+    "focus_um": [
+      -0.2,
+      0.0,
+      0.2
+    ],
+    "relative_dose": [
+      0.9,
+      1.0,
+      1.1
+    ],
+    "display_width_um": 1.28
+  },
+  "layers": [
+    {
+      "layer": 67,
+      "datatype": 20,
+      "candidates": [
+        {
+          "id": "width-1",
+          "kind": "width",
+          "number": 1,
+          "geometry_nm": 170.0,
+          "image": "viewer/67-width-1.png",
+          "samples": [
+            {
+              "focus_um": -0.2,
+              "relative_dose": 0.9,
+              "cd_nm": 135.48,
+              "status": "measured",
+              "image": "viewer/67-width-1-f0-d0.png"
+            },
+            {
+              "focus_um": -0.2,
+              "relative_dose": 1.0,
+              "cd_nm": 154.04,
+              "status": "measured",
+              "image": "viewer/67-width-1-f0-d1.png"
+            },
+            {
+              "focus_um": -0.2,
+              "relative_dose": 1.1,
+              "cd_nm": 168.95,
+              "status": "measured",
+              "image": "viewer/67-width-1-f0-d2.png"
+            },
+            {
+              "focus_um": 0.0,
+              "relative_dose": 0.9,
+              "cd_nm": 151.43,
+              "status": "measured",
+              "image": "viewer/67-width-1-f1-d0.png"
+            },
+            {
+              "focus_um": 0.0,
+              "relative_dose": 1.0,
+              "cd_nm": 166.34,
+              "status": "measured",
+              "image": "viewer/67-width-1-f1-d1.png"
+            },
+            {
+              "focus_um": 0.0,
+              "relative_dose": 1.1,
+              "cd_nm": 178.6,
+              "status": "measured",
+              "image": "viewer/67-width-1-f1-d2.png"
+            },
+            {
+              "focus_um": 0.2,
+              "relative_dose": 0.9,
+              "cd_nm": 135.48,
+              "status": "measured",
+              "image": "viewer/67-width-1-f2-d0.png"
+            },
+            {
+              "focus_um": 0.2,
+              "relative_dose": 1.0,
+              "cd_nm": 154.04,
+              "status": "measured",
+              "image": "viewer/67-width-1-f2-d1.png"
+            },
+            {
+              "focus_um": 0.2,
+              "relative_dose": 1.1,
+              "cd_nm": 168.95,
+              "status": "measured",
+              "image": "viewer/67-width-1-f2-d2.png"
+            }
+          ]
+        },
+        {
+          "id": "width-2",
+          "kind": "width",
+          "number": 2,
+          "geometry_nm": 170.0,
+          "image": "viewer/67-width-2.png",
+          "samples": []
+        },
+        {
+          "id": "width-3",
+          "kind": "width",
+          "number": 3,
+          "geometry_nm": 170.0,
+          "image": "viewer/67-width-3.png",
+          "samples": []
+        },
+        {
+          "id": "width-4",
+          "kind": "width",
+          "number": 4,
+          "geometry_nm": 170.0,
+          "image": "viewer/67-width-4.png",
+          "samples": []
+        },
+        {
+          "id": "width-5",
+          "kind": "width",
+          "number": 5,
+          "geometry_nm": 170.0,
+          "image": "viewer/67-width-5.png",
+          "samples": []
+        },
+        {
+          "id": "width-6",
+          "kind": "width",
+          "number": 6,
+          "geometry_nm": 170.0,
+          "image": "viewer/67-width-6.png",
+          "samples": []
+        },
+        {
+          "id": "space-1",
+          "kind": "space",
+          "number": 1,
+          "geometry_nm": 170.0,
+          "image": "viewer/67-space-1.png",
+          "samples": [
+            {
+              "focus_um": -0.2,
+              "relative_dose": 0.9,
+              "cd_nm": 202.45,
+              "status": "measured",
+              "image": "viewer/67-space-1-f0-d0.png"
+            },
+            {
+              "focus_um": -0.2,
+              "relative_dose": 1.0,
+              "cd_nm": 184.79,
+              "status": "measured",
+              "image": "viewer/67-space-1-f0-d1.png"
+            },
+            {
+              "focus_um": -0.2,
+              "relative_dose": 1.1,
+              "cd_nm": 169.14,
+              "status": "measured",
+              "image": "viewer/67-space-1-f0-d2.png"
+            },
+            {
+              "focus_um": 0.0,
+              "relative_dose": 0.9,
+              "cd_nm": 213.48,
+              "status": "measured",
+              "image": "viewer/67-space-1-f1-d0.png"
+            },
+            {
+              "focus_um": 0.0,
+              "relative_dose": 1.0,
+              "cd_nm": 199.44,
+              "status": "measured",
+              "image": "viewer/67-space-1-f1-d1.png"
+            },
+            {
+              "focus_um": 0.0,
+              "relative_dose": 1.1,
+              "cd_nm": 187.14,
+              "status": "measured",
+              "image": "viewer/67-space-1-f1-d2.png"
+            },
+            {
+              "focus_um": 0.2,
+              "relative_dose": 0.9,
+              "cd_nm": 202.45,
+              "status": "measured",
+              "image": "viewer/67-space-1-f2-d0.png"
+            },
+            {
+              "focus_um": 0.2,
+              "relative_dose": 1.0,
+              "cd_nm": 184.79,
+              "status": "measured",
+              "image": "viewer/67-space-1-f2-d1.png"
+            },
+            {
+              "focus_um": 0.2,
+              "relative_dose": 1.1,
+              "cd_nm": 169.14,
+              "status": "measured",
+              "image": "viewer/67-space-1-f2-d2.png"
+            }
+          ]
+        },
+        {
+          "id": "space-2",
+          "kind": "space",
+          "number": 2,
+          "geometry_nm": 170.0,
+          "image": "viewer/67-space-2.png",
+          "samples": []
+        },
+        {
+          "id": "space-3",
+          "kind": "space",
+          "number": 3,
+          "geometry_nm": 170.0,
+          "image": "viewer/67-space-3.png",
+          "samples": []
+        },
+        {
+          "id": "space-4",
+          "kind": "space",
+          "number": 4,
+          "geometry_nm": 170.0,
+          "image": "viewer/67-space-4.png",
+          "samples": []
+        },
+        {
+          "id": "space-5",
+          "kind": "space",
+          "number": 5,
+          "geometry_nm": 170.0,
+          "image": "viewer/67-space-5.png",
+          "samples": []
+        },
+        {
+          "id": "space-6",
+          "kind": "space",
+          "number": 6,
+          "geometry_nm": 170.0,
+          "image": "viewer/67-space-6.png",
+          "samples": []
+        }
+      ]
+    },
+    {
+      "layer": 68,
+      "datatype": 20,
+      "candidates": [
+        {
+          "id": "width-1",
+          "kind": "width",
+          "number": 1,
+          "geometry_nm": 140.0,
+          "image": "viewer/68-width-1.png",
+          "samples": [
+            {
+              "focus_um": -0.2,
+              "relative_dose": 0.9,
+              "cd_nm": null,
+              "status": "not_measured",
+              "image": "viewer/68-width-1-f0-d0.png"
+            },
+            {
+              "focus_um": -0.2,
+              "relative_dose": 1.0,
+              "cd_nm": 56.13,
+              "status": "measured",
+              "image": "viewer/68-width-1-f0-d1.png"
+            },
+            {
+              "focus_um": -0.2,
+              "relative_dose": 1.1,
+              "cd_nm": 89.98,
+              "status": "measured",
+              "image": "viewer/68-width-1-f0-d2.png"
+            },
+            {
+              "focus_um": 0.0,
+              "relative_dose": 0.9,
+              "cd_nm": 52.68,
+              "status": "measured",
+              "image": "viewer/68-width-1-f1-d0.png"
+            },
+            {
+              "focus_um": 0.0,
+              "relative_dose": 1.0,
+              "cd_nm": 87.88,
+              "status": "measured",
+              "image": "viewer/68-width-1-f1-d1.png"
+            },
+            {
+              "focus_um": 0.0,
+              "relative_dose": 1.1,
+              "cd_nm": 110.18,
+              "status": "measured",
+              "image": "viewer/68-width-1-f1-d2.png"
+            },
+            {
+              "focus_um": 0.2,
+              "relative_dose": 0.9,
+              "cd_nm": null,
+              "status": "not_measured",
+              "image": "viewer/68-width-1-f2-d0.png"
+            },
+            {
+              "focus_um": 0.2,
+              "relative_dose": 1.0,
+              "cd_nm": 56.13,
+              "status": "measured",
+              "image": "viewer/68-width-1-f2-d1.png"
+            },
+            {
+              "focus_um": 0.2,
+              "relative_dose": 1.1,
+              "cd_nm": 89.98,
+              "status": "measured",
+              "image": "viewer/68-width-1-f2-d2.png"
+            }
+          ]
+        },
+        {
+          "id": "space-1",
+          "kind": "space",
+          "number": 1,
+          "geometry_nm": 140.0,
+          "image": "viewer/68-space-1.png",
+          "samples": [
+            {
+              "focus_um": -0.2,
+              "relative_dose": 0.9,
+              "cd_nm": 170.58,
+              "status": "measured",
+              "image": "viewer/68-space-1-f0-d0.png"
+            },
+            {
+              "focus_um": -0.2,
+              "relative_dose": 1.0,
+              "cd_nm": 151.68,
+              "status": "measured",
+              "image": "viewer/68-space-1-f0-d1.png"
+            },
+            {
+              "focus_um": -0.2,
+              "relative_dose": 1.1,
+              "cd_nm": 134.8,
+              "status": "measured",
+              "image": "viewer/68-space-1-f0-d2.png"
+            },
+            {
+              "focus_um": 0.0,
+              "relative_dose": 0.9,
+              "cd_nm": 175.48,
+              "status": "measured",
+              "image": "viewer/68-space-1-f1-d0.png"
+            },
+            {
+              "focus_um": 0.0,
+              "relative_dose": 1.0,
+              "cd_nm": 160.12,
+              "status": "measured",
+              "image": "viewer/68-space-1-f1-d1.png"
+            },
+            {
+              "focus_um": 0.0,
+              "relative_dose": 1.1,
+              "cd_nm": 146.73,
+              "status": "measured",
+              "image": "viewer/68-space-1-f1-d2.png"
+            },
+            {
+              "focus_um": 0.2,
+              "relative_dose": 0.9,
+              "cd_nm": 170.58,
+              "status": "measured",
+              "image": "viewer/68-space-1-f2-d0.png"
+            },
+            {
+              "focus_um": 0.2,
+              "relative_dose": 1.0,
+              "cd_nm": 151.68,
+              "status": "measured",
+              "image": "viewer/68-space-1-f2-d1.png"
+            },
+            {
+              "focus_um": 0.2,
+              "relative_dose": 1.1,
+              "cd_nm": 134.8,
+              "status": "measured",
+              "image": "viewer/68-space-1-f2-d2.png"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

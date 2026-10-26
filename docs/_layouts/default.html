@@ -21,6 +21,10 @@
   {%- endif -%}
 
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+{% if page.demo_viewer %}
+  <link rel="stylesheet" href="{{ '/assets/css/saved-demo.css' | relative_url }}">
+  <script defer src="{{ '/assets/js/saved-demo.js' | relative_url }}"></script>
+{% endif %}
 {% if page.layout == 'technical' %}
   <script defer src="{{ '/assets/js/technical-notes.js' | relative_url }}"></script>
   <script>window.MathJax = {tex: {inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']]}, chtml: {fontURL: "{{ '/assets/vendor/mathjax/fonts/woff-v2' | relative_url }}"}, options: {enableMenu: false}};</script>
