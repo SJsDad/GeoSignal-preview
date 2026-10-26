@@ -6,6 +6,7 @@ A public introduction to layout-review examples and optical learning.
 
 * [Home](https://sjsdad.github.io/GeoSignal-preview/) · [한국어](https://sjsdad.github.io/GeoSignal-preview/ko/)
 * [Layout examples](https://sjsdad.github.io/GeoSignal-preview/demo/)
+* Earlier application layout for comparison: [English](https://sjsdad.github.io/GeoSignal-preview/demo-legacy/) · [한국어](https://sjsdad.github.io/GeoSignal-preview/ko/demo-legacy/)
 * [Method and scope](https://sjsdad.github.io/GeoSignal-preview/method/)
 * [Technical Notes](https://sjsdad.github.io/GeoSignal-preview/notes/)
 * 6f educational simulator: [English](https://sjsdad.github.io/GeoSignal-preview/simulator/) · [한국어](https://sjsdad.github.io/GeoSignal-preview/ko/simulator/)

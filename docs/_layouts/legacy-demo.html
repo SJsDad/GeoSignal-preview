@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="{{ page.lang | default: 'en' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title | escape }} | GeoSignal</title>
+  <link rel="stylesheet" href="{{ '/assets/css/saved-demo.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/legacy-demo-base.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/legacy-demo.css' | relative_url }}">
+  <script defer src="{{ '/assets/js/saved-demo.js' | relative_url }}"></script>
+</head>
+<body>
+  <div class="legacy-banner">
+    <p>{% if page.lang == 'ko' %}v0.12 이전 화면 구성 · 저장 예시. 업로드와 새 분석은 비활성화되어 있습니다.{% else %}Pre-v0.12 screen layout · Saved examples. Uploads and new analysis are disabled.{% endif %}
+      <a href="{{ site.live_demo_url }}" target="_blank" rel="noopener noreferrer">{% if page.lang == 'ko' %}Live Demo 열기 ↗{% else %}Open Live Demo ↗{% endif %}</a></p>
+    {% include language-switch.html %}
+  </div>
+  <main class="page-shell saved-demo legacy-screen" data-demo-viewer data-presentation="legacy" data-source="{{ '/assets/demo/public/viewer-data.json' | relative_url }}" data-language="{{ page.lang | default: 'en' }}">
+    <header class="hero"><h1>GeoSignal</h1><p class="intro">{% if page.lang == 'ko' %}레이아웃을 올리고, 좁은 곳을 찾고, 빛이 패턴을 어떻게 바꾸는지 살펴봅니다.{% else %}Upload a layout. Find narrow features and explore how light changes their shape.{% endif %}</p></header>
+    <p data-viewer-status role="status" aria-live="polite">{% if page.lang == 'ko' %}저장된 결과를 불러오고 있습니다…{% else %}Loading saved results…{% endif %}</p>
+    <section class="workspace" data-viewer-content hidden>
+      <aside class="input-panel" aria-labelledby="layout-analysis-title">
+        <div class="panel-heading"><h2 id="layout-analysis-title">{% if page.lang == 'ko' %}레이아웃 분석{% else %}Layout analysis{% endif %}</h2><span class="limit-badge">20 MB max</span></div>
+        <label class="field"><span>① GDS / OAS file</span><input type="file" disabled accept=".gds,.oas"></label>
+        <p class="small-print">{% if page.lang == 'ko' %}공개 가능한 비기밀 파일만 사용하세요. 이 화면은 저장 예시입니다.{% else %}Use public, non-confidential files only. This screen shows saved examples.{% endif %}</p>
+        <div class="field-grid">
+          <label class="field"><span>② Layer</span><select data-layer disabled><option value="67">67</option></select></label>
+          <label class="field"><span>Datatype</span><input type="number" disabled value="20"></label>
+          <label class="field"><span>③ Width limit (µm)</span><input type="number" disabled value="0.20"></label>
+          <label class="field"><span>Space limit (µm)</span><input type="number" disabled value="0.20"></label>
+          <label class="field"><span>④ ROI size (µm)</span><input type="number" disabled placeholder="{% if page.lang == 'ko' %}저장 예시{% else %}Saved example{% endif %}"></label>
+          <label class="field"><span>Pixel size (µm)</span><input type="number" disabled placeholder="{% if page.lang == 'ko' %}저장 예시{% else %}Saved example{% endif %}"></label>
+        </div>
+        <label class="field"><span>{% if page.lang == 'ko' %}유형별 후보 수{% else %}Candidate count · per type{% endif %}</span><select data-count><option>4</option><option selected>6</option><option>8</option></select></label>
+        <p class="small-print">TT04 PWM · 67/20</p>
+        <label class="check-field"><input type="checkbox" data-compare-toggle aria-controls="legacy-sweep-settings legacy-comparison"><span>⑤ {% if page.lang == 'ko' %}초점 / 도즈 비교{% else %}Compare Focus / Dose{% endif %}</span></label>
+        <div class="sweep-settings" id="legacy-sweep-settings" data-sweep-settings hidden>
+          <div class="field-grid"><label class="field"><span>Focus range (±µm)</span><input type="number" value="0.20" disabled></label><label class="field"><span>Dose change (±%)</span><input type="number" value="10" disabled></label></div>
+          <p class="small-print">{% if page.lang == 'ko' %}각 축 3점, 총 9개 저장 조건입니다. 새 범위를 계산하지 않습니다.{% else %}Three points per axis, nine saved conditions. New ranges are not calculated here.{% endif %}</p>
+        </div>
+        <details class="sweep-settings"><summary>⑥ {% if page.lang == 'ko' %}기준 입력 · 선택 사항{% else %}Override reference · optional{% endif %}</summary>
+          <p class="small-print">{% if page.lang == 'ko' %}이전 입력 패널의 배치 예시입니다. 저장 결과에는 적용되지 않습니다.{% else %}These fields illustrate the earlier input panel and do not modify saved results.{% endif %}</p>
+          <div class="field-grid"><label class="field"><span>Center X (µm)</span><input type="number" disabled></label><label class="field"><span>Center Y (µm)</span><input type="number" disabled></label><label class="field"><span>Design width (µm)</span><input type="number" disabled></label><label class="field"><span>{% if page.lang == 'ko' %}측정 방향{% else %}Measurement direction{% endif %}</span><select disabled><option>{% if page.lang == 'ko' %}수직 ↕{% else %}Vertical ↕{% endif %}</option></select></label></div>
+        </details>
+        <button type="button" disabled class="primary-action">{% if page.lang == 'ko' %}분석{% else %}Analyze{% endif %}</button>
+        <p class="small-print">{% if page.lang == 'ko' %}업로드와 새 계산은 Live Demo에서 실행합니다.{% else %}Use Live Demo for uploads and new calculations.{% endif %}</p>
+      </aside>
+      <section class="result-panel" aria-labelledby="layout-hotspots-title">
+        <div class="panel-heading"><h2 id="layout-hotspots-title">{% if page.lang == 'ko' %}레이아웃 검토 후보{% else %}Layout hotspots{% endif %}</h2><span class="status-pill">{% if page.lang == 'ko' %}저장 예시{% else %}Saved example{% endif %}</span></div>
+        <p class="small-print">{% if page.lang == 'ko' %}TT04 PWM 67/20 · 후보를 선택하고 아래의 큰 결과를 살펴보세요.{% else %}TT04 PWM 67/20 · Select a candidate and inspect its large result below.{% endif %}</p>
+        <h3>⑦ {% if page.lang == 'ko' %}후보 위치{% else %}Candidate locations{% endif %}</h3>
+        <img class="overview" src="{{ '/assets/demo/public/candidate-locations.png' | relative_url }}" width="1300" height="650" alt="{% if page.lang == 'ko' %}TT04의 선폭·간격 후보 위치{% else %}TT04 width and gap candidate locations{% endif %}">
+        <p class="small-print">{% if page.lang == 'ko' %}후보 수는 상세 검토 개수이며 전체 형상 검사 범위를 제한하지 않습니다.{% else %}Candidate count limits detailed review, not geometry detection.{% endif %}</p>
+        <h3>⑧ {% if page.lang == 'ko' %}주요 후보{% else %}Main candidates{% endif %}</h3>
+        <div class="tabs"><button type="button" data-kind="width" aria-pressed="true">Width</button><button type="button" data-kind="space" aria-pressed="false">Space</button><span data-gallery-note></span></div>
+        <p class="small-print">{% if page.lang == 'ko' %}카드를 누르면 아래의 큰 이미지로 이동합니다. 회색은 마스크, 따뜻한 색은 빛 분포, 하늘색·흰색·연두색은 상대 도즈 0.90·1.00·1.10의 윤곽입니다.{% else %}Click a pattern to move to its large image below. Gray: mask; warm colors: aerial image; cyan/white/lime: contours at relative doses 0.90/1.00/1.10.{% endif %}</p>
+        <div class="saved-cards" data-cards></div>
+        <section class="saved-detail" aria-labelledby="legacy-selected-title">
+          <div class="saved-detail-heading"><h3 id="legacy-selected-title" data-selected-title></h3><a data-open-image target="_blank" rel="noopener noreferrer">{% if page.lang == 'ko' %}이미지 크게 열기 ↗{% else %}Open large image ↗{% endif %}</a></div>
+          <p class="legacy-meta">{% if page.lang == 'ko' %}설계 형상{% else %}Geometry{% endif %} <strong data-geometry></strong> · {% if page.lang == 'ko' %}모델 측정값{% else %}Modeled dimension{% endif %} <strong data-measured></strong></p>
+          <figure class="saved-image"><img data-selected-image width="620" height="517" alt=""><figcaption data-image-caption></figcaption></figure>
+          <details class="saved-comparison" id="legacy-comparison" data-comparison>
+            <summary>⑨ {% if page.lang == 'ko' %}초점 / 도즈 상세 · 선택 보기{% else %}Focus / Dose details · optional{% endif %}</summary>
+            <p class="small-print" data-no-comparison hidden>{% if page.lang == 'ko' %}이 후보의 비교는 저장되어 있지 않습니다. 각 유형의 1번 후보에서 9개 조건을 볼 수 있습니다.{% else %}No comparison was saved for this candidate. Candidate 1 in each type has nine recorded conditions.{% endif %}</p>
+            <div data-comparison-content>
+              <div class="saved-conditions"><label>{% if page.lang == 'ko' %}초점 (µm){% else %}Focus (µm){% endif %}<select data-focus><option value="-0.2">−0.20</option><option value="0" selected>0.00</option><option value="0.2">+0.20</option></select></label><label>{% if page.lang == 'ko' %}상대 도즈{% else %}Relative dose{% endif %}<select data-dose><option value="0.9">0.90</option><option value="1" selected>1.00</option><option value="1.1">1.10</option></select></label></div>
+              <div class="saved-grid"><h4>{% if page.lang == 'ko' %}9개 조건 비교{% else %}Nine-condition comparison{% endif %}</h4><div data-comparison-grid></div></div>
+              <h4>Bossung</h4><div class="saved-bossung" data-bossung></div>
+              <p class="small-print">{% if page.lang == 'ko' %}초점 3점의 선은 경향을 잇는 안내입니다. 측정 불가 값은 연결하지 않으며 정밀 DOF 추정·합격 판정은 하지 않습니다.{% else %}Lines guide the eye between three sampled focus points. Unavailable measurements are not connected. No precise DOF estimate or pass/fail grading.{% endif %}</p>
+              <details class="saved-table"><summary>{% if page.lang == 'ko' %}측정값 표{% else %}Measurement table{% endif %}</summary><div class="saved-table-scroll"><table><thead><tr><th>Focus (µm)</th><th>{% if page.lang == 'ko' %}상대 도즈{% else %}Relative dose{% endif %}</th><th>nm</th><th>{% if page.lang == 'ko' %}상태{% else %}Status{% endif %}</th></tr></thead><tbody data-measurements></tbody></table></div></details>
+            </div>
+          </details>
+        </section>
+      </section>
+    </section>
+    <noscript><p>{% if page.lang == 'ko' %}후보 선택과 비교에는 JavaScript가 필요합니다.{% else %}Enable JavaScript for candidate selection and comparisons.{% endif %}</p></noscript>
+    <details class="saved-fallback"><summary>{% if page.lang == 'ko' %}대표 결과 그림{% else %}Representative result figures{% endif %}</summary><img src="{{ '/assets/demo/public/narrow-line.png' | relative_url }}" loading="lazy" width="1190" height="1020" alt="{% if page.lang == 'ko' %}좁은 선의 대표 결과{% else %}Representative narrow-line result{% endif %}"><img src="{{ '/assets/demo/public/narrow-gap.png' | relative_url }}" loading="lazy" width="1190" height="1020" alt="{% if page.lang == 'ko' %}좁은 간격의 대표 결과{% else %}Representative narrow-gap result{% endif %}"></details>
+  </main>
+</body>
+</html>

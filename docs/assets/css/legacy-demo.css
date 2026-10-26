@@ -1,0 +1,14 @@
+/* Preserve the pre-v0.12 application's two-panel presentation inside the frame. */
+html{overflow-y:scroll;scrollbar-gutter:stable}
+.saved-demo.legacy-screen{width:min(1500px,calc(100% - 32px));margin:0 auto;padding:34px 0 48px;border:0;border-radius:0;background:transparent}
+.legacy-banner{padding:8px 16px;background:#fff3cd;font-size:12px}.legacy-banner p{margin:0}.legacy-banner .language-switch{margin-top:5px}.legacy-banner a{color:#155e57}
+.legacy-screen .workspace{grid-template-columns:300px minmax(0,1fr);align-items:start}.legacy-screen .result-panel{min-width:0}.legacy-screen .input-panel{position:sticky;top:18px}
+.legacy-screen .check-field{display:flex}.legacy-screen .field{margin-bottom:14px}.legacy-screen select{min-height:42px;width:100%}.legacy-screen input:disabled{opacity:1;color:#5f6b7a}.legacy-screen .primary-action:disabled{cursor:default;opacity:.55}
+.legacy-screen .overview{display:block;width:100%;height:auto;max-height:390px;object-fit:contain;background:#fafbfd}.legacy-screen .tabs{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.legacy-screen .tabs button{padding:8px 20px;border-radius:20px}.legacy-screen .tabs span{font-size:12px;color:#5f6b7a}
+.legacy-screen button[aria-pressed=true]{border-color:#176f66;box-shadow:0 0 0 1px #176f66;background:#edf6f3}.legacy-screen .tabs button[aria-pressed=true]{color:white;background:#176f66}.legacy-screen :focus-visible{outline-color:#176f66}
+.legacy-screen .saved-cards{margin-top:14px;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.legacy-screen .saved-card{padding:10px;border-radius:10px}.legacy-screen .saved-card strong{font-size:14px}.legacy-screen .saved-card span{margin-top:5px}
+.legacy-screen .saved-detail{margin-top:28px;border-color:#dce3ec;padding-top:16px}.legacy-screen .legacy-meta{margin:12px 0;font-size:13px;color:#5f6b7a}.legacy-screen .saved-image{width:100%;max-width:none}.legacy-screen .saved-detail details{background:#f7f9fb}.legacy-screen .saved-bossung{max-width:700px}.legacy-screen .saved-grid{margin-top:20px}.legacy-screen .saved-grid [data-comparison-grid]{grid-template-columns:repeat(3,minmax(0,1fr))}.legacy-screen h4{margin:20px 0 12px}.legacy-screen .saved-fallback{margin-top:24px}
+@media(max-width:900px){.legacy-screen .workspace{grid-template-columns:1fr}.legacy-screen .input-panel{position:static}.legacy-screen .saved-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.saved-demo.legacy-screen{width:calc(100% - 20px);padding-top:20px}.legacy-screen .field-grid{grid-template-columns:1fr}.legacy-screen .input-panel,.legacy-screen .result-panel{padding:14px}.legacy-screen .saved-grid [data-comparison-grid]{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:500px){.legacy-screen .saved-cards{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}

@@ -15,7 +15,7 @@ demo_viewer: true
 
 **후보 위치와 주요 패턴이 먼저입니다.** 형상 검사는 살펴볼 위치를 찾고, 광학 화면은 주변 모양을 비교하도록 돕습니다. 초점·도즈 비교는 더 자세히 보고 싶을 때 선택하는 단계입니다.
 
-[인터랙티브 결과로 이동](#saved-results) · [방법론 읽기]({{ '/ko/method/' | relative_url }})
+[인터랙티브 결과로 이동](#saved-results) · [방법론 읽기]({{ '/ko/method/' | relative_url }}) · [v0.12 이전 화면과 비교]({{ '/ko/demo-legacy/' | relative_url }})
 
 ## 1. 화면과 사용 가이드
 

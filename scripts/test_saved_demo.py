@@ -114,6 +114,61 @@ def main():
                 assert page.locator(".language-switch a").get_attribute("href") == (
                     urlsplit(base).path + ("/ko" if language == "en" else "") + route)
 
+        # Compare the earlier app layout inside a fixed, independently scrollable frame.
+        for language, prefix in (("en", ""), ("ko", "/ko")):
+            page.goto(f"{base}{prefix}/demo-legacy/", wait_until="networkidle")
+            iframe = page.locator("#legacy-demo-frame")
+            iframe.scroll_into_view_if_needed()
+            frame = page.frame_locator("#legacy-demo-frame")
+            frame.locator('[data-state="ready"]').wait_for()
+            screen = page.frames[1]
+            assert screen.locator("html").get_attribute("lang") == language
+            assert iframe.get_attribute("height") == "850"
+            assert screen.evaluate("document.documentElement.scrollHeight > innerHeight")
+            assert screen.locator(".input-panel").is_visible()
+            assert screen.locator(".result-panel").is_visible()
+            assert screen.locator('input[type="file"]').is_disabled()
+            assert screen.locator(".primary-action").is_disabled()
+            screen.select_option("[data-count]", "8")
+            assert screen.locator("[data-cards] button").count() == 6
+            assert "8" in screen.locator("[data-gallery-note]").inner_text()
+            screen.select_option("[data-count]", "4")
+            assert screen.locator("[data-cards] button").count() == 4
+            screen.select_option("[data-count]", "6")
+            screen.locator("[data-compare-toggle]").check()
+            screen.wait_for_function("document.querySelector('[data-comparison]').open && document.querySelectorAll('[data-bossung] circle').length===9")
+            assert screen.locator("[data-comparison-grid] button").count() == 9
+            assert screen.locator("[data-bossung] circle").count() == 9
+            screen.locator("[data-compare-toggle]").uncheck()
+            screen.wait_for_function("!document.querySelector('[data-comparison]').open")
+            outer_scroll = page.evaluate("scrollY")
+            screen.locator('[data-candidate="width-2"]').click()
+            screen.wait_for_function("Math.abs(document.querySelector('.saved-detail').getBoundingClientRect().top)<2")
+            assert abs(page.evaluate("scrollY") - outer_scroll) < 2
+            assert screen.locator("[data-selected-image]").get_attribute("src").endswith("67-width-2.png")
+            screen.locator("[data-comparison] summary").first.click()
+            assert screen.locator("[data-no-comparison]").is_visible()
+            screen.wait_for_function("document.querySelector('[data-compare-toggle]').checked")
+            screen.locator('[data-kind="space"]').click()
+            assert screen.locator("[data-measured]").inner_text() == "199.44 nm"
+            for width in (1440, 390, 320):
+                page.set_viewport_size({"width": width, "height": 1100})
+                screen.evaluate("scrollTo(0,0)")
+                iframe.scroll_into_view_if_needed()
+                screen.locator("img[src]").evaluate_all(
+                    "images=>Promise.all(images.map(i=>{i.loading='eager';return i.decode();}))")
+                view = screen.evaluate("""() => ({width:innerWidth,scroll:document.documentElement.scrollWidth,
+                    columns:getComputedStyle(document.querySelector('.workspace')).gridTemplateColumns.split(' ').length})""")
+                assert page.evaluate("document.documentElement.scrollWidth<=innerWidth+1")
+                assert view["scroll"] <= view["width"] + 1, view
+                assert view["columns"] == (2 if width == 1440 else 1), view
+                if args.artifacts and width in (1440, 390):
+                    page.screenshot(path=str(args.artifacts / f"legacy-{language}-{width}.png"))
+            page.set_viewport_size({"width": 1440, "height": 1000})
+            screen.locator(".language-switch a").click()
+            screen.wait_for_selector('[data-state="ready"]')
+            assert screen.locator("html").get_attribute("lang") != language
+
         # Readable representative figures survive absent JS or a failed data request.
         nojs = browser.new_context(java_script_enabled=False)
         static = nojs.new_page()
@@ -138,7 +193,8 @@ def main():
             "views": views, "requests": requests, "errors": errors
         }, indent=2))
     print("PASS: bilingual candidate selection, enlarged images, focus/dose records, missing values, "
-          "charts, keyboard focus, responsive views, restored pages, fallbacks and no API requests")
+          "charts, keyboard focus, responsive views, earlier app frames with independent scrolling, "
+          "restored pages, fallbacks and no API requests")
 
 
 if __name__ == "__main__":
