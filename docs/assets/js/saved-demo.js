@@ -8,7 +8,6 @@
   for (const root of document.querySelectorAll('[data-demo-viewer]')) init(root);
   async function init(root) {
     const lang=root.dataset.language==='ko'?'ko':'en',labels=messages[lang];
-    const legacy=root.dataset.presentation==='legacy';
     const tr=(key,values={})=>labels[key].replace(/\{(\w+)\}/g,(_,name)=>String(values[name]??''));
     const el=name=>root.querySelector(`[data-${name}]`);
     const number=(value,digits=2)=>Number(value).toFixed(digits);
@@ -29,11 +28,9 @@
     }
     function render() {
       const available=candidates();if(!available.some(item=>item.id===selected))selected=available[0].id;
-      if(!legacy)limit=Math.min(limit,available.length);
-      el('count').value=String(limit);
-      for(const option of el('count').options)option.disabled=!legacy&&Number(option.value)>available.length;
-      el('gallery-note').textContent=tr('available',{total:available.length,shown:Math.min(limit,available.length)})+
-        (legacy&&limit>available.length?(lang==='ko'?` · ${limit}개 요청`:` · ${limit} requested`):'');
+      limit=Math.min(limit,available.length);el('count').value=String(limit);
+      for(const option of el('count').options)option.disabled=Number(option.value)>available.length;
+      el('gallery-note').textContent=tr('available',{total:available.length,shown:limit});
       for(const button of root.querySelectorAll('[data-kind]'))button.setAttribute('aria-pressed',String(button.dataset.kind===kind));
       const cards=el('cards');cards.replaceChildren();
       for(const candidate of available.slice(0,limit)) {
@@ -42,11 +39,7 @@
         const image=document.createElement('img');image.src=imageURL(candidate.image);image.alt=`${tr(kind)} ${candidate.number}`;image.loading='lazy';image.width=300;image.height=250;
         const title=document.createElement('strong');title.textContent=`${tr(kind)} ${candidate.number}`;
         const meta=document.createElement('span');meta.textContent=`${number(candidate.geometry_nm,0)} nm · ${tr('view')}`;
-        button.append(image,title,meta);button.addEventListener('click',()=>{
-          selected=candidate.id;render();root.querySelector(`[data-candidate="${selected}"]`)?.focus({preventScroll:true});
-          if(legacy)window.scrollTo({top:root.querySelector('.saved-detail').getBoundingClientRect().top+window.scrollY,
-            behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
-        });cards.append(button);
+        button.append(image,title,meta);button.addEventListener('click',()=>{selected=candidate.id;render();root.querySelector(`[data-candidate="${selected}"]`)?.focus({preventScroll:true});});cards.append(button);
       }
       renderDetail();
     }
@@ -105,11 +98,7 @@
     el('count').addEventListener('change',event=>{limit=Number(event.target.value);if(!candidates().slice(0,limit).some(item=>item.id===selected))selected=null;render();});
     el('focus').addEventListener('change',event=>{focus=Number(event.target.value);renderDetail();});
     el('dose').addEventListener('change',event=>{dose=Number(event.target.value);renderDetail();});
-    el('comparison').addEventListener('toggle',()=>{
-      if(el('compare-toggle')){el('compare-toggle').checked=el('comparison').open;el('sweep-settings').hidden=!el('comparison').open;}
-      renderDetail();
-    });
-    el('compare-toggle')?.addEventListener('change',event=>{el('comparison').open=event.target.checked;});
+    el('comparison').addEventListener('toggle',renderDetail);
     let resize=0;window.addEventListener('resize',()=>{cancelAnimationFrame(resize);resize=requestAnimationFrame(drawChart);});
     content.hidden=false;status.textContent=tr('ready');root.dataset.state='ready';render();
   }

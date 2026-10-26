@@ -14,7 +14,7 @@ Upload a layout, find narrow regions and inspect the patterns that matter. On th
 
 **Start with locations and patterns.** Geometry screening highlights candidate regions; optical views help you compare their local shapes. Focus/dose comparisons are an optional next step, not a requirement for the first review.
 
-[Jump to the interactive results](#saved-results) · [Read the method]({{ '/method/' | relative_url }}) · [Compare the pre-v0.12 screen]({{ '/demo-legacy/' | relative_url }})
+[Jump to the interactive results](#saved-results) · [Read the method]({{ '/method/' | relative_url }}) · [View the original v0.11 Demo]({{ '/demo-legacy/' | relative_url }})
 
 ## 1. Screen and usage guide
 

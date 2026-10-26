@@ -2,10 +2,11 @@
 from pathlib import Path
 import json
 from copy import deepcopy
+import shutil
 from tempfile import TemporaryDirectory
 import unittest
 
-from validate_pages import DOCS, VIEWER_DATA, validate_implementation_references, validate_public_assets
+from validate_pages import DOCS, ORIGINAL_DEMO, VIEWER_DATA, validate_implementation_references, validate_public_assets
 
 
 class PublicScopeTests(unittest.TestCase):
@@ -87,6 +88,26 @@ class PublicScopeTests(unittest.TestCase):
             sample = data["layers"][0]["candidates"][0]["samples"][0]
             sample.update(cd_nm=0, status="measured")
         self.assertTrue(self.check_display_data(change))
+
+    def original_fixture(self, change):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            shutil.copytree(DOCS / ORIGINAL_DEMO, root / ORIGINAL_DEMO)
+            for filename in ("demo_legacy.html", "demo_legacy_ko.html"):
+                shutil.copyfile(DOCS / filename, root / filename)
+            change(root / ORIGINAL_DEMO)
+            errors = []
+            validate_public_assets(root, errors)
+            return errors
+
+    def test_original_demo_is_a_fixed_historical_exception(self):
+        self.assertFalse(self.original_fixture(lambda _: None))
+
+    def test_new_raw_files_cannot_hide_in_the_original_snapshot(self):
+        self.assertTrue(self.original_fixture(lambda p: (p / "new-records.csv").write_text("new data")))
+
+    def test_modified_original_iframe_is_rejected(self):
+        self.assertTrue(self.original_fixture(lambda p: (p / "assets/demo/ui-guide/reference-draft.html").write_text("changed")))
 
 
 if __name__ == "__main__":

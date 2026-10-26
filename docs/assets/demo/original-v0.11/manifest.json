@@ -1,0 +1,39 @@
+{
+  "source_commit": "7bb4ea485bd30fb5337e8f6c141d11d871eba234",
+  "routing_only": true,
+  "assets": {
+    "assets/css/style.css": "c592e50cda30eb58d3b5846a85fb164507ef039b4cc933eb8e1de8eeff987d71",
+    "assets/demo/ui-guide/reference-draft.html": "7e58f3acbb4361070eba5308d1de8c6d116c1a4a2ed55ac65f9be9437eed28f8",
+    "assets/demo/ui-guide/style.css": "525b5d77bcf2e668789924040532418436b1ccbb8023f03ac56ab51715c4177b",
+    "assets/demo/v0.10/speed/geometry_candidate_overview.png": "179adeb9333087bf25220dc7d52406cd04dc120b71729c6fdedb9ea4a0949c59",
+    "assets/demo/v0.10/speed/pya_native_combined_review.gds": "9dde82954b418114cb1da451b27c224f3f9eec6082e8c190a10cb29a37094a24",
+    "assets/release-notes/v0.10/width_area_desc_review/top6.png": "551a0199a975028515f0f115dda66045c4c534ffb420fff14680329b2bdcfbac",
+    "assets/release-notes/v0.10/width_area_desc_review/space_top6.png": "d20961f3dacb0a9033b54761ffcddbe3a05f539cc1b03aede4e18ab136811535",
+    "assets/demo/tt04-comparison/conditions.json": "8074f268674d9be2e83957f1d58cda20651078006c5d4ab9fae2c7d84a8adadb",
+    "assets/demo/tt04-comparison/measurements.csv": "5f554f792e35c2ce276d3b1cfe0fda370cdfc64dc1c9f21d85b7c729d3905c47",
+    "assets/demo/tt04-comparison/layer67_nominal.png": "bf7bac7ad99669ae6a07451ee01d5fc0b8503ca26cd8c227571330b41b7f6714",
+    "assets/demo/tt04-comparison/layer67_width.png": "27fe640e78c923d8555b365e866e0fbffd0c22ead94731855e259af1f53285cc",
+    "assets/demo/tt04-comparison/layer67_space.png": "0431e8c13ce3c1acd144eff04223a6111290d8795accc4e6c17a0331f2e29654",
+    "assets/demo/tt04-comparison/layer67_bossung.png": "972c505061fc0023e0af5d14e34283afa2bc9ab4dbf680a4948825f0174034de",
+    "assets/demo/tt04-comparison/layer68_nominal.png": "5be0bff02299899e377de5410240454679cbb71c5efc47338bbddf01edbedca7",
+    "assets/demo/tt04-comparison/layer68_width.png": "233309c962f121de4ec1984d3941c15486b870b09ad8f2ec55716d2e5a3cde06",
+    "assets/demo/tt04-comparison/layer68_space.png": "128d6d4fbb2c879f462c0be52ed708b28e55da92621fbd4a6ca3d295c46c8b2d",
+    "assets/demo/tt04-comparison/layer68_bossung.png": "11704ab3d60c5b90006af3209954ac9a0fd5ad6a4fac1f4ac32587fbf2f027b9"
+  },
+  "pages": {
+    "demo_legacy.html": {
+      "route": "/demo-legacy/",
+      "source_path": "demo.md",
+      "source_sha256": "b4c202d92b6ffee3063c03fdb4e47c636a3cad1b1831eb33d71d54cf7d38fd83",
+      "original_html_sha256": "0da656749be8be119a078586b02b8f39f195714c242ddafb27f4c92d86ca7fc3",
+      "published_html_sha256": "db838dbc820e16c522f2de2cef6b5ce3406dbc0be2261c9f9dd68de6c8bae9e9"
+    },
+    "demo_legacy_ko.html": {
+      "route": "/ko/demo-legacy/",
+      "source_path": "demo_ko.md",
+      "source_sha256": "fcd5f0b0464c1e2a12d3b3be4ae5077f43f373e4b342ca429b00fc262d8f3be8",
+      "original_html_sha256": "6910dfb59360167da20a46deaa5ea684ee1111f00686f63cf64820ade45dc7d6",
+      "published_html_sha256": "8e30d9888d3c838580ea1446b4a78e97966415a79be71b45c63cf66e6e257778"
+    }
+  }
+}

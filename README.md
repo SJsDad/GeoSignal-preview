@@ -6,7 +6,7 @@ A public introduction to layout-review examples and optical learning.
 
 * [Home](https://sjsdad.github.io/GeoSignal-preview/) · [한국어](https://sjsdad.github.io/GeoSignal-preview/ko/)
 * [Layout examples](https://sjsdad.github.io/GeoSignal-preview/demo/)
-* Earlier application layout for comparison: [English](https://sjsdad.github.io/GeoSignal-preview/demo-legacy/) · [한국어](https://sjsdad.github.io/GeoSignal-preview/ko/demo-legacy/)
+* Original v0.11 Demo for comparison: [English](https://sjsdad.github.io/GeoSignal-preview/demo-legacy/) · [한국어](https://sjsdad.github.io/GeoSignal-preview/ko/demo-legacy/)
 * [Method and scope](https://sjsdad.github.io/GeoSignal-preview/method/)
 * [Technical Notes](https://sjsdad.github.io/GeoSignal-preview/notes/)
 * 6f educational simulator: [English](https://sjsdad.github.io/GeoSignal-preview/simulator/) · [한국어](https://sjsdad.github.io/GeoSignal-preview/ko/simulator/)
@@ -36,6 +36,13 @@ benchmark artifacts and reproduction procedures are maintained privately.
 Public summaries do not establish calibrated wafer accuracy, universal numerical
 settings or guaranteed service performance.
 
+The separate original v0.11 Demo is an explicit historical exception for visual
+comparison. It preserves the previously published page, iframe application,
+example values and downloads from commit `7bb4ea4`; it is not a new reconstruction.
+Only asset URLs, Demo routing and the language-link attribute change. Its 17
+original assets and two rendered pages are checked against a pinned SHA-256
+manifest. This exception does not publish any additional private engine files.
+
 English and Korean pages share navigation and corresponding routes. Paper
 reviews identify source-access limits; original explanatory diagrams are
 separate from links to published paper figures.
@@ -53,6 +60,10 @@ python scripts/validate_pages.py --site _site
 Optional browser checks in `scripts/test_saved_demo.py`,
 `scripts/test_bilingual_simulator.py` and `scripts/test_technical_notes.py`
 use Playwright against a served build.
+`scripts/test_original_demo.py` compares the archived page's complete DOM against
+a separately served build of its original Git revision, allowing only routing
+and language-link changes. `scripts/restore_original_demo.py --check` verifies
+the export against that historical build.
 The simulator files share a maintained educational implementation; its public
 manifest records exported hashes.
 

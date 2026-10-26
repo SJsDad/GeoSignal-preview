@@ -25,6 +25,8 @@ PUBLIC_DEMO_IMAGES = {
     "assets/demo/public/candidate-locations.png",
 }
 VIEWER_DATA = "assets/demo/public/viewer-data.json"
+ORIGINAL_DEMO = "assets/demo/original-v0.11"
+ORIGINAL_MANIFEST_SHA256 = "45436d973b30c6c76d82189eaa5ac075a0a6bc080f0c922a1c4ef0fbb9fb7701"
 for _layer in (67, 68):
     for _kind in ("width", "space"):
         for _number in range(1, 7 if _layer == 67 else 2):
@@ -92,14 +94,56 @@ def validate_viewer_data(path, root, errors):
         errors.append(f"invalid saved-demo display data: {error}")
 
 
+def validate_original_demo(root, errors):
+    """The user requested the real former public page, including its old data.
+
+    Permit only this fixed historical snapshot, not arbitrary new raw records.
+    """
+    directory = root / ORIGINAL_DEMO
+    if not directory.exists():
+        return
+    manifest_path = directory / "manifest.json"
+    if not manifest_path.is_file() or hashlib.sha256(manifest_path.read_bytes()).hexdigest() != ORIGINAL_MANIFEST_SHA256:
+        errors.append("original Demo manifest differs from the reviewed historical snapshot")
+        return
+    manifest = json.loads(manifest_path.read_text())
+    expected = set(manifest["assets"]) | {"manifest.json"}
+    actual = {path.relative_to(directory).as_posix() for path in directory.rglob("*") if path.is_file()}
+    if actual != expected:
+        errors.append("original Demo contains missing or additional files")
+    for relative, digest in manifest["assets"].items():
+        path = directory / relative
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            errors.append(f"original Demo asset differs from its Git snapshot: {relative}")
+    for source, record in manifest["pages"].items():
+        path = root / source
+        if path.is_file():
+            parts = path.read_text().split("---\n", 2)
+            if len(parts) != 3:
+                errors.append(f"invalid original Demo page front matter: {source}")
+                continue
+            html = parts[2]
+        else:
+            path = root / record["route"].lstrip("/") / "index.html"
+            if not path.is_file():
+                errors.append(f"missing original Demo page: {source}")
+                continue
+            html = path.read_text()
+        if hashlib.sha256(html.strip().encode()).hexdigest() != record["published_html_sha256"]:
+            errors.append(f"original Demo HTML changed beyond the reviewed routing edits: {source}")
+
+
 def validate_public_assets(root, errors):
     """Check files themselves, including assets with no visible download link."""
+    validate_original_demo(root, errors)
     restricted = (".csv", ".csv.gz", ".gds", ".gds.gz", ".oas", ".oas.gz",
                   ".npy", ".npz", ".parquet", ".zip", ".tar", ".tar.gz")
     for path in (root / "assets").rglob("*"):
         if not path.is_file():
             continue
         relative = path.relative_to(root).as_posix()
+        if relative.startswith(ORIGINAL_DEMO + "/"):
+            continue  # Every file in this namespace is checked by its pinned hash above.
         if path.name.lower().endswith(restricted):
             errors.append(f"engineering data outside public scope: {relative}")
         if path.suffix == ".json" and relative != VIEWER_DATA and not relative.startswith(
